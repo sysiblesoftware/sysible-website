@@ -1,0 +1,48 @@
+name: Deploy
+
+# Deploy the static download site to Cloudflare Pages on every push to main.
+# Serves at https://sysible.pages.dev (attach a custom domain later in the
+# Cloudflare dashboard). One-time setup: create a Cloudflare API token with the
+# "Cloudflare Pages: Edit" permission and add two repo secrets —
+# CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID (see README.md).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for Cloudflare secrets
+        id: check
+        run: |
+          if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Cloudflare secrets not set — skipping deploy. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID (see README.md)."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.check.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          # Create the Pages project on first run (idempotent — ignore "exists").
+          npx --yes wrangler@3 pages project create sysible \
+            --production-branch=main 2>/dev/null || echo "Pages project 'sysible' already exists — continuing."
+          # Deploy the site. Only static assets are uploaded; .git, .github and
+          # node_modules are ignored by wrangler.
+          npx --yes wrangler@3 pages deploy . \
+            --project-name=sysible --branch=main --commit-dirty=true

@@ -1,0 +1,5 @@
+# Files in the repo that should NOT be served as part of the site.
+# wrangler reads this from the deploy directory (gitignore-style patterns).
+.github
+README.md
+.assetsignore
