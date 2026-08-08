@@ -1,16 +1,16 @@
-<title>Sysible — Downloads</title>
+<title>Sysible Controller — IT infrastructure management for Linux fleets</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Download Sysible Linux — the engineering & automation workstation OS — and Sysible Controller CE. Installable ISOs for amd64 and arm64 with checksums.">
-<link rel="canonical" href="https://sysible.com/">
+<meta name="description" content="Sysible Controller is a self-hosted, point-and-click operations console for Linux fleets — users, health, services, packages, storage, networking, firewall and a live terminal, over an agent or SSH. No DSL, no control repo, no apply step.">
+<link rel="canonical" href="https://sysible.com/controller">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
-<meta property="og:title" content="Sysible — Downloads">
-<meta property="og:description" content="Download Sysible Linux — the engineering & automation workstation OS — and Sysible Controller CE.">
-<meta property="og:url" content="https://sysible.com/">
+<meta property="og:title" content="Sysible Controller — IT infrastructure management for Linux fleets">
+<meta property="og:description" content="A self-hosted, point-and-click operations console for Linux fleets. One controller, agent or SSH, no DSL to learn.">
+<meta property="og:url" content="https://sysible.com/controller">
 <meta property="og:image" content="https://sysible.com/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sysible — Downloads">
-<meta name="twitter:description" content="Installable ISOs for amd64 and arm64, plus Sysible Controller CE.">
+<meta name="twitter:title" content="Sysible Controller">
+<meta name="twitter:description" content="A self-hosted, point-and-click operations console for Linux fleets.">
 <meta name="twitter:image" content="https://sysible.com/social-card.png">
 <style>
   /* ---- tokens: light in :root, dark via media + explicit stamp (3-state) ---- */
@@ -174,181 +174,176 @@
 
   @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
+<style>
+  .features{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  @media(max-width:860px){.features{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.features{grid-template-columns:1fr}}
+  .why{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media(max-width:720px){.why{grid-template-columns:1fr}}
+  .feat{background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:18px; box-shadow:var(--shadow)}
+  .feat .ic{color:var(--blue); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; font-weight:700}
+  .feat h3{margin:6px 0 6px; font-size:15.5px; letter-spacing:-.01em}
+  .feat p{margin:0; color:var(--muted); font-size:13.8px; line-height:1.5}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  @media(max-width:720px){.split{grid-template-columns:1fr}}
+  .cta-band{background:linear-gradient(100deg,
+      color-mix(in srgb,var(--grad-a) 13%,var(--panel)),
+      color-mix(in srgb,var(--grad-b) 13%,var(--panel)));
+    border:1px solid var(--line); border-radius:18px; padding:36px 28px; text-align:center;
+    box-shadow:var(--shadow)}
+  .cta-band h2{margin:0 0 8px; font-size:24px; letter-spacing:-.01em}
+  .cta-band p{margin:0 auto 22px; color:var(--muted); max-width:56ch}
+  .lead-narrow{max-width:70ch}
+</style>
 
-<!-- ============================ TOP BAR ============================ -->
 <header class="bar">
   <div class="wrap">
-    <span class="brand" aria-label="Sysible">
+    <a class="brand" href="/" aria-label="Sysible" style="text-decoration:none">
       <svg viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
       Sysible
-    </span>
+    </a>
     <nav>
-      <a href="#linux">Sysible Linux</a>
+      <a href="/#linux">Sysible Linux</a>
       <a href="/controller">Controller</a>
-      <a href="#controller">Download</a>
-      <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
+      <a href="/#controller">Download</a>
+      <a href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">GitHub</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
     </nav>
   </div>
 </header>
 
-<!-- ============================== HERO ============================== -->
 <div class="hero">
   <canvas id="mesh" aria-hidden="true"></canvas>
   <div class="wrap">
-    <svg class="mark" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
-    <div class="eyebrow">Engineering &amp; Automation Platform</div>
-    <h1>Download <span class="grad">Sysible</span></h1>
-    <p class="lede">An engineering &amp; automation workstation OS with the whole toolchain baked in — install
-      it and start working: containers, Kubernetes, infrastructure-as-code, cloud CLIs, VS Code and the
-      SysTerm terminal — plus Sysible Controller CE for managing your fleet.</p>
+    <svg class="mark" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-ctrl"/></svg>
+    <div class="eyebrow">IT Infrastructure Management</div>
+    <h1>Sysible <span class="grad">Controller</span></h1>
+    <p class="lede">A self-hosted, point-and-click operations console for Linux fleets. One controller
+      drives every host — over its lightweight agent or straight over SSH — for users, health, services,
+      packages, storage, networking, firewall and a live terminal. No DSL, no control repo, no apply step.</p>
     <div class="cta">
-      <a class="btn primary" href="#linux">
+      <a class="btn primary" href="/#controller">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Get Sysible Linux
+        Download Controller CE
       </a>
-      <a class="btn ghost" href="#controller">Sysible Controller CE</a>
+      <a class="btn ghost" href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">Source &amp; docs on GitHub</a>
     </div>
   </div>
 </div>
 
 <main>
-  <!-- ========================= SYSIBLE LINUX ========================= -->
-  <section id="linux">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">Installer ISO</span>
-        <h2>Sysible Linux</h2>
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Why Controller</span><h2>Built for the day-to-day, not the deploy</h2></div>
+    <p class="lede lead-narrow" style="margin:0 0 24px 0; text-align:left">
+      Config-management platforms (Ansible, Puppet, Chef) make you author a DSL, a control repo and an apply
+      step before you can touch a host; single-box panels (Webmin, Cockpit) manage one machine at a time.
+      Sysible Controller sits in the gap: a fleet-wide console for the work a sysadmin actually does between
+      deployments — lock an account, chase a full disk, restart a failed service, roll a repo to twenty boxes,
+      tail a log — all as buttons.</p>
+    <div class="why">
+      <div class="feat"><div class="ic">No YAML</div><h3>No DSL, no apply step</h3><p>Every action is a button, not a manifest. Nothing to author, lint or version before you can act on a host.</p></div>
+      <div class="feat"><div class="ic">Agent or SSH</div><h3>One tool, two transports</h3><p>Hosts that run a persistent agent and hosts that can’t sit in the same list, behind the same buttons — not two toolchains.</p></div>
+      <div class="feat"><div class="ic">Act in place</div><h3>Detect and remediate together</h3><p>Health & Logs doesn’t just flag a critical host — the same window kills the process, restarts the service or tails the log.</p></div>
+      <div class="feat"><div class="ic">Self-hosted</div><h3>A light footprint</h3><p>One controller machine, one SQLite database, one systemd service. No message bus, no master/minion cluster, no external DB.</p></div>
+      <div class="feat"><div class="ic">Secure by default</div><h3>No PKI team required</h3><p>Self-signed TLS, a per-fleet SSH key pair, single-use enrollment tokens and an audit log — all provisioned at install.</p></div>
+      <div class="feat"><div class="ic">Cross-distro</div><h3>One mixed fleet</h3><p>Package and repo actions detect dnf, yum, zypper or apt at run time, so a RHEL/SUSE/Debian fleet is one fleet.</p></div>
+    </div>
+  </div>
+</section>
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Capabilities</span><h2>One console, the whole fleet</h2></div>
+    <div class="features">
+      <div class="feat"><div class="ic">Fleet</div><h3>Dashboard &amp; health</h3><p>Live fleet counts, an OK/Warning/Critical health overview, and one card per environment rolled up worst-first and expandable to its hosts.</p></div>
+      <div class="feat"><div class="ic">Posture</div><h3>Compliance &amp; posture</h3><p>An on-demand, read-only scan surfacing high-ticket signals — reboot required, root SSH login, firewall off, MAC not enforcing, EOL OS, expiring TLS — per host.</p></div>
+      <div class="feat"><div class="ic">Metrics</div><h3>Performance graphs</h3><p>Environment-first time-series for CPU, memory, disk, network and load, fed by the agent — drill from environment to host to per-core detail.</p></div>
+      <div class="feat"><div class="ic">Connect</div><h3>Live terminals &amp; files</h3><p>Multiple browser terminals per host, opened as your admin user — agent-hosted (works behind NAT, no inbound SSH) or a real SSH PTY — with per-host file transfer.</p></div>
+      <div class="feat"><div class="ic">Enroll</div><h3>Host enrollment</h3><p>Build single-use agent bundles or a curl one-liner, group hosts into environments, set per-host sudo policy, and disenroll cleanly.</p></div>
+      <div class="feat"><div class="ic">Users</div><h3>Users &amp; groups</h3><p>Create/lock/delete accounts, manage sudo and groups, password policy and aging, kill sessions — fleet-wide, with per-host results.</p></div>
+      <div class="feat"><div class="ic">Recover</div><h3>Health, logs &amp; recovery</h3><p>Disk/memory/CPU, failed services, log search, process control — plus boot-failure analysis, GRUB, kernel params and initramfs recovery.</p></div>
+      <div class="feat"><div class="ic">Services</div><h3>Service management</h3><p>Start/stop/enable systemd units, view logs and dependencies, one-click troubleshooting for one service or every failed one at once.</p></div>
+      <div class="feat"><div class="ic">Packages</div><h3>Packages &amp; repos</h3><p>Detect the package manager; install/remove/update, upload a local .deb/.rpm, and roll a repository out to the whole fleet — across dnf/yum/zypper/apt.</p></div>
+      <div class="feat"><div class="ic">Network</div><h3>Networking</h3><p>Connectivity and DNS diagnostics, port/socket inspection, packet capture, and IP/DNS/hostname/routing plus bonding, VLANs and bridges.</p></div>
+      <div class="feat"><div class="ic">Storage</div><h3>Storage &amp; filesystems</h3><p>Inspect and manage disks, partitions, mounts and filesystems across the fleet from one pane.</p></div>
+      <div class="feat"><div class="ic">Firewall</div><h3>Firewall &amp; hardening</h3><p>Manage firewall rules and security baselines, with the posture scan flagging what needs attention.</p></div>
+    </div>
+  </div>
+</section>
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Transports</span><h2>Agent or SSH — the same buttons</h2></div>
+    <div class="split">
+      <div class="feat">
+        <div class="ic">Agent</div>
+        <h3>The Sysible agent</h3>
+        <p>A small Python daemon that heartbeats to the controller and polls for work. Runs as root by
+          default, or as a locked <span class="mono">sysible</span> account with passwordless sudo so every
+          action goes through a real audit trail. Its outbound channel also hosts terminals and metrics,
+          so it works behind NAT with no inbound SSH.</p>
       </div>
-
-      <div class="panel">
-        <div class="p-head">
-          <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
-          <div>
-            <div class="p-title">Sysible Linux <span class="mono" style="font-weight:500;color:var(--muted)">0.1 “Ignition”</span></div>
-            <p class="p-sub">Debian-stable base. Install it to disk with the Sysible installer — or boot the ISO live first to try it.</p>
-          </div>
-          <span class="pill" id="linux-ver">Latest: <b>—</b></span>
-        </div>
-
-        <div class="p-body">
-          <div class="seg" role="tablist" aria-label="Architecture">
-            <button role="tab" data-arch="amd64" aria-selected="true">amd64 · Intel/AMD</button>
-            <button role="tab" data-arch="arm64" aria-selected="false">arm64 · Apple&nbsp;Silicon</button>
-          </div>
-
-          <!-- per-arch content, swapped by the segmented control -->
-          <div class="arch-block" data-arch="amd64">
-            <div class="step-label">1 · Download the ISO</div>
-            <div class="files" data-role="files"><!-- injected --></div>
-            <div class="step-label">2 · Verify the download (optional)</div>
-            <div class="code">
-              <button class="copy">Copy</button>
-              <pre data-role="verify"></pre>
-            </div>
-            <div class="muted-links" data-role="links"></div>
-          </div>
-          <div class="arch-block hidden" data-arch="arm64">
-            <div class="step-label">1 · Download the ISO</div>
-            <div class="files" data-role="files"></div>
-            <div class="step-label">2 · Verify the download (optional)</div>
-            <div class="code">
-              <button class="copy">Copy</button>
-              <pre data-role="verify"></pre>
-            </div>
-            <div class="muted-links" data-role="links"></div>
-          </div>
-
-          <details class="guide">
-            <summary>Install in VMware Fusion (Apple Silicon &amp; Intel)</summary>
-            <div class="g-body">
-              <ol>
-                <li>Download the <code>.iso</code> for your architecture (above).</li>
-                <li>Fusion → <b>File → New</b> → <b>Install from disc or image</b> → choose the ISO.</li>
-                <li>When asked for the OS, pick <b>Linux → Debian 12.x</b> (64-bit ARM on Apple Silicon, 64-bit on Intel).</li>
-                <li>Give it <b>4&nbsp;GB+ RAM</b> and <b>40&nbsp;GB+ disk</b>; enable virtualization extensions if you’ll run containers/VMs.</li>
-                <li>Boot it. On the Sysible boot menu pick <b>Sysible Linux (Live)</b> to try it, or
-                  <b>Install Sysible Linux</b> to install to the virtual disk.</li>
-                <li>Live/installer default login: <code>sysible</code> / <code>sysible</code>. open-vm-tools is
-                  preinstalled, so clipboard sharing and display auto-resize work out of the box.</li>
-              </ol>
-            </div>
-          </details>
-
-          <details class="guide">
-            <summary>Write to a USB stick &amp; boot bare metal</summary>
-            <div class="g-body">
-              <ol>
-                <li>Download the ISO, then (optionally) verify its checksum with <code>sha256sum -c SHA256SUMS</code>.</li>
-                <li>Write it with <code>dd</code>, <b>balenaEtcher</b>, or <b>Rufus</b> (Windows): the image is
-                  hybrid/isohybrid, so it boots on both UEFI and BIOS.</li>
-                <li>Boot from the stick and choose <b>Sysible Linux (Live)</b> or <b>Install Sysible Linux</b>.</li>
-              </ol>
-            </div>
-          </details>
-        </div>
+      <div class="feat">
+        <div class="ic">SSH</div>
+        <h3>Direct SSH</h3>
+        <p>For hosts that shouldn’t run a persistent daemon. Hand the controller a password once; it
+          generates and installs its own key pair and drives the host from then on — including a real
+          interactive terminal and SFTP file transfer.</p>
       </div>
     </div>
-  </section>
-
-  <!-- ======================= SYSIBLE CONTROLLER ====================== -->
-  <section id="controller" style="padding-top:8px">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="kicker">Management console</span>
-        <h2>Sysible Controller CE</h2>
+    <p class="p-sub" style="margin-top:16px">Every action runs <b>as the administrator who triggered it</b> —
+      executed as that user on the target host with exactly their sudo rights, derived from their signed
+      login token, never from anything the client can spoof. Password-sudo hosts are fully supported.</p>
+  </div>
+</section>
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Editions</span><h2>Community &amp; Enterprise</h2></div>
+    <div class="split">
+      <div class="feat">
+        <div class="ic">Free · Open</div>
+        <h3>Community Edition (CE)</h3>
+        <p>The full fleet operations console — dashboard, posture, performance, live terminals, enrollment,
+          and every System Administration tool above. Self-hosted, one machine, one database.</p>
+        <div class="muted-links" style="margin-top:14px">
+          <a href="/#controller">Download CE →</a>
+          <a href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">GitHub →</a>
+        </div>
       </div>
-
-      <div class="panel">
-        <div class="p-head">
-          <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-ctrl"/></svg>
-          <div>
-            <div class="p-title">Sysible Controller — Community Edition</div>
-            <p class="p-sub">Manage your Linux fleet: packages, services, storage, firewall and users
-              from one console.</p>
-          </div>
-          <span class="pill" id="ctrl-ver">Latest: <b>—</b></span>
-        </div>
-        <div class="p-body">
-          <div class="grid2">
-            <div>
-              <p class="subhead">On Sysible Linux</p>
-              <div class="code">
-                <button class="copy">Copy</button>
-                <pre><span class="cmt"># It’s baked in — just launch the installer:</span>
-install-sysible-controller</pre>
-              </div>
-              <p class="p-sub" style="margin-top:12px">Or double-click <b>Install Sysible Controller CE</b> on the desktop.</p>
-            </div>
-            <div>
-              <p class="subhead">Anywhere else</p>
-              <p class="p-sub" style="margin:0 0 12px">Download the latest Community Edition release for your platform:</p>
-              <div class="files" id="ctrl-files"></div>
-            </div>
-          </div>
-          <div class="muted-links" style="margin-top:18px">
-            <a href="/controller"><b>Full Sysible Controller overview →</b></a>
-            <a href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">Source &amp; docs on GitHub ↗</a>
-            <a href="https://github.com/sysiblesoftware/sysible-controller/releases" rel="noopener">All releases ↗</a>
-          </div>
-        </div>
+      <div class="feat">
+        <div class="ic">Enterprise</div>
+        <h3>Enterprise Edition (EE)</h3>
+        <p>Everything in CE plus D3lorean — fleet-wide host backup &amp; point-in-time restore — and further
+          capabilities for larger estates. <a style="color:var(--blue);text-decoration:none" href="mailto:sysiblesoftware@gmail.com">Get in touch</a> for access.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Run your fleet from one console</h2>
+      <p>Install Sysible Controller CE on a single Linux machine and manage the rest — agent or SSH.</p>
+      <div class="cta" style="margin-top:0">
+        <a class="btn primary" href="/#controller">Download Controller CE</a>
+        <a class="btn ghost" href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">Read the docs</a>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span class="brand"><svg viewBox="-24 -26 48 52" width="22" height="24" aria-hidden="true"><use href="#mark"/></svg> Sysible</span>
+    <a class="brand" href="/" style="font-size:14px;text-decoration:none"><svg viewBox="-24 -26 48 52" width="22" height="24" aria-hidden="true"><use href="#mark"/></svg> Sysible</a>
     <nav>
-      <a href="https://github.com/sysiblesoftware/Sysible-Linux/releases" rel="noopener">Sysible Linux releases</a>
-      <a href="https://github.com/sysiblesoftware/sysible-controller/releases" rel="noopener">Controller releases</a>
+      <a href="/#linux">Sysible Linux</a>
+      <a href="/controller">Controller</a>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
     </nav>
   </div>
 </footer>
 
-<!-- ===================== shared inline SVG marks ===================== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
@@ -378,24 +373,6 @@ install-sysible-controller</pre>
 <script>
 (function(){
   "use strict";
-  var CTRL_REPO  = "sysiblesoftware/sysible-controller";
-
-  /* ---------- Sysible Linux download config (self-hosted) ----------
-     ISOs are hosted on our own site, not GitHub. Edit BASE_URL to point
-     at wherever the files live; the per-arch filenames and the version
-     string below are the only other things to bump on a new release.   */
-  var LINUX_DL = {
-    BASE_URL: "https://downloads.sysible.io",   // <-- swap for your real host
-    version:  "0.1.0",
-    codename: "Ignition",
-    sha:      "SHA256SUMS",                      // checksum manifest (all arches)
-    iso: {
-      amd64: "sysible-linux-0.1-amd64.iso",
-      arm64: "sysible-linux-0.1-arm64.iso"
-    }
-  };
-
-  /* ---------- theme toggle ---------- */
   var root = document.documentElement, tbtn = document.getElementById("themeToggle");
   try{ var saved = localStorage.getItem("sysible-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
   tbtn.addEventListener("click", function(){
@@ -406,8 +383,6 @@ install-sysible-controller</pre>
     try{ localStorage.setItem("sysible-theme", next); }catch(e){}
     drawMesh();
   });
-
-  /* ---------- hero hex-mesh (canvas, static) ---------- */
   var cv = document.getElementById("mesh");
   function drawMesh(){
     var host = cv.parentElement, W = host.clientWidth, H = host.clientHeight;
@@ -415,7 +390,7 @@ install-sysible-controller</pre>
     cv.width = W*dpr; cv.height = H*dpr;
     var x = cv.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
     var stroke = getComputedStyle(root).getPropertyValue("--mesh").trim() || "rgba(90,130,240,.5)";
-    var cx = W*0.5, cy = H*0.34, gR = Math.max(W,H)*0.5, r = 30;
+    var cx = W*0.5, cy = H*0.42, gR = Math.max(W,H)*0.5, r = 30;
     var dx = r*Math.sqrt(3), dy = r*1.5, row = 0;
     for(var yy=-r; yy<H+r; yy+=dy, row++){
       var off = (row%2)? dx/2 : 0;
@@ -430,96 +405,6 @@ install-sysible-controller</pre>
     }
     x.globalAlpha = 1;
   }
-
-  /* ---------- helpers ---------- */
-  function fmtSize(b){ if(b==null) return ""; var u=["B","KB","MB","GB"],i=0; b=+b;
-    while(b>=1024&&i<u.length-1){b/=1024;i++;} return (b>=100||i===0?Math.round(b):b.toFixed(1))+" "+u[i]; }
-  function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
-  function archOf(name){ if(/arm64|aarch64/i.test(name)) return "arm64"; if(/amd64|x86[_-]?64/i.test(name)) return "amd64"; return null; }
-
-  function fileRow(a, small){
-    var e = el("a", "file"+(small?" small":""));
-    e.href = a.browser_download_url; e.rel="noopener";
-    e.appendChild(el("span","fn mono", a.name));
-    if(a.size!=null) e.appendChild(el("span","fmeta", fmtSize(a.size)));
-    e.appendChild(el("span","dl",
-      '<svg width="15" height="15" viewBox="0 0 16 16"><path d="M8 1v8m0 0L5 6m3 3l3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'));
-    return e;
-  }
-
-  function verifyHTML(iso){
-    return '<span class="cmt"># confirm the download is intact against the published checksum</span>\n'
-      + 'grep '+iso+' SHA256SUMS | sha256sum -c -';
-  }
-
-  /* ---------- render Sysible Linux (self-hosted downloads) ---------- */
-  function renderLinux(){
-    var base = LINUX_DL.BASE_URL.replace(/\/+$/,"");
-    document.querySelector("#linux-ver b").textContent = "v"+LINUX_DL.version;
-
-    ["amd64","arm64"].forEach(function(arch){
-      var block = document.querySelector('.arch-block[data-arch="'+arch+'"]');
-      var filesEl = block.querySelector('[data-role="files"]');
-      var preEl   = block.querySelector('[data-role="verify"]');
-      var linksEl = block.querySelector('[data-role="links"]');
-      filesEl.innerHTML=""; linksEl.innerHTML="";
-
-      var iso = LINUX_DL.iso[arch];
-      filesEl.appendChild(fileRow({ name: iso, browser_download_url: base+"/"+iso }));
-      preEl.innerHTML = verifyHTML(iso);
-
-      var sums = el("a", null, "SHA256SUMS ↗");
-      sums.href = base+"/"+LINUX_DL.sha; sums.rel="noopener";
-      linksEl.appendChild(sums);
-    });
-  }
-
-  /* ---------- render Controller ---------- */
-  function renderCtrl(release){
-    var verEl=document.querySelector("#ctrl-ver b"), box=document.getElementById("ctrl-files");
-    box.innerHTML="";
-    if(release && release.tag_name && (release.assets||[]).length){
-      verEl.textContent = release.tag_name;
-      release.assets.slice(0,4).forEach(function(a){ box.appendChild(fileRow(a, true)); });
-    } else {
-      verEl.textContent = "on GitHub";
-      var l = el("a","file small");
-      l.href = "https://github.com/"+CTRL_REPO+"/releases"; l.rel="noopener";
-      l.appendChild(el("span","fn mono","Browse Controller CE releases ↗"));
-      box.appendChild(l);
-    }
-  }
-
-  /* ---------- arch segmented control ---------- */
-  document.querySelectorAll('.seg button').forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var arch = btn.dataset.arch;
-      document.querySelectorAll('.seg button').forEach(function(b){ b.setAttribute("aria-selected", b===btn); });
-      document.querySelectorAll('.arch-block').forEach(function(bl){ bl.classList.toggle("hidden", bl.dataset.arch!==arch); });
-    });
-  });
-
-  /* ---------- copy buttons ---------- */
-  document.addEventListener("click", function(ev){
-    var b = ev.target.closest(".copy"); if(!b) return;
-    var pre = b.parentElement.querySelector("pre");
-    var text = pre.innerText.replace(/ /g," ");
-    navigator.clipboard && navigator.clipboard.writeText(text).then(function(){
-      var old=b.textContent; b.textContent="Copied ✓"; setTimeout(function(){ b.textContent=old; }, 1400);
-    });
-  });
-
-  /* ---------- fetch releases (progressive enhancement) ---------- */
-  function ghLatest(repo){
-    return fetch("https://api.github.com/repos/"+repo+"/releases/latest", {headers:{Accept:"application/vnd.github+json"}})
-      .then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; });
-  }
-
-  // Sysible Linux ISOs are self-hosted, so this render is fully static:
-  renderLinux(); renderCtrl(null);
   drawMesh(); addEventListener("resize", drawMesh);
-
-  // Controller releases still come from GitHub, so enhance those live:
-  ghLatest(CTRL_REPO).then(function(r){ if(r) renderCtrl(r); });
 })();
 </script>
