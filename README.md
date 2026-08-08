@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/sysible-logo-dark.png">
+    <img alt="Sysible" src=".github/sysible-logo-light.png" width="340">
+  </picture>
+</p>
+
 # Sysible website
 
 The public download & marketing site for **Sysible Linux** and **Sysible
