@@ -8,6 +8,7 @@ Canonical logo exports. Transparent PNGs unless noted.
 | `sysible-lockup-light.png` | Same lockup for **light** backgrounds (navy text). |
 | `sysible-avatar-512.png` | Square 512×512 mark on the dark ground. GitHub/social **profile avatar** (safe for circular crop). |
 | `sysible-social-1280x640.png` | 1280×640 **social preview / Open Graph** card (mark + wordmark + tagline). |
+| `sysible-profile-1024.png` | 1024×1024 stacked mark + wordmark + **ENTERPRISE SOFTWARE** tagline, dark ground. GitHub **org profile / avatar with text**. Source: `sysible-profile.src.html` (render with Chromium). |
 
 ## Palette
 
