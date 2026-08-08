@@ -11,7 +11,8 @@ The public download & marketing site for **Sysible Linux** and **Sysible
 Controller CE**. One self-contained static page — inline CSS, JS and SVG, no
 external assets, no build step, no backend, no tracking.
 
-Live at **https://sysible.pages.dev** (Cloudflare Pages).
+Live at **https://sysible.com** (Cloudflare Pages; `sysible.pages.dev` is the
+platform default that stays active too).
 
 ## Layout
 
