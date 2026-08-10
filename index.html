@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Sysible — Downloads</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Download Sysible Linux — the engineering & automation workstation OS — and Sysible Controller CE. Installable ISOs for amd64 and arm64 with checksums.">
@@ -381,19 +382,17 @@ install-sysible-controller</pre>
   "use strict";
   var CTRL_REPO  = "sysiblesoftware/sysible-controller";
 
-  /* ---------- Sysible Linux download config (self-hosted) ----------
-     ISOs are hosted on our own site, not GitHub. Edit BASE_URL to point
-     at wherever the files live; the per-arch filenames and the version
-     string below are the only other things to bump on a new release.   */
-  var LINUX_DL = {
-    BASE_URL: "https://downloads.sysible.io",   // <-- swap for your real host
-    version:  "0.1.0",
-    codename: "Ignition",
-    sha:      "SHA256SUMS",                      // checksum manifest (all arches)
-    iso: {
-      amd64: "sysible-linux-0.1-amd64.iso",
-      arm64: "sysible-linux-0.1-arm64.iso"
-    }
+  /* ---------- Sysible Linux download source ----------
+     The download card is generated from /release-linux.json, which a
+     scheduled workflow (.github/workflows/sync-linux-release.yml) rewrites
+     from the newest Sysible Linux GitHub Release — so a new ISO shows up
+     here automatically, no manual edit. LINUX_FALLBACK only renders if that
+     file can't be fetched; it just points at the releases page.           */
+  var LINUX_REPO = "sysiblesoftware/sysible-linux";
+  var LINUX_FALLBACK = {
+    version: "0.1.0", codename: "Ignition", tag: "v0.1.0",
+    html_url: "https://github.com/" + LINUX_REPO + "/releases/latest",
+    arches: {}
   };
 
   /* ---------- theme toggle ---------- */
@@ -448,30 +447,56 @@ install-sysible-controller</pre>
     return e;
   }
 
-  function verifyHTML(iso){
-    return '<span class="cmt"># confirm the download is intact against the published checksum</span>\n'
-      + 'grep '+iso+' SHA256SUMS | sha256sum -c -';
+  function verifyParts(a){
+    // The ISO is >2 GB, so it ships as numbered *.part files. Verify the
+    // parts, reassemble, then verify the whole image.
+    return '<span class="cmt"># verify the parts, reassemble the ISO, then verify the whole image</span>\n'
+      + 'sha256sum -c '+a.partsSums.name+'\n'
+      + 'cat '+a.iso+'.*.part > '+a.iso+'\n'
+      + 'sha256sum -c '+a.sums.name;
   }
 
-  /* ---------- render Sysible Linux (self-hosted downloads) ---------- */
-  function renderLinux(){
-    var base = LINUX_DL.BASE_URL.replace(/\/+$/,"");
-    document.querySelector("#linux-ver b").textContent = "v"+LINUX_DL.version;
+  function mutedLink(text, href){ var l=el("a",null,text); l.href=href; l.rel="noopener"; return l; }
+
+  /* ---------- render Sysible Linux (from the newest GitHub Release) ---------- */
+  function renderLinux(doc){
+    doc = doc || LINUX_FALLBACK;
+    var arches = doc.arches || {};
+    document.querySelector("#linux-ver b").textContent = doc.tag || ("v"+doc.version);
 
     ["amd64","arm64"].forEach(function(arch){
-      var block = document.querySelector('.arch-block[data-arch="'+arch+'"]');
+      var block   = document.querySelector('.arch-block[data-arch="'+arch+'"]');
+      var stepEl  = block.querySelector('.step-label');       // the "1 · …" label
       var filesEl = block.querySelector('[data-role="files"]');
       var preEl   = block.querySelector('[data-role="verify"]');
       var linksEl = block.querySelector('[data-role="links"]');
       filesEl.innerHTML=""; linksEl.innerHTML="";
+      var codeBox = block.querySelector('.code');
 
-      var iso = LINUX_DL.iso[arch];
-      filesEl.appendChild(fileRow({ name: iso, browser_download_url: base+"/"+iso }));
-      preEl.innerHTML = verifyHTML(iso);
+      var a = arches[arch];
+      if(!a || !(a.parts||[]).length){
+        // No parsed assets — send people to the releases page.
+        if(stepEl) stepEl.textContent = "1 · Download the ISO";
+        if(codeBox) codeBox.style.display="none";
+        filesEl.appendChild(fileRow({ name: "Download "+arch+" from GitHub Releases ↗",
+          browser_download_url: doc.html_url }));
+        return;
+      }
+      if(codeBox) codeBox.style.display="";
 
-      var sums = el("a", null, "SHA256SUMS ↗");
-      sums.href = base+"/"+LINUX_DL.sha; sums.rel="noopener";
-      linksEl.appendChild(sums);
+      var many = a.parts.length > 1;
+      if(stepEl) stepEl.textContent = many ? ("1 · Download all "+a.parts.length+" parts")
+                                           : "1 · Download the ISO";
+
+      a.parts.forEach(function(p){ filesEl.appendChild(fileRow(
+        { name: p.name, browser_download_url: p.url, size: p.size })); });
+
+      preEl.innerHTML = verifyParts(a);
+
+      linksEl.appendChild(mutedLink(a.sums.name+" ↗", a.sums.url));
+      linksEl.appendChild(mutedLink(a.partsSums.name+" ↗", a.partsSums.url));
+      if(a.reassemble) linksEl.appendChild(mutedLink("Reassemble guide ↗", a.reassemble.url));
+      linksEl.appendChild(mutedLink("All release assets ↗", doc.html_url));
     });
   }
 
@@ -516,8 +541,13 @@ install-sysible-controller</pre>
       .then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; });
   }
 
-  // Sysible Linux ISOs are self-hosted, so this render is fully static:
-  renderLinux(); renderCtrl(null);
+  // Sysible Linux: render from the synced /release-linux.json (same-origin,
+  // no rate limit); fall back to a releases-page link if it's unavailable.
+  renderLinux(LINUX_FALLBACK); renderCtrl(null);
+  fetch("/release-linux.json", {cache:"no-cache"})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(doc){ if(doc && doc.arches && Object.keys(doc.arches).length) renderLinux(doc); })
+    .catch(function(){});
   drawMesh(); addEventListener("resize", drawMesh);
 
   // Controller releases still come from GitHub, so enhance those live:

@@ -1,0 +1,61 @@
+name: Sync Linux release
+
+# Keep the download page pointed at the newest Sysible Linux ISO automatically.
+# It rewrites release-linux.json from the latest GitHub Release of
+# sysiblesoftware/sysible-linux and commits it — the Deploy workflow then
+# publishes the site. Runs on a schedule (so no cross-repo secret is needed),
+# on a manual dispatch, and instantly when the ISO workflow pokes it via a
+# repository_dispatch of type "iso-released".
+on:
+  schedule:
+    - cron: '17 */6 * * *'      # every 6h, offset off the hour
+  workflow_dispatch:
+  repository_dispatch:
+    types: [iso-released]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-linux-release
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest release and regenerate release-linux.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -sSL --fail \
+            -H 'Accept: application/vnd.github+json' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/sysiblesoftware/sysible-linux/releases/latest \
+            -o /tmp/release.json
+          python3 tools/build_release_json.py < /tmp/release.json > release-linux.json.new
+
+          # Sanity-check before overwriting: must have a tag and at least one arch.
+          python3 - <<'PY'
+          import json, sys
+          d = json.load(open("release-linux.json.new"))
+          if not d.get("tag") or not d.get("arches"):
+              sys.exit("refusing to write empty release-linux.json")
+          PY
+          mv release-linux.json.new release-linux.json
+
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- release-linux.json; then
+            echo "release-linux.json already up to date — nothing to do."
+            exit 0
+          fi
+          git config user.name  "sysible-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add release-linux.json
+          git commit -m "chore: sync download page to $(python3 -c 'import json;print(json.load(open("release-linux.json"))["tag"])')"
+          git push
