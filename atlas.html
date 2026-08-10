@@ -84,8 +84,8 @@
   .demo{padding:8px 0 8px}
   .demo .wrap{padding-top:0}
   .frame{border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow);
-    background:#0a0d13; margin-top:-26px}
-  .frame iframe{display:block; width:100%; height:clamp(560px,80vh,820px); border:0; background:#0a0d13}
+    background:#0a0d13}
+  .frame img{display:block; width:100%; height:auto; border:0; background:#0a0d13}
   .cap{color:var(--faint); font-size:13px; text-align:center; margin:14px auto 0; max-width:64ch}
 
   /* ---- sections ---- */
@@ -155,7 +155,7 @@
 <div class="demo">
   <div class="wrap">
     <div class="frame">
-      <iframe src="/atlas-demo.html" loading="lazy" title="Sysible Atlas — a failed apt command explained and a CrashLoopBackOff question answered, live in the companion pane" scrolling="no"></iframe>
+      <img src="/img/atlas-demo.png" loading="lazy" width="2360" height="1520" alt="Sysible Atlas — a failed apt command explained and a CrashLoopBackOff question answered, live in the companion pane" />
     </div>
     <p class="cap">A real session: SysTerm split into a working shell and the Atlas companion. A mistyped
       <code class="mono">apt install</code> is caught and explained; a <code class="mono">CrashLoopBackOff</code>
