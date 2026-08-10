@@ -1,0 +1,265 @@
+<title>Sysible Atlas — the AI companion in your terminal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sysible Atlas is a local-model AI companion built into the SysTerm terminal on Sysible Linux. It reads your session, explains failed commands, answers questions, and hands you ready-to-run fixes — all on-device, nothing leaves the machine.">
+<link rel="canonical" href="https://sysible.com/atlas">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sysible">
+<meta property="og:title" content="Sysible Atlas — the AI companion in your terminal">
+<meta property="og:description" content="A local-model companion in SysTerm that explains failed commands, answers questions, and hands you ready-to-run fixes. On-device, private.">
+<meta property="og:url" content="https://sysible.com/atlas">
+<meta property="og:image" content="https://sysible.com/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sysible Atlas — the AI companion in your terminal">
+<meta name="twitter:description" content="A local-model companion in SysTerm. Explains failures, answers questions, runs its own fixes. On-device.">
+<meta name="twitter:image" content="https://sysible.com/social-card.png">
+<style>
+  /* ---- tokens: light in :root, dark via media + explicit stamp (3-state) ---- */
+  :root{
+    --bg:#eef1f7; --bg-2:#ffffff; --panel:#f7f9fc; --line:#d7dee9;
+    --text:#131c30; --muted:#53627e; --faint:#7c8aa4;
+    --green:#2f8f3c; --blue:#2f60d4; --grad-a:#37933f; --grad-b:#3560d4;
+    --shadow:0 1px 2px rgba(20,30,55,.05), 0 12px 34px rgba(20,30,55,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0a0d13; --bg-2:#11151e; --panel:#12161f; --line:#232b3a;
+      --text:#e9f0f7; --muted:#93a1b8; --faint:#68758d;
+      --green:#63c869; --blue:#5580ee; --grad-a:#43a047; --grad-b:#3560d4;
+      --shadow:0 1px 0 rgba(255,255,255,.02), 0 18px 44px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0a0d13; --bg-2:#11151e; --panel:#12161f; --line:#232b3a;
+    --text:#e9f0f7; --muted:#93a1b8; --faint:#68758d;
+    --green:#63c869; --blue:#5580ee; --grad-a:#43a047; --grad-b:#3560d4;
+    --shadow:0 1px 0 rgba(255,255,255,.02), 0 18px 44px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:ui-monospace,"SF Mono","JetBrains Mono","DejaVu Sans Mono",Menlo,Consolas,monospace}
+  a{color:inherit}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+
+  /* ---- top bar ---- */
+  header.bar{position:sticky; top:0; z-index:20; backdrop-filter:saturate(1.2) blur(10px);
+    background:color-mix(in srgb, var(--bg) 82%, transparent); border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex; align-items:center; gap:14px; height:60px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px; text-decoration:none; color:inherit}
+  .brand svg{width:26px; height:28px; display:block}
+  .bar nav{margin-left:auto; display:flex; gap:22px; align-items:center}
+  .bar nav a{font-size:14px; color:var(--muted); text-decoration:none}
+  .bar nav a:hover,.bar nav a.on{color:var(--text)}
+  .theme-btn{background:none; border:1px solid var(--line); color:var(--muted); border-radius:8px;
+    width:34px; height:34px; cursor:pointer; font-size:15px; line-height:1}
+  .theme-btn:hover{color:var(--text); border-color:var(--muted)}
+
+  /* ---- hero ---- */
+  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(760px 420px at 82% -10%, color-mix(in srgb,var(--grad-b) 22%,transparent), transparent 60%),
+      radial-gradient(680px 400px at 6% 116%, color-mix(in srgb,var(--grad-a) 16%,transparent), transparent 60%)}
+  .hero .wrap{padding:64px 24px 40px; text-align:center}
+  .eyebrow{font-size:12.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--faint)}
+  h1{font-size:clamp(38px,7vw,66px); line-height:1.02; margin:10px 0 0; font-weight:800;
+    letter-spacing:-.02em; text-wrap:balance}
+  h1 .grad{background:linear-gradient(100deg,var(--grad-a),var(--grad-b)); -webkit-background-clip:text;
+    background-clip:text; color:transparent}
+  .lede{max-width:62ch; margin:18px auto 0; color:var(--muted); font-size:clamp(16px,2.2vw,19px)}
+  .cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:30px}
+  .btn{display:inline-flex; align-items:center; gap:9px; padding:12px 20px; border-radius:11px;
+    font-weight:650; font-size:15px; text-decoration:none; border:1px solid transparent; cursor:pointer}
+  .btn.primary{color:#fff; background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
+    box-shadow:0 8px 22px color-mix(in srgb,var(--grad-b) 35%,transparent)}
+  .btn.primary:hover{filter:brightness(1.06)}
+  .btn.ghost{border-color:var(--line); background:var(--bg-2); color:var(--text)}
+  .btn.ghost:hover{border-color:var(--muted)}
+
+  /* ---- demo frame ---- */
+  .demo{padding:8px 0 8px}
+  .demo .wrap{padding-top:0}
+  .frame{border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow);
+    background:#0a0d13; margin-top:-26px}
+  .frame iframe{display:block; width:100%; height:clamp(560px,80vh,820px); border:0; background:#0a0d13}
+  .cap{color:var(--faint); font-size:13px; text-align:center; margin:14px auto 0; max-width:64ch}
+
+  /* ---- sections ---- */
+  section{padding:56px 0}
+  .sec-head{text-align:center; margin-bottom:34px}
+  .sec-head .kicker{font-size:12.5px; letter-spacing:.26em; text-transform:uppercase; color:var(--faint)}
+  .sec-head h2{font-size:28px; margin:8px 0 0; letter-spacing:-.01em}
+  .sec-head p{color:var(--muted); max-width:60ch; margin:12px auto 0}
+
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+  @media (max-width:720px){ .grid{grid-template-columns:1fr} }
+  .feat{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px 22px;
+    box-shadow:var(--shadow)}
+  .feat .ic{width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+    background:color-mix(in srgb,var(--grad-b) 14%, var(--bg-2)); border:1px solid var(--line); margin-bottom:12px}
+  .feat h3{margin:0 0 6px; font-size:17px}
+  .feat p{margin:0; color:var(--muted); font-size:14.5px}
+  .feat code{font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace; font-size:12.5px;
+    background:var(--bg-2); border:1px solid var(--line); border-radius:6px; padding:1px 6px}
+
+  .facts{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px}
+  @media (max-width:720px){ .facts{grid-template-columns:1fr} }
+  .fact{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px}
+  .fact b{display:block; font-size:15px; margin-bottom:4px}
+  .fact span{color:var(--muted); font-size:14px}
+
+  footer{border-top:1px solid var(--line); padding:26px 0; margin-top:20px}
+  footer .wrap{display:flex; align-items:center; gap:14px}
+  footer nav{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
+  footer a{font-size:14px; color:var(--muted); text-decoration:none}
+  footer a:hover{color:var(--text)}
+</style>
+
+<!-- ============================ TOP BAR ============================ -->
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Sysible">
+      <svg viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
+      Sysible
+    </a>
+    <nav>
+      <a href="/#linux">Sysible Linux</a>
+      <a href="/controller">Controller</a>
+      <a href="/atlas" class="on">Atlas</a>
+      <a href="https://github.com/sysiblesoftware/SysTerm" rel="noopener">SysTerm</a>
+      <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">AI companion · local models</div>
+    <h1>Meet <span class="grad">Sysible&nbsp;Atlas</span></h1>
+    <p class="lede">A second terminal that <b>reads your session</b>. When a command fails, Atlas explains it
+      and hands you the fix. Ask it a question and the answer streams in beside your shell. It runs on a
+      <b>local model</b> — nothing leaves the machine. Built into <b>SysTerm</b> on Sysible&nbsp;Linux.</p>
+    <div class="cta">
+      <a class="btn primary" href="/#linux">Get Sysible Linux</a>
+      <a class="btn ghost" href="https://github.com/sysiblesoftware/SysTerm" rel="noopener">SysTerm on GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== DEMO ============================== -->
+<div class="demo">
+  <div class="wrap">
+    <div class="frame">
+      <iframe src="/atlas-demo.html" loading="lazy" title="Sysible Atlas — a failed apt command explained and a CrashLoopBackOff question answered, live in the companion pane" scrolling="no"></iframe>
+    </div>
+    <p class="cap">A real session: SysTerm split into a working shell and the Atlas companion. A mistyped
+      <code class="mono">apt install</code> is caught and explained; a <code class="mono">CrashLoopBackOff</code>
+      question is answered — every suggested command comes with a one-click <b>Run in terminal</b>.</p>
+  </div>
+</div>
+
+<!-- ============================ FEATURES ============================ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">What it does</div>
+      <h2>Fewer dead ends, no copy-paste</h2>
+      <p>Atlas watches the pane you're working in and turns errors and questions into answers you can run.</p>
+    </div>
+    <div class="grid">
+      <div class="feat">
+        <div class="ic">⚠</div>
+        <h3>Catches failures</h3>
+        <p>When a command exits non-zero, Atlas reads that pane's output and explains it — cause, then the exact fix — without you asking. Silence it per-shell with <code>SYSIBLE_ATLAS_AUTO=0</code>.</p>
+      </div>
+      <div class="feat">
+        <div class="ic">✦</div>
+        <h3>Ask in the pane</h3>
+        <p>Open Atlas (right-click → <b>Open Sysible Atlas</b>, or <code>Alt+A</code>) and type. The answer streams in beside your shell, with code and commands in ready-to-run blocks.</p>
+      </div>
+      <div class="feat">
+        <div class="ic">↵</div>
+        <h3>Runs its own fixes</h3>
+        <p>Every command Atlas suggests gets a <b>Run in terminal</b> button that types it straight into the pane it came from — and a <b>Copy</b> if you'd rather paste it yourself.</p>
+      </div>
+      <div class="feat">
+        <div class="ic">◐</div>
+        <h3>Local &amp; private</h3>
+        <p>Powered by a local model via <b>Ollama</b> — bundled with Sysible Linux. Pick the model from the pane's selector. <b>Nothing leaves the machine.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FACTS ============================= -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Under the hood</div>
+      <h2>On-device by default</h2>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>Local model</b><span>Runs against Ollama on <code class="mono">127.0.0.1</code>. Defaults to a model that fits your hardware; switch it in the pane's selector.</span></div>
+      <div class="fact"><b>Built into SysTerm</b><span>The companion pane ships with the SysTerm terminal on Sysible Linux — no separate app, no account, no setup beyond a one-time model download.</span></div>
+      <div class="fact"><b>Any distro</b><span>SysTerm (and Atlas) install on Ubuntu, Fedora, Arch and openSUSE too — one line from the SysTerm repo.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section style="padding-top:0">
+  <div class="wrap" style="text-align:center">
+    <div class="sec-head" style="margin-bottom:22px">
+      <h2>Get Atlas</h2>
+      <p>It's part of Sysible Linux. Or add SysTerm — with Atlas — to the distro you already run.</p>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="/#linux">Download Sysible Linux</a>
+      <a class="btn ghost" href="https://github.com/sysiblesoftware/SysTerm#install" rel="noopener">Install SysTerm anywhere ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer>
+  <div class="wrap">
+    <span class="brand"><svg viewBox="-24 -26 48 52" width="22" height="24" aria-hidden="true"><use href="#mark"/></svg> Sysible</span>
+    <nav>
+      <a href="/">Downloads</a>
+      <a href="/controller">Controller</a>
+      <a href="https://github.com/sysiblesoftware/SysTerm" rel="noopener">SysTerm</a>
+      <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ===================== shared inline SVG mark ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
+    </linearGradient>
+    <g id="mark">
+      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="none" stroke="url(#sg)" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M-6.5,-7.5 L1.2,0 L-6.5,7.5" fill="none" stroke="#7aa2ff" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="3.2" y="3.6" width="5.6" height="5.6" rx="1" fill="#63c869"/>
+    </g>
+  </defs>
+</svg>
+
+<script>
+  var root = document.documentElement, tbtn = document.getElementById("themeToggle");
+  try{ var saved = localStorage.getItem("sysible-theme"); if(saved) root.setAttribute("data-theme", saved); }catch(e){}
+  tbtn.addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : cur === "light" ? "dark"
+             : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+    root.setAttribute("data-theme", next);
+    try{ localStorage.setItem("sysible-theme", next); }catch(e){}
+  });
+</script>
