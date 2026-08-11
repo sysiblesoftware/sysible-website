@@ -1,0 +1,188 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0b0f17; --win:#0d1220; --chrome:#111827; --line:#1c2634; --line2:#232f42;
+    --ink:#e7eef7; --dim:#8ea1b8; --mut:#5b6b83; --green:#6ddb73; --green2:#5cc746;
+    --blue:#7aa2ff; --amber:#f0c674; --red:#e5675f;
+    --mono:"JetBrains Mono","SF Mono","Cascadia Code",ui-monospace,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  }
+  body{background:#05070c;font-family:var(--sans);padding:40px;display:flex;flex-direction:column;gap:60px}
+  .win{width:1180px;background:var(--win);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.55);}
+  .bar{height:46px;background:var(--chrome);display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line)}
+  .dots{display:flex;gap:8px}
+  .dots i{width:12px;height:12px;border-radius:50%;display:block}
+  .mark{width:22px;height:22px;margin-left:6px}
+  .title{color:var(--ink);font-weight:700;font-size:13.5px;display:flex;gap:8px;align-items:baseline;margin-left:2px}
+  .title span{color:var(--mut);font-weight:500;font-size:12.5px}
+  .path{margin-left:auto;color:var(--mut);font-family:var(--mono);font-size:12px}
+  .tabs{display:flex;gap:2px;padding:8px 12px 0;background:var(--chrome);border-bottom:1px solid var(--line)}
+  .tab{font-family:var(--mono);font-size:12.5px;color:var(--dim);padding:8px 14px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:7px}
+  .tab.on{background:var(--win);color:var(--ink);border:1px solid var(--line);border-bottom-color:var(--win)}
+  .tab .g{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .tab .badge{font-size:10px;color:#08110a;background:var(--green);border-radius:4px;padding:1px 6px;font-weight:700}
+  .body{display:flex;min-height:620px}
+  .term{flex:1;padding:20px 22px;font-family:var(--mono);font-size:13.5px;line-height:1.72;color:#cdd8e6}
+  .term .p{color:var(--green)} .term .pp{color:var(--blue)} .term .c{color:#eaf1f8}
+  .term .dim{color:var(--mut)} .term .ok{color:var(--green)} .term .warn{color:var(--amber)} .term .err{color:var(--red)}
+  .term .cur{display:inline-block;width:8px;height:16px;background:var(--green);vertical-align:-3px;margin-left:3px;border-radius:1px}
+  table.k{border-collapse:collapse;margin:2px 0} table.k td{padding:0 26px 0 0;color:#b6c4d6}
+  /* Atlas sidebar */
+  .atlas{width:410px;background:#0a0f1a;border-left:1px solid var(--line);display:flex;flex-direction:column}
+  .ah{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line)}
+  .ah .d{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .ah b{color:#dfeee6;font-size:12.5px;font-weight:600} .ah .sub{color:var(--mut);font-size:11.5px;margin-left:2px}
+  .ah .model{margin-left:auto;font-family:var(--mono);font-size:11px;color:#9fb0c6;border:1px solid var(--line2);border-radius:999px;padding:3px 9px}
+  .acards{padding:14px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .card{background:#0e1626;border:1px solid var(--line2);border-left:3px solid var(--green);border-radius:9px;padding:12px 13px}
+  .card.err{border-left-color:var(--red)}
+  .ct{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em}
+  .ct .l{color:var(--green)} .ct.err .l{color:var(--red)} .ct .r{color:var(--mut)}
+  .prose{color:#b7c4d4;font-size:12.5px;line-height:1.6;margin-top:8px}
+  .prose code{font-family:var(--mono);color:#cfe6c4;background:rgba(92,199,70,.10);padding:1px 5px;border-radius:4px}
+  .cmd{margin-top:9px;background:#0a0f1a;border:1px solid var(--line2);border-radius:7px;padding:9px 11px;font-family:var(--mono);font-size:12px;color:#eaf1f8}
+  .cmd .$ {color:var(--green)}
+  .abtns{display:flex;gap:8px;margin-top:10px}
+  .abtn{font-family:var(--mono);font-size:11px;border:1px solid var(--line2);border-radius:6px;padding:5px 10px;color:#8ea1b8}
+  .abtn.run{color:var(--green);border-color:rgba(92,199,70,.4)}
+  .afoot{border-top:1px solid var(--line);padding:11px 14px;display:flex;align-items:center;gap:10px}
+  .ask{flex:1;background:#0e1626;border:1px solid var(--line2);border-radius:8px;padding:8px 11px;color:var(--mut);font-size:12px}
+  .askbtn{background:var(--green2);color:#08110a;font-weight:700;font-size:12px;border-radius:8px;padding:8px 14px}
+  /* context menu */
+  .menu{position:absolute;top:150px;left:360px;width:250px;background:#0e1626;border:1px solid var(--line2);
+    border-radius:10px;padding:6px;box-shadow:0 20px 50px rgba(0,0,0,.6);font-family:var(--sans)}
+  .mi{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;border-radius:7px;color:var(--ink);font-size:13px}
+  .mi:hover,.mi.hot{background:rgba(92,199,70,.12)}
+  .mi .k{color:var(--mut);font-family:var(--mono);font-size:11px}
+  .mi.head{color:var(--green);font-weight:600}
+  .msep{height:1px;background:var(--line);margin:5px 6px}
+  .rel{position:relative}
+  /* split panes */
+  .pane{border:1px solid var(--line);border-radius:8px;background:#0b111c;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.62;overflow:hidden}
+  .pane.focus{border-color:rgba(92,199,70,.5);box-shadow:0 0 0 1px rgba(92,199,70,.25) inset}
+  .plabel{color:var(--mut);font-size:10.5px;letter-spacing:.06em;margin-bottom:6px;text-transform:uppercase}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;padding:14px;flex:1}
+  .barline{height:8px;border-radius:4px;background:#1a2740;position:relative;margin:3px 0}
+  .barline i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--blue))}
+</style></head><body>
+
+<!-- ============ SHOT 1: the terminal (tabs + a real session) ============ -->
+<div class="win" id="shot-atlas">
+  <div class="bar">
+    <div class="dots"><i style="background:#e5675f"></i><i style="background:#f0c674"></i><i style="background:#5cc746"></i></div>
+    <svg class="mark" viewBox="0 0 128 128"><defs><linearGradient id="e1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79a0ff"/><stop offset="1" stop-color="#2f4d9e"/></linearGradient><linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101828"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient></defs><path d="M64 9 L111 36.5 L111 91.5 L64 119 L17 91.5 L17 36.5 Z" fill="url(#s1)" stroke="url(#e1)" stroke-width="5"/><path d="M40 46 L59 64 L40 82" fill="none" stroke="#6ddb73" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/><rect x="65" y="76" width="27" height="8" rx="4" fill="#79a0ff"/></svg>
+    <div class="title">SysTerm <span>— sysible</span></div>
+    <div class="path">~/infra/prod</div>
+  </div>
+  <div class="tabs">
+    <div class="tab on"><span class="g"></span>local</div>
+    <div class="tab">web-01 · ssh</div>
+    <div class="tab">k8s</div>
+    <div class="tab" style="color:#5b6b83">+ </div>
+  </div>
+  <div class="body">
+    <div class="term" style="width:100%">
+      <div><span class="p">sysible@prod</span>:<span class="pp">~/infra</span>$ <span class="c">git switch -c release/2.4 &amp;&amp; git push -u origin HEAD</span></div>
+      <div class="dim">Switched to a new branch 'release/2.4'</div>
+      <div class="ok">branch 'release/2.4' set up to track 'origin/release/2.4'.</div>
+      <div style="margin-top:6px"><span class="p">sysible@prod</span>:<span class="pp">~/infra</span>$ <span class="c">docker compose up -d --build</span></div>
+      <div class="ok">✔ Container sysible-db-1     Healthy</div>
+      <div class="ok">✔ Container sysible-api-1    Started</div>
+      <div class="ok">✔ Container sysible-worker-1 Started</div>
+      <div style="margin-top:6px"><span class="p">sysible@prod</span>:<span class="pp">~/infra</span>$ <span class="c">terraform plan -out tfplan</span></div>
+      <div class="dim">module.network.aws_vpc.main: Refreshing state...</div>
+      <div><span class="ok">Plan:</span> 3 to add, 1 to change, 0 to destroy.</div>
+      <div style="margin-top:6px"><span class="p">sysible@prod</span>:<span class="pp">~/infra</span>$ <span class="c">kubectl get pods -n payments</span></div>
+      <table class="k"><tr><td>NAME</td><td>READY</td><td>STATUS</td><td>RESTARTS</td></tr>
+      <tr><td>api-7c9f4d</td><td>1/1</td><td class="ok">Running</td><td>0</td></tr>
+      <tr><td>ledger-55b</td><td>1/1</td><td class="ok">Running</td><td>0</td></tr>
+      <tr><td>redis-0</td><td>1/1</td><td class="ok">Running</td><td>0</td></tr></table>
+      <div style="margin-top:6px"><span class="p">sysible@prod</span>:<span class="pp">~/infra</span>$ <span class="cur"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SHOT 2: right-click command menu ============ -->
+<div class="win" id="shot-menu">
+  <div class="bar">
+    <div class="dots"><i style="background:#e5675f"></i><i style="background:#f0c674"></i><i style="background:#5cc746"></i></div>
+    <svg class="mark" viewBox="0 0 128 128"><path d="M64 9 L111 36.5 L111 91.5 L64 119 L17 91.5 L17 36.5 Z" fill="url(#s1)" stroke="url(#e1)" stroke-width="5"/><path d="M40 46 L59 64 L40 82" fill="none" stroke="#6ddb73" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/><rect x="65" y="76" width="27" height="8" rx="4" fill="#79a0ff"/></svg>
+    <div class="title">SysTerm <span>— sysible</span></div>
+    <div class="path">~/infra</div>
+  </div>
+  <div class="tabs"><div class="tab on"><span class="g"></span>bash</div><div class="tab" style="color:#5b6b83">+ </div></div>
+  <div class="body rel">
+    <div class="term">
+      <div><span class="p">sysible@sysible</span>:<span class="pp">~</span>$ <span class="c">git status</span></div>
+      <div class="dim">On branch main · nothing to commit, working tree clean</div>
+      <div><span class="p">sysible@sysible</span>:<span class="pp">~</span>$ <span class="c">docker compose up -d</span></div>
+      <div class="ok">✔ Network sysible_default   Created</div>
+      <div class="ok">✔ Container sysible-db-1    Started</div>
+      <div class="ok">✔ Container sysible-api-1   Started</div>
+      <div style="margin-top:8px"><span class="p">sysible@sysible</span>:<span class="pp">~</span>$ <span class="cur"></span></div>
+    </div>
+    <div class="menu">
+      <div class="mi head">Open Sysible Atlas <span class="k">Alt+A</span></div>
+      <div class="mi">Analyze in Sysible Atlas</div>
+      <div class="msep"></div>
+      <div class="mi hot">Run Command <span class="k">▸</span></div>
+      <div class="mi">Split Horizontally <span class="k">Ctrl+Shift+O</span></div>
+      <div class="mi">Split Vertically <span class="k">Ctrl+Shift+E</span></div>
+      <div class="msep"></div>
+      <div class="mi">Open Tab <span class="k">Ctrl+Shift+T</span></div>
+      <div class="mi">Copy <span class="k">Ctrl+Shift+C</span></div>
+      <div class="mi">Paste <span class="k">Ctrl+Shift+V</span></div>
+    </div>
+    <div class="menu" style="left:620px;top:262px;width:230px">
+      <div class="mi" style="color:#8ea1b8;font-size:11px;padding:4px 11px">QUICK COMMANDS</div>
+      <div class="mi">Update system</div>
+      <div class="mi hot">Disk usage (df -h)</div>
+      <div class="mi">Listening ports</div>
+      <div class="mi">Docker: ps</div>
+      <div class="mi">Git: pull &amp; status</div>
+      <div class="msep"></div>
+      <div class="mi" style="color:#6ddb73">＋ Add custom command…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SHOT 3: split panes (the multiplexer) ============ -->
+<div class="win" id="shot-split">
+  <div class="bar">
+    <div class="dots"><i style="background:#e5675f"></i><i style="background:#f0c674"></i><i style="background:#5cc746"></i></div>
+    <svg class="mark" viewBox="0 0 128 128"><path d="M64 9 L111 36.5 L111 91.5 L64 119 L17 91.5 L17 36.5 Z" fill="url(#s1)" stroke="url(#e1)" stroke-width="5"/><path d="M40 46 L59 64 L40 82" fill="none" stroke="#6ddb73" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/><rect x="65" y="76" width="27" height="8" rx="4" fill="#79a0ff"/></svg>
+    <div class="title">SysTerm <span>— sysible</span></div>
+    <div class="path">4 panes · broadcast off</div>
+  </div>
+  <div class="tabs"><div class="tab on"><span class="g"></span>fleet</div><div class="tab">build</div><div class="tab" style="color:#5b6b83">+ </div></div>
+  <div class="grid2">
+    <div class="pane focus"><div class="plabel">api · logs -f</div>
+      <div style="color:#8ea1b8">12:04:19 <span style="color:#6ddb73">INFO</span>  request GET /health 200 3ms</div>
+      <div style="color:#8ea1b8">12:04:20 <span style="color:#6ddb73">INFO</span>  worker booted pid=41</div>
+      <div style="color:#8ea1b8">12:04:22 <span style="color:#f0c674">WARN</span>  cache miss key=user:88</div>
+      <div style="color:#8ea1b8">12:04:23 <span style="color:#6ddb73">INFO</span>  request POST /pay 201 18ms</div>
+    </div>
+    <div class="pane"><div class="plabel">htop</div>
+      <div style="color:#b6c4d6">CPU <span class="barline" style="display:inline-block;width:120px;vertical-align:middle"><i style="width:38%"></i></span> 38%</div>
+      <div style="color:#b6c4d6">MEM <span class="barline" style="display:inline-block;width:120px;vertical-align:middle"><i style="width:61%"></i></span> 61%</div>
+      <div style="color:#8ea1b8;margin-top:6px">PID   CMD           %CPU</div>
+      <div style="color:#cdd8e6">41    gunicorn      12.3</div>
+      <div style="color:#cdd8e6">88    postgres       6.1</div>
+    </div>
+    <div class="pane"><div class="plabel">deploy</div>
+      <div><span style="color:#6ddb73">sysible@prod</span>:~$ <span style="color:#eaf1f8">ansible-playbook site.yml</span></div>
+      <div style="color:#8ea1b8">PLAY [webservers] ***********</div>
+      <div style="color:#6ddb73">ok: [web-01]  ok: [web-02]</div>
+      <div style="color:#f0c674">changed: [web-01]</div>
+    </div>
+    <div class="pane"><div class="plabel">watch · kubectl</div>
+      <div style="color:#8ea1b8">Every 2.0s: kubectl get pods</div>
+      <div style="color:#cdd8e6;margin-top:4px">api-7c9f4d   <span style="color:#6ddb73">1/1 Running</span></div>
+      <div style="color:#cdd8e6">ledger-55b   <span style="color:#6ddb73">1/1 Running</span></div>
+      <div style="color:#cdd8e6">redis-0      <span style="color:#6ddb73">1/1 Running</span></div>
+    </div>
+  </div>
+</div>
+
+</body></html>
