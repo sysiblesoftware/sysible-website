@@ -1,4 +1,5 @@
 <title>Sysible Atlas — the AI companion in your terminal</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Sysible Atlas is a local-model AI companion built into the SysTerm terminal on Sysible Linux. It reads your session, explains failed commands, answers questions, and hands you ready-to-run fixes — all on-device, nothing leaves the machine.">
 <link rel="canonical" href="https://sysible.com/atlas">
@@ -241,13 +242,15 @@
 <!-- ===================== shared inline SVG mark ===================== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <linearGradient id="edge" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#79a0ff"/><stop offset="1" stop-color="#2f4d9e"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#101828"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient>
     <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
     </linearGradient>
     <g id="mark">
-      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="none" stroke="url(#sg)" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M-6.5,-7.5 L1.2,0 L-6.5,7.5" fill="none" stroke="#7aa2ff" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="3.2" y="3.6" width="5.6" height="5.6" rx="1" fill="#63c869"/>
+      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
+      <path d="M0,-9.4 L8.1,-4.7 L8.1,4.7 L0,9.4 L-8.1,4.7 L-8.1,-4.7 Z" fill="none" stroke="#6ddb73" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="0" cy="0" r="3.1" fill="#79a0ff"/>
     </g>
   </defs>
 </svg>

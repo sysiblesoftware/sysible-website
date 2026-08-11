@@ -1,4 +1,5 @@
 <title>Sysible Controller — IT infrastructure management for Linux fleets</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Sysible Controller is a self-hosted, point-and-click operations console for Linux fleets — users, health, services, packages, storage, networking, firewall and a live terminal, over an agent or SSH. No DSL, no control repo, no apply step.">
 <link rel="canonical" href="https://sysible.com/controller">
@@ -428,26 +429,28 @@ install-sysible-controller</pre>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <linearGradient id="edge" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#79a0ff"/><stop offset="1" stop-color="#2f4d9e"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#101828"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient>
     <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
     </linearGradient>
     <!-- main Sysible mark: hexagon + prompt chevron + block cursor -->
     <g id="mark">
-      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="none" stroke="url(#sg)" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M-6.5,-7.5 L1.2,0 L-6.5,7.5" fill="none" stroke="#7aa2ff" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="3.2" y="3.6" width="5.6" height="5.6" rx="1" fill="#63c869"/>
+      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
+      <path d="M0,-9.4 L8.1,-4.7 L8.1,4.7 L0,9.4 L-8.1,4.7 L-8.1,-4.7 Z" fill="none" stroke="#6ddb73" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="0" cy="0" r="3.1" fill="#79a0ff"/>
     </g>
     <!-- Controller mark: hexagon + controller topology (one -> hub -> two) -->
     <linearGradient id="ctl" x1="-12" y1="0" x2="11" y2="0" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
     </linearGradient>
     <g id="mark-ctrl">
-      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="none" stroke="url(#sg)" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M-11,0 L0,0 M0,0 L11,-8 M0,0 L11,8" stroke="url(#ctl)" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="-11" cy="0" r="3.1" fill="#63c869"/>
-      <circle cx="0" cy="0" r="3.3" fill="#57b090"/>
-      <circle cx="11" cy="-8" r="3.1" fill="#5580ee"/>
-      <circle cx="11" cy="8" r="3.1" fill="#5580ee"/>
+      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
+      <path d="M-11,0 L0,0 M0,0 L11,-8 M0,0 L11,8" stroke="#6ddb73" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="-11" cy="0" r="2.2" fill="#79a0ff"/>
+      <circle cx="0" cy="0" r="2.6" fill="#79a0ff"/>
+      <circle cx="11" cy="-8" r="2.2" fill="#79a0ff"/>
+      <circle cx="11" cy="8" r="2.2" fill="#79a0ff"/>
     </g>
   </defs>
 </svg>
