@@ -18,7 +18,7 @@
   :root{
     --bg:#eef1f7; --bg-2:#ffffff; --panel:#f7f9fc; --line:#d7dee9;
     --text:#131c30; --muted:#53627e; --faint:#7c8aa4;
-    --green:#2f8f3c; --blue:#2f60d4; --grad-a:#37933f; --grad-b:#3560d4;
+    --green:#2f9e44; --blue:#2f60d4; --grad-a:#2f9e44; --grad-b:#3560d4; --accent:#6ddb73;
     --amber:#a86a15; --amber-bg:#fbf1dd;
     --code-bg:#0c111b; --code-text:#e9f0f7; --code-line:#1e2635; --code-accent:#7aa2ff;
     --shadow:0 1px 2px rgba(20,30,55,.05), 0 12px 34px rgba(20,30,55,.08);
@@ -28,7 +28,7 @@
     :root:not([data-theme="light"]){
       --bg:#0a0d13; --bg-2:#11151e; --panel:#12161f; --line:#232b3a;
       --text:#e9f0f7; --muted:#93a1b8; --faint:#68758d;
-      --green:#63c869; --blue:#5580ee; --grad-a:#43a047; --grad-b:#3560d4;
+      --green:#6ddb73; --blue:#5580ee; --grad-a:#6ddb73; --grad-b:#3560d4; --accent:#6ddb73;
       --amber:#e0a83b; --amber-bg:#241d0f;
       --code-bg:#080b12; --code-text:#e9f0f7; --code-line:#1a2231; --code-accent:#7aa2ff;
       --shadow:0 1px 0 rgba(255,255,255,.02), 0 18px 44px rgba(0,0,0,.5);
@@ -38,18 +38,25 @@
   :root[data-theme="dark"]{
     --bg:#0a0d13; --bg-2:#11151e; --panel:#12161f; --line:#232b3a;
     --text:#e9f0f7; --muted:#93a1b8; --faint:#68758d;
-    --green:#63c869; --blue:#5580ee; --grad-a:#43a047; --grad-b:#3560d4;
+    --green:#6ddb73; --blue:#5580ee; --grad-a:#6ddb73; --grad-b:#3560d4; --accent:#6ddb73;
     --amber:#e0a83b; --amber-bg:#241d0f;
     --code-bg:#080b12; --code-text:#e9f0f7; --code-line:#1a2231; --code-accent:#7aa2ff;
     --shadow:0 1px 0 rgba(255,255,255,.02), 0 18px 44px rgba(0,0,0,.5);
     --mesh:rgba(90,130,240,.5);
   }
 
+  @font-face{
+    font-family:"Sora";
+    font-style:normal; font-weight:100 800; font-display:swap;
+    src:url("/fonts/Sora-variable.woff2") format("woff2"),
+        url("/fonts/Sora.ttf") format("truetype");
+  }
+
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
     margin:0; background:var(--bg); color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.55; -webkit-font-smoothing:antialiased;
   }
   .mono{font-family:ui-monospace,"SF Mono","JetBrains Mono","DejaVu Sans Mono",Menlo,Consolas,monospace}
@@ -77,14 +84,14 @@
   .eyebrow{font-size:12.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--faint)}
   h1{font-size:clamp(38px,7vw,68px); line-height:1.02; margin:10px 0 0; font-weight:800;
     letter-spacing:-.02em; text-wrap:balance}
-  h1 .grad{background:linear-gradient(100deg,var(--grad-a),var(--grad-b)); -webkit-background-clip:text;
+  h1 .grad{background:linear-gradient(100deg,var(--grad-a) 58%,var(--grad-b)); -webkit-background-clip:text;
     background-clip:text; color:transparent}
   .lede{max-width:60ch; margin:18px auto 0; color:var(--muted); font-size:clamp(16px,2.2vw,19px)}
   .cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:30px}
   .btn{display:inline-flex; align-items:center; gap:9px; padding:12px 20px; border-radius:11px;
     font-weight:650; font-size:15px; text-decoration:none; border:1px solid transparent; cursor:pointer}
-  .btn.primary{color:#fff; background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
-    box-shadow:0 8px 22px color-mix(in srgb,var(--grad-b) 35%,transparent)}
+  .btn.primary{color:#08160b; background:var(--accent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 30%,transparent)}
   .btn.primary:hover{filter:brightness(1.06)}
   .btn.ghost{border-color:var(--line); background:var(--bg-2); color:var(--text)}
   .btn.ghost:hover{border-color:var(--muted)}
@@ -429,29 +436,11 @@ install-sysible-controller</pre>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="edge" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#79a0ff"/><stop offset="1" stop-color="#2f4d9e"/></linearGradient>
-    <linearGradient id="screen" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#101828"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient>
-    <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
-    </linearGradient>
-    <!-- main Sysible mark: hexagon + prompt chevron + block cursor -->
-    <g id="mark">
-      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
-      <path d="M0,-9.4 L8.1,-4.7 L8.1,4.7 L0,9.4 L-8.1,4.7 L-8.1,-4.7 Z" fill="none" stroke="#6ddb73" stroke-width="2.2" stroke-linejoin="round"/>
-      <circle cx="0" cy="0" r="3.1" fill="#79a0ff"/>
-    </g>
-    <!-- Controller mark: hexagon + controller topology (one -> hub -> two) -->
-    <linearGradient id="ctl" x1="-12" y1="0" x2="11" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
-    </linearGradient>
-    <g id="mark-ctrl">
-      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
-      <path d="M-11,0 L0,0 M0,0 L11,-8 M0,0 L11,8" stroke="#6ddb73" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="-11" cy="0" r="2.2" fill="#79a0ff"/>
-      <circle cx="0" cy="0" r="2.6" fill="#79a0ff"/>
-      <circle cx="11" cy="-8" r="2.2" fill="#79a0ff"/>
-      <circle cx="11" cy="8" r="2.2" fill="#79a0ff"/>
-    </g>
+    <linearGradient id="tg" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient>
+    <!-- Sysible mark: dark rounded-square tile, thin green ring, Sora "S" + green underline -->
+    <g id="mark"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></g>
+    <!-- Sysible Controller mark: same tile + hub-and-nodes topology -->
+    <g id="mark-ctrl"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g stroke="#8aa0c8" stroke-width="1.1" stroke-linecap="round" opacity="0.85"><line x1="0" y1="0" x2="13" y2="0"/><line x1="0" y1="0" x2="6.5" y2="11.26"/><line x1="0" y1="0" x2="-6.5" y2="11.26"/><line x1="0" y1="0" x2="-13" y2="0"/><line x1="0" y1="0" x2="-6.5" y2="-11.26"/><line x1="0" y1="0" x2="6.5" y2="-11.26"/></g><circle cx="13" cy="0" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="11.26" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="11.26" r="2.7" fill="#eceff3"/><circle cx="-13" cy="0" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="-11.26" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="-11.26" r="2.7" fill="#7aa2ff"/><circle cx="0" cy="0" r="4.6" fill="#6ddb73"/></g>
   </defs>
 </svg>
 
@@ -469,30 +458,52 @@ install-sysible-controller</pre>
              : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
     root.setAttribute("data-theme", next);
     try{ localStorage.setItem("sysible-theme", next); }catch(e){}
-    drawMesh();
+    drawTopo();
   });
 
-  /* ---------- hero hex-mesh ---------- */
+  /* ---------- hero topographic contours (canvas, static) ---------- */
   var cv = document.getElementById("mesh");
-  function drawMesh(){
+  function drawTopo(){
     var host = cv.parentElement, W = host.clientWidth, H = host.clientHeight;
     var dpr = Math.min(devicePixelRatio || 1, 2);
     cv.width = W*dpr; cv.height = H*dpr;
     var x = cv.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
-    var stroke = getComputedStyle(root).getPropertyValue("--mesh").trim() || "rgba(90,130,240,.5)";
-    var cx = W*0.5, cy = H*0.42, gR = Math.max(W,H)*0.5, r = 30;
-    var dx = r*Math.sqrt(3), dy = r*1.5, row = 0;
-    for(var yy=-r; yy<H+r; yy+=dy, row++){
-      var off = (row%2)? dx/2 : 0;
-      for(var xx=-dx; xx<W+dx; xx+=dx){
-        var hx = xx+off, d = Math.hypot(hx-cx, yy-cy), t = Math.max(0, 1-d/gR);
-        if(t<=0.02) continue;
-        x.beginPath();
-        for(var a=0;a<6;a++){ var ang=Math.PI/180*(60*a); var px=hx+r*Math.sin(ang), py=yy-r*Math.cos(ang); a?x.lineTo(px,py):x.moveTo(px,py); }
-        x.closePath();
-        x.globalAlpha = 0.05 + 0.5*t*t; x.lineWidth = 1; x.strokeStyle = stroke; x.stroke();
-      }
+    var line = getComputedStyle(root).getPropertyValue("--mesh").trim() || "rgba(90,130,240,.5)";
+    // deterministic height field: 14 gaussian bumps + a gentle regional slope
+    var GW = 132, GH = Math.max(46, Math.round(GW*H/Math.max(W,1)));
+    var rs = 7, rnd = function(){ rs = (1103515245*rs + 12345) & 0x7fffffff; return rs/0x7fffffff; };
+    var bumps = [], b; for(b=0;b<14;b++){ bumps.push([rnd()*1.1-0.05, rnd()*1.1-0.05, rnd()*2-1, 0.08+rnd()*0.22]); }
+    var Hf = new Array(GH), lo = 1e9, hi = -1e9, i, j, k;
+    for(j=0;j<GH;j++){ Hf[j] = new Array(GW);
+      for(i=0;i<GW;i++){ var gx=i/(GW-1), gy=j/(GH-1), v=gx*0.6+gy*0.3;
+        for(k=0;k<14;k++){ var bx=bumps[k], d2=((gx-bx[0])*(gx-bx[0])+(gy-bx[1])*(gy-bx[1]))/(2*bx[3]*bx[3]); v += bx[2]*Math.exp(-d2); }
+        Hf[j][i]=v; if(v<lo)lo=v; if(v>hi)hi=v; }
     }
+    var sx = W/(GW-1), sy = H/(GH-1), step = (hi-lo)/24;
+    function contour(lvl){
+      x.beginPath();
+      for(var j=0;j<GH-1;j++) for(var i=0;i<GW-1;i++){
+        var tl=Hf[j][i], tr=Hf[j][i+1], br=Hf[j+1][i+1], bl=Hf[j+1][i], p=[];
+        if((tl>lvl)!==(tr>lvl)) p.push([(i+(lvl-tl)/(tr-tl))*sx, j*sy]);
+        if((tr>lvl)!==(br>lvl)) p.push([(i+1)*sx, (j+(lvl-tr)/(br-tr))*sy]);
+        if((br>lvl)!==(bl>lvl)) p.push([(i+1-(lvl-br)/(bl-br))*sx, (j+1)*sy]);
+        if((bl>lvl)!==(tl>lvl)) p.push([i*sx, (j+1-(lvl-bl)/(tl-bl))*sy]);
+        if(p.length>=2){ x.moveTo(p[0][0],p[0][1]); x.lineTo(p[1][0],p[1][1]); }
+        if(p.length===4){ x.moveTo(p[2][0],p[2][1]); x.lineTo(p[3][0],p[3][1]); }
+      }
+      x.stroke();
+    }
+    x.lineJoin = "round"; x.strokeStyle = line;
+    var idx = 0;
+    for(var lvl=lo+step*0.5; lvl<hi; lvl+=step, idx++){
+      var index_contour = (idx%5===0);
+      x.globalAlpha = index_contour ? 0.5 : 0.22;
+      x.lineWidth = index_contour ? 1.4 : 0.9;
+      contour(lvl);
+    }
+    // a couple of sparse green accent contours
+    x.strokeStyle = "rgba(109,219,115,0.55)"; x.lineWidth = 1.6; x.globalAlpha = 1;
+    contour(lo+step*8); contour(lo+step*15);
     x.globalAlpha = 1;
   }
 
@@ -540,7 +551,7 @@ install-sysible-controller</pre>
   });
 
   renderCtrl(null);
-  drawMesh(); addEventListener("resize", drawMesh);
+  drawTopo(); addEventListener("resize", drawTopo);
   ghLatest(CTRL_REPO).then(function(r){ if(r) renderCtrl(r); });
 })();
 </script>
