@@ -1,69 +1,57 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
+  @font-face{font-family:"Sora";font-style:normal;font-weight:100 800;font-display:swap;
+    src:url("../fonts/Sora-variable.woff2") format("woff2"),url("../fonts/Sora.ttf") format("truetype");}
   html,body{margin:0;padding:0;background:#222}
   .stage{position:relative;overflow:hidden;
-    font-family:"Liberation Sans","DejaVu Sans","Helvetica Neue",Arial,sans-serif;
+    font-family:"Sora","Liberation Sans","DejaVu Sans","Helvetica Neue",Arial,sans-serif;
     display:flex;flex-direction:column;align-items:center;justify-content:center;}
   .dark{background:radial-gradient(120% 120% at 50% 34%, #141b27 0%, #0d1117 56%, #090c12 100%);}
-  .word{font-weight:800;color:#e8eefc;line-height:1;margin:0}
-  .tag{font-weight:600;color:#8ea0bd;text-transform:uppercase;margin:0}
+  .word{font-weight:700;color:#eceff3;line-height:1;margin:0}
+  .tag{font-weight:600;color:#8a93a0;text-transform:uppercase;margin:0}
+  .uline{height:6px;border-radius:3px;background:#6ddb73;margin:20px 0 0}
 
   /* profile avatar 1024², padded so it reads small / survives a circle crop */
   #profile{width:1024px;height:1024px}
-  #profile .mark{width:322px;height:350px;display:block;margin-bottom:30px}
+  #profile .mark{width:330px;height:358px;display:block;margin-bottom:30px}
   #profile .word{font-size:132px;letter-spacing:-2px}
+  #profile .uline{width:210px}
   #profile .tag{font-size:37px;letter-spacing:13px;margin:26px 0 0 13px}
 
   /* social cards 1280×640 */
   .card{width:1280px;height:640px}
   .card .mark{width:238px;height:258px;display:block;margin-bottom:22px}
   .card .word{font-size:118px;letter-spacing:-2px}
+  .card .uline{width:200px}
   .card .tag{margin-top:22px}
   #sysible-card .tag{font-size:40px;letter-spacing:16px;margin-left:16px}
   #controller-card .word{font-size:104px}
+  #controller-card .uline{width:300px}
   #controller-card .tag{font-size:35px;letter-spacing:11px;margin-left:11px}
   .bar{position:absolute;top:0;left:0;right:0;height:8px;
-    background:linear-gradient(90deg,#63c869,#5580ee)}
+    background:linear-gradient(90deg,#6ddb73 0%,#6ddb73 72%,#7aa2ff 100%)}
 </style></head><body>
 
-<!-- reusable marks -->
+<!-- reusable mark defs (dark tile + green ring; "S" = Sora outline, ctrl = hub-nodes) -->
 <svg width="0" height="0" style="position:absolute"><defs>
-  <linearGradient id="edge" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#79a0ff"/><stop offset="1" stop-color="#2f4d9e"/></linearGradient>
-    <linearGradient id="screen" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#101828"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient>
-    <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
-    <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/></linearGradient>
-  <linearGradient id="ctl" x1="-12" y1="0" x2="11" y2="0" gradientUnits="userSpaceOnUse">
-    <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/></linearGradient>
+  <linearGradient id="tg" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient>
+  <g id="m"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></g>
+  <g id="mc"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g stroke="#8aa0c8" stroke-width="1.1" stroke-linecap="round" opacity="0.85"><line x1="0" y1="0" x2="13" y2="0"/><line x1="0" y1="0" x2="6.5" y2="11.26"/><line x1="0" y1="0" x2="-6.5" y2="11.26"/><line x1="0" y1="0" x2="-13" y2="0"/><line x1="0" y1="0" x2="-6.5" y2="-11.26"/><line x1="0" y1="0" x2="6.5" y2="-11.26"/></g><circle cx="13" cy="0" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="11.26" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="11.26" r="2.7" fill="#eceff3"/><circle cx="-13" cy="0" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="-11.26" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="-11.26" r="2.7" fill="#7aa2ff"/><circle cx="0" cy="0" r="4.6" fill="#6ddb73"/></g>
 </defs></svg>
 
 <div class="stage dark" id="profile">
   <svg class="mark" viewBox="-24 -26 48 52"><use href="#m"/></svg>
-  <p class="word">Sysible</p><p class="tag">Enterprise Software</p>
+  <p class="word">Sysible</p><div class="uline"></div><p class="tag">Enterprise Software</p>
 </div>
 
 <div class="stage dark card" id="sysible-card">
   <span class="bar"></span>
   <svg class="mark" viewBox="-24 -26 48 52"><use href="#m"/></svg>
-  <p class="word">Sysible</p><p class="tag">Enterprise Software</p>
+  <p class="word">Sysible</p><div class="uline"></div><p class="tag">Enterprise Software</p>
 </div>
 
 <div class="stage dark card" id="controller-card">
   <span class="bar"></span>
   <svg class="mark" viewBox="-24 -26 48 52"><use href="#mc"/></svg>
-  <p class="word">Sysible Controller</p><p class="tag">IT Infrastructure Management</p>
+  <p class="word">Sysible Controller</p><div class="uline"></div><p class="tag">IT Infrastructure Management</p>
 </div>
-
-<!-- mark path defs -->
-<svg width="0" height="0" style="position:absolute"><defs>
-  <g id="m">
-    <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
-    <path d="M0,-9.4 L8.1,-4.7 L8.1,4.7 L0,9.4 L-8.1,4.7 L-8.1,-4.7 Z" fill="none" stroke="#6ddb73" stroke-width="2.2" stroke-linejoin="round"/>
-    <circle cx="0" cy="0" r="3.1" fill="#79a0ff"/>
-  </g>
-  <g id="mc">
-    <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
-    <path d="M-11,0 L0,0 M0,0 L11,-8 M0,0 L11,8" stroke="#6ddb73" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="-11" cy="0" r="2.2" fill="#79a0ff"/><circle cx="0" cy="0" r="2.6" fill="#79a0ff"/>
-    <circle cx="11" cy="-8" r="2.2" fill="#79a0ff"/><circle cx="11" cy="8" r="2.2" fill="#79a0ff"/>
-  </g>
-</defs></svg>
 </body></html>

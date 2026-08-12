@@ -18,29 +18,36 @@
   :root{
     --bg:#eef1f7; --bg-2:#ffffff; --panel:#f7f9fc; --line:#d7dee9;
     --text:#131c30; --muted:#53627e; --faint:#7c8aa4;
-    --green:#2f8f3c; --blue:#2f60d4; --grad-a:#37933f; --grad-b:#3560d4;
+    --green:#2f9e44; --blue:#2f60d4; --grad-a:#2f9e44; --grad-b:#3560d4; --accent:#6ddb73;
     --shadow:0 1px 2px rgba(20,30,55,.05), 0 12px 34px rgba(20,30,55,.08);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --bg:#0a0d13; --bg-2:#11151e; --panel:#12161f; --line:#232b3a;
       --text:#e9f0f7; --muted:#93a1b8; --faint:#68758d;
-      --green:#63c869; --blue:#5580ee; --grad-a:#43a047; --grad-b:#3560d4;
+      --green:#6ddb73; --blue:#5580ee; --grad-a:#6ddb73; --grad-b:#3560d4; --accent:#6ddb73;
       --shadow:0 1px 0 rgba(255,255,255,.02), 0 18px 44px rgba(0,0,0,.5);
     }
   }
   :root[data-theme="dark"]{
     --bg:#0a0d13; --bg-2:#11151e; --panel:#12161f; --line:#232b3a;
     --text:#e9f0f7; --muted:#93a1b8; --faint:#68758d;
-    --green:#63c869; --blue:#5580ee; --grad-a:#43a047; --grad-b:#3560d4;
+    --green:#6ddb73; --blue:#5580ee; --grad-a:#6ddb73; --grad-b:#3560d4; --accent:#6ddb73;
     --shadow:0 1px 0 rgba(255,255,255,.02), 0 18px 44px rgba(0,0,0,.5);
+  }
+
+  @font-face{
+    font-family:"Sora";
+    font-style:normal; font-weight:100 800; font-display:swap;
+    src:url("/fonts/Sora-variable.woff2") format("woff2"),
+        url("/fonts/Sora.ttf") format("truetype");
   }
 
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
     margin:0; background:var(--bg); color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.55; -webkit-font-smoothing:antialiased;
   }
   .mono{font-family:ui-monospace,"SF Mono","JetBrains Mono","DejaVu Sans Mono",Menlo,Consolas,monospace}
@@ -69,14 +76,14 @@
   .eyebrow{font-size:12.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--faint)}
   h1{font-size:clamp(38px,7vw,66px); line-height:1.02; margin:10px 0 0; font-weight:800;
     letter-spacing:-.02em; text-wrap:balance}
-  h1 .grad{background:linear-gradient(100deg,var(--grad-a),var(--grad-b)); -webkit-background-clip:text;
+  h1 .grad{background:linear-gradient(100deg,var(--grad-a) 58%,var(--grad-b)); -webkit-background-clip:text;
     background-clip:text; color:transparent}
   .lede{max-width:62ch; margin:18px auto 0; color:var(--muted); font-size:clamp(16px,2.2vw,19px)}
   .cta{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:30px}
   .btn{display:inline-flex; align-items:center; gap:9px; padding:12px 20px; border-radius:11px;
     font-weight:650; font-size:15px; text-decoration:none; border:1px solid transparent; cursor:pointer}
-  .btn.primary{color:#fff; background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
-    box-shadow:0 8px 22px color-mix(in srgb,var(--grad-b) 35%,transparent)}
+  .btn.primary{color:#08160b; background:var(--accent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 30%,transparent)}
   .btn.primary:hover{filter:brightness(1.06)}
   .btn.ghost{border-color:var(--line); background:var(--bg-2); color:var(--text)}
   .btn.ghost:hover{border-color:var(--muted)}
@@ -122,6 +129,7 @@
 
 <!-- ============================ TOP BAR ============================ -->
 <header class="bar">
+  <meta charset="utf-8">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Sysible">
       <svg viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
@@ -259,16 +267,9 @@
 <!-- ===================== shared inline SVG mark ===================== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="edge" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#79a0ff"/><stop offset="1" stop-color="#2f4d9e"/></linearGradient>
-    <linearGradient id="screen" x1="0" y1="-20" x2="0" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#101828"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient>
-    <linearGradient id="sg" x1="-17" y1="-20" x2="17" y2="20" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#63c869"/><stop offset="1" stop-color="#5580ee"/>
-    </linearGradient>
-    <g id="mark">
-      <path d="M0,-20 L17,-10 L17,10 L0,20 L-17,10 L-17,-10 Z" fill="url(#screen)" stroke="url(#edge)" stroke-width="2.2" stroke-linejoin="miter"/>
-      <path d="M0,-9.4 L8.1,-4.7 L8.1,4.7 L0,9.4 L-8.1,4.7 L-8.1,-4.7 Z" fill="none" stroke="#6ddb73" stroke-width="2.2" stroke-linejoin="round"/>
-      <circle cx="0" cy="0" r="3.1" fill="#79a0ff"/>
-    </g>
+    <linearGradient id="tg" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient>
+    <!-- Sysible mark: dark rounded-square tile, thin green ring, Sora "S" + green underline -->
+    <g id="mark"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></g>
   </defs>
 </svg>
 
