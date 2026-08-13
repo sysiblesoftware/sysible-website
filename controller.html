@@ -212,6 +212,12 @@
   .hero-shot{max-width:940px; margin:0 auto}
   .gallery{display:grid; grid-template-columns:1fr 1fr; gap:18px}
   @media(max-width:720px){.gallery{grid-template-columns:1fr}}
+  /* tour: one big screenshot per row so the console detail is actually legible */
+  .gallery.tour{grid-template-columns:1fr; gap:44px; max-width:1040px; margin-inline:auto}
+  .gallery.tour .shot{box-shadow:var(--shadow)}
+  .gallery.tour figcaption{font-size:14.5px; padding:14px 18px}
+  .tour-step{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
+    font-weight:700; margin-bottom:10px}
 </style>
 
 <header class="bar">
@@ -298,27 +304,31 @@
 <section style="padding-top:0">
   <div class="wrap">
     <div class="sec-head"><span class="kicker">A look inside</span><h2>Point-and-click, at fleet scale</h2></div>
-    <div class="gallery">
-      <figure class="shot">
-        <img loading="lazy" src="/img/controller/system_administration.png" width="1600" height="900"
-          alt="The System Administration panel: eighteen fleet-wide tools, one click each">
-        <figcaption>System Administration — eighteen point-and-click tools, each acting across your whole fleet.</figcaption>
-      </figure>
-      <figure class="shot">
-        <img loading="lazy" src="/img/controller/sysible_connect.png" width="1600" height="900"
-          alt="Sysible Connect: a host list on the left, grouped actions and live terminals on the right">
-        <figcaption>Sysible Connect — one list of agent and SSH hosts, live terminals and per-host file transfer.</figcaption>
-      </figure>
-      <figure class="shot">
-        <img loading="lazy" src="/img/controller/performance.png" width="1600" height="900"
-          alt="The Performance view: environment-first time-series charts for CPU, memory, disk and network">
-        <figcaption>Performance — environment-first CPU / memory / disk / network graphs, drillable to a single host.</figcaption>
-      </figure>
-      <figure class="shot">
-        <img loading="lazy" src="/img/controller/dashboard.png" width="1600" height="900"
-          alt="The dashboard with its fleet health overview and per-environment rollup cards">
-        <figcaption>Dashboard — fleet health and per-environment rollups, sorted worst-first.</figcaption>
-      </figure>
+    <div class="gallery tour">
+      <div>
+        <div class="tour-step">01 · System Administration</div>
+        <figure class="shot">
+          <img loading="lazy" src="/img/controller/system_administration.png" width="3200" height="2000"
+            alt="The System Administration panel: eighteen fleet-wide tools, one click each">
+          <figcaption>Eighteen point-and-click tools — users, services, packages, storage, firewall, recovery — each acting across your whole fleet.</figcaption>
+        </figure>
+      </div>
+      <div>
+        <div class="tour-step">02 · Sysible Connect</div>
+        <figure class="shot">
+          <img loading="lazy" src="/img/controller/sysible_connect.png" width="3200" height="2000"
+            alt="Sysible Connect: a host list on the left, grouped actions and live terminals on the right">
+          <figcaption>One list of agent and SSH hosts, with live browser terminals and per-host file transfer.</figcaption>
+        </figure>
+      </div>
+      <div>
+        <div class="tour-step">03 · Performance</div>
+        <figure class="shot">
+          <img loading="lazy" src="/img/controller/performance.png" width="3200" height="2000"
+            alt="The Performance view: environment-first time-series charts for CPU, memory, disk and network">
+          <figcaption>Environment-first CPU / memory / disk / network graphs, drillable from environment down to a single host.</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
