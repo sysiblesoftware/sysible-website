@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Sysible Atlas — the AI companion in your terminal</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -129,10 +130,10 @@
 
 <!-- ============================ TOP BAR ============================ -->
 <header class="bar">
-  <meta charset="utf-8">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Sysible Enterprise Software" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:inherit"><span style="font-weight:800;font-size:23px;letter-spacing:-1px;line-height:1;color:var(--text)">SES</span><span aria-hidden="true" style="width:2px;height:27px;background:var(--accent);border-radius:2px"></span><span style="display:flex;flex-direction:column;line-height:1.08;text-align:left"><span style="font-weight:700;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--text)">Sysible</span><span style="font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:var(--muted)">Enterprise&nbsp;Software</span></span></a>
     <nav>
+      <a href="/">Home</a>
       <a href="/#linux">Sysible Linux</a>
       <a href="/controller">Controller</a>
       <a href="/atlas" class="on">Atlas</a>
@@ -161,11 +162,16 @@
 <div class="demo">
   <div class="wrap">
     <div class="frame">
-      <img src="/img/atlas-demo.png" loading="lazy" width="2360" height="1520" alt="Sysible Atlas — a failed apt command explained and a CrashLoopBackOff question answered, live in the companion pane" />
+      <img src="/img/atlas-demo.png" loading="lazy" width="1369" height="810" alt="Sysible Atlas — a failed command explained in the companion pane, with a one-click Run in terminal fix" />
     </div>
-    <p class="cap">A real session: SysTerm split into a working shell and the Atlas companion. A mistyped
-      <code class="mono">apt install</code> is caught and explained; a <code class="mono">CrashLoopBackOff</code>
-      question is answered — every suggested command comes with a one-click <b>Run in terminal</b>.</p>
+    <p class="cap">A real session: SysTerm with the Atlas companion open beside the shell. A command that exits
+      non-zero — here <code class="mono">iscsi: command not found</code> — is caught and explained, and the
+      fix (<code class="mono">sudo apt-get install open-iscsi</code>) comes with a one-click <b>Run in terminal</b>.</p>
+    <div class="frame" style="margin-top:36px">
+      <img src="/img/atlas-setup.png" loading="lazy" width="1664" height="812" alt="The Sysible Atlas setup pane — download a local model, or paste a Claude or GPT API key to use a cloud model" />
+    </div>
+    <p class="cap">Set up once from the pane: download a local model to run everything on-device, or paste a
+      <b>Claude</b> or <b>GPT</b> key to use a cloud model instead — your choice, saved to your own config.</p>
   </div>
 </div>
 
@@ -210,12 +216,12 @@
       <h2>SysTerm — the terminal it lives in</h2>
       <p>Atlas is one pane of a fast, engineer-focused terminal: tabbed sessions, a right-click command palette, and split panes for whole-fleet work.</p>
     </div>
-    <div class="frame"><img src="/img/systerm/systerm-terminal.png" loading="lazy" width="2360" height="1420" alt="SysTerm terminal with tabbed local, SSH and Kubernetes sessions running git, docker compose, terraform and kubectl" /></div>
-    <p class="cap"><b>Tabs &amp; sessions.</b> Local shells, SSH targets and Kubernetes contexts as tabs — the full engineering toolchain (git, Docker, Terraform, <code class="mono">kubectl</code>) at the prompt.</p>
-    <div class="frame" style="margin-top:36px"><img src="/img/systerm/systerm-commands.png" loading="lazy" width="2360" height="1420" alt="SysTerm right-click menu with the Run Command quick-commands palette open" /></div>
-    <p class="cap"><b>Right-click command palette.</b> <b>Run Command</b> keeps your common actions and your own saved commands one click away — next to splits, tabs, copy/paste and Open&nbsp;Atlas.</p>
-    <div class="frame" style="margin-top:36px"><img src="/img/systerm/systerm-split.png" loading="lazy" width="2360" height="898" alt="SysTerm split into four panes: streaming logs, htop, an Ansible deploy, and a kubectl watch" /></div>
-    <p class="cap"><b>Split panes for fleet work.</b> Logs, metrics, a deploy and a <code class="mono">kubectl</code> watch side by side — split horizontally or vertically, broadcast one command to every pane, and cycle without leaving the keyboard.</p>
+    <div class="frame"><img src="/img/systerm/systerm-terminal.png" loading="lazy" width="1119" height="687" alt="The SysTerm terminal on Sysible Linux — a clean dark prompt" /></div>
+    <p class="cap"><b>A clean, fast terminal.</b> SysTerm is the terminal Atlas lives in — dark by default and wired in as the system terminal across Sysible Linux, so <b>Open Terminal</b> everywhere launches it.</p>
+    <div class="frame" style="margin-top:36px"><img src="/img/systerm/systerm-commands.png" loading="lazy" width="1123" height="693" alt="SysTerm right-click menu with the Run Command quick-commands palette open" /></div>
+    <p class="cap"><b>Right-click command palette.</b> <b>Run Command</b> keeps common actions — <code class="mono">apt</code> update/upgrade, disk &amp; memory usage, failed services — and your own saved commands one click away, next to splits, tabs, copy/paste, broadcast and Open&nbsp;Atlas.</p>
+    <div class="frame" style="margin-top:36px"><img src="/img/systerm/systerm-split.png" loading="lazy" width="1581" height="758" alt="SysTerm split into multiple shell panes in one window" /></div>
+    <p class="cap"><b>Split panes.</b> Divide a window into multiple shells — split horizontally or vertically, broadcast one command to every pane, and cycle between them without leaving the keyboard.</p>
   </div>
 </section>
 
