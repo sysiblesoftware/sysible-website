@@ -7,7 +7,7 @@
 
 # Sysible website
 
-The public download & marketing site for **Sysible Linux** and **Sysible
+The public download & marketing site for **Sysible Workstation** and **Sysible
 Controller CE**. One self-contained static page — inline CSS, JS and SVG, no
 external assets, no build step, no backend, no tracking.
 
@@ -25,7 +25,7 @@ platform default that stays active too).
 
 ## Editing the downloads
 
-- **Sysible Linux ISOs are self-hosted.** Edit the `LINUX_DL` config block near
+- **Sysible Workstation ISOs are self-hosted.** Edit the `LINUX_DL` config block near
   the top of the `<script>` in `index.html`:
   ```js
   var LINUX_DL = {

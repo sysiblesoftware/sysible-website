@@ -1,6 +1,6 @@
 name: Sync Linux release
 
-# Keep the download page pointed at the newest Sysible Linux ISO automatically.
+# Keep the download page pointed at the newest Sysible Workstation ISO automatically.
 # It rewrites release-linux.json from the latest GitHub Release of
 # sysiblesoftware/sysible-linux and commits it — the Deploy workflow then
 # publishes the site. Runs on a schedule (so no cross-repo secret is needed),
