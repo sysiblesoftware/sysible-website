@@ -9,6 +9,14 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # The Sync-Linux-release job commits release-linux.json with the default
+  # GITHUB_TOKEN, and GitHub does NOT trigger workflows from GITHUB_TOKEN pushes
+  # (loop protection). So a `push` trigger alone never redeploys after a sync,
+  # leaving the download page stale. workflow_run fires on the sync's completion
+  # regardless of who pushed, so the new release-linux.json actually goes live.
+  workflow_run:
+    workflows: ["Sync Linux release"]
+    types: [completed]
 
 permissions:
   contents: read
