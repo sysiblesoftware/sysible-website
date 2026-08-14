@@ -233,7 +233,7 @@
         <div class="p-head">
           <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
           <div>
-            <div class="p-title">Sysible Linux <span class="mono" style="font-weight:500;color:var(--muted)">0.1 “Ignition”</span></div>
+            <div class="p-title">Sysible Linux <span class="mono" style="font-weight:500;color:var(--muted)" id="linux-pill">1.0.2 “Ignition”</span></div>
             <p class="p-sub">Debian-stable base. Install it to disk with the Sysible installer — or boot the ISO live first to try it.</p>
           </div>
           <span class="pill" id="linux-ver">Latest: <b>—</b></span>
@@ -387,7 +387,7 @@ install-sysible-controller</pre>
      file can't be fetched; it just points at the releases page.           */
   var LINUX_REPO = "sysiblesoftware/sysible-linux";
   var LINUX_FALLBACK = {
-    version: "0.1.0", codename: "Ignition", tag: "v0.1.0",
+    version: "1.0.2", codename: "Ignition", tag: "v1.0.2",
     html_url: "https://github.com/" + LINUX_REPO + "/releases/latest",
     arches: {}
   };
@@ -482,6 +482,8 @@ install-sysible-controller</pre>
     doc = doc || LINUX_FALLBACK;
     var arches = doc.arches || {};
     document.querySelector("#linux-ver b").textContent = doc.tag || ("v"+doc.version);
+    var pill = document.getElementById("linux-pill");
+    if(pill && doc.version){ pill.textContent = doc.version + (doc.codename ? " “"+doc.codename+"”" : ""); }
 
     ["amd64","arm64"].forEach(function(arch){
       var block   = document.querySelector('.arch-block[data-arch="'+arch+'"]');
