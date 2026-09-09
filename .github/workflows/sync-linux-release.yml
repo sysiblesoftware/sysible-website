@@ -2,7 +2,7 @@ name: Sync Linux release
 
 # Keep the download page pointed at the newest Sysible Workstation ISO automatically.
 # It rewrites release-linux.json from the latest GitHub Release of
-# sysiblesoftware/sysible-linux and commits it — the Deploy workflow then
+# sysiblesoftware/Sysible-Workstation and commits it — the Deploy workflow then
 # publishes the site. Runs on a schedule (so no cross-repo secret is needed),
 # on a manual dispatch, and instantly when the ISO workflow pokes it via a
 # repository_dispatch of type "iso-released".
@@ -34,7 +34,7 @@ jobs:
           curl -sSL --fail \
             -H 'Accept: application/vnd.github+json' \
             -H "Authorization: Bearer $GH_TOKEN" \
-            https://api.github.com/repos/sysiblesoftware/sysible-linux/releases/latest \
+            https://api.github.com/repos/sysiblesoftware/Sysible-Workstation/releases/latest \
             -o /tmp/release.json
           python3 tools/build_release_json.py < /tmp/release.json > release-linux.json.new
 

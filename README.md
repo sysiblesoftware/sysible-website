@@ -33,8 +33,8 @@ platform default that stays active too).
     version:  "0.1.0",
     codename: "Ignition",
     sha:      "SHA256SUMS",
-    iso: { amd64: "sysible-linux-0.1-amd64.iso",
-           arm64: "sysible-linux-0.1-arm64.iso" }
+    iso: { amd64: "sysible-workstation-0.1-amd64.iso",
+           arm64: "sysible-workstation-0.1-arm64.iso" }
   };
   ```
   Point `BASE_URL` at your real host and drop a `SHA256SUMS` manifest next to

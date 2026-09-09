@@ -8,7 +8,7 @@ deterministically-serialized document on stdout. Run the same way in CI and
 locally so the committed seed and the workflow output stay byte-identical:
 
     curl -sSL -H 'Accept: application/vnd.github+json' \
-      https://api.github.com/repos/sysiblesoftware/sysible-linux/releases/latest \
+      https://api.github.com/repos/sysiblesoftware/Sysible-Workstation/releases/latest \
       | python3 tools/build_release_json.py > release-linux.json
 """
 import json

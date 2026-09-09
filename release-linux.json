@@ -6,25 +6,25 @@
         {
           "name": "live-image-amd64.hybrid.iso.00.part",
           "size": 1992294400,
-          "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/live-image-amd64.hybrid.iso.00.part"
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-amd64.hybrid.iso.00.part"
         },
         {
           "name": "live-image-amd64.hybrid.iso.01.part",
           "size": 1471283200,
-          "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/live-image-amd64.hybrid.iso.01.part"
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-amd64.hybrid.iso.01.part"
         }
       ],
       "partsSums": {
         "name": "SHA256SUMS.amd64.parts",
-        "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/SHA256SUMS.amd64.parts"
+        "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/SHA256SUMS.amd64.parts"
       },
       "reassemble": {
         "name": "REASSEMBLE.amd64.md",
-        "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/REASSEMBLE.amd64.md"
+        "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/REASSEMBLE.amd64.md"
       },
       "sums": {
         "name": "SHA256SUMS.amd64",
-        "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/SHA256SUMS.amd64"
+        "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/SHA256SUMS.amd64"
       }
     },
     "arm64": {
@@ -33,31 +33,31 @@
         {
           "name": "live-image-arm64.hybrid.iso.00.part",
           "size": 1992294400,
-          "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/live-image-arm64.hybrid.iso.00.part"
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-arm64.hybrid.iso.00.part"
         },
         {
           "name": "live-image-arm64.hybrid.iso.01.part",
           "size": 1095630848,
-          "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/live-image-arm64.hybrid.iso.01.part"
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-arm64.hybrid.iso.01.part"
         }
       ],
       "partsSums": {
         "name": "SHA256SUMS.arm64.parts",
-        "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/SHA256SUMS.arm64.parts"
+        "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/SHA256SUMS.arm64.parts"
       },
       "reassemble": {
         "name": "REASSEMBLE.arm64.md",
-        "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/REASSEMBLE.arm64.md"
+        "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/REASSEMBLE.arm64.md"
       },
       "sums": {
         "name": "SHA256SUMS.arm64",
-        "url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/download/v1.0.2/SHA256SUMS.arm64"
+        "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/SHA256SUMS.arm64"
       }
     }
   },
   "codename": "Ignition",
-  "html_url": "https://github.com/sysiblesoftware/Sysible-Linux/releases/tag/v1.0.2",
-  "name": "Sysible Linux v1.0.2",
+  "html_url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/tag/v1.0.2",
+  "name": "Sysible Workstation v1.0.2",
   "published_at": "2026-08-14T04:02:30Z",
   "tag": "v1.0.2",
   "version": "1.0.2"
