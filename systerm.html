@@ -1,18 +1,18 @@
 <meta charset="utf-8">
-<title>Sysible Atlas — the AI companion in your terminal</title>
+<title>SysTerm — the engineer's terminal on Sysible Workstation</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sysible Atlas is a local-model AI companion built into the SysTerm terminal on Sysible Workstation. It reads your session, explains failed commands, answers questions, and hands you ready-to-run fixes — all on-device, nothing leaves the machine.">
-<link rel="canonical" href="https://sysible.com/atlas">
+<meta name="description" content="SysTerm is the system terminal on Sysible Workstation: tabbed sessions, split panes with broadcast, and a right-click command palette that keeps apt, disk, memory and failed-service checks one click away. Installs on Ubuntu, Fedora, Arch and openSUSE too.">
+<link rel="canonical" href="https://sysible.com/systerm">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
-<meta property="og:title" content="Sysible Atlas — the AI companion in your terminal">
-<meta property="og:description" content="A local-model companion in SysTerm that explains failed commands, answers questions, and hands you ready-to-run fixes. On-device, private.">
-<meta property="og:url" content="https://sysible.com/atlas">
+<meta property="og:title" content="SysTerm — the engineer's terminal on Sysible Workstation">
+<meta property="og:description" content="Tabbed sessions, split panes with broadcast, and a right-click command palette. The system terminal on Sysible Workstation — and installable anywhere.">
+<meta property="og:url" content="https://sysible.com/systerm">
 <meta property="og:image" content="https://sysible.com/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sysible Atlas — the AI companion in your terminal">
-<meta name="twitter:description" content="A local-model companion in SysTerm. Explains failures, answers questions, runs its own fixes. On-device.">
+<meta name="twitter:title" content="SysTerm — the engineer's terminal on Sysible Workstation">
+<meta name="twitter:description" content="Tabbed sessions, split panes with broadcast, and a right-click command palette. The system terminal on Sysible Workstation.">
 <meta name="twitter:image" content="https://sysible.com/social-card.png">
 <style>
   /* ---- tokens: light in :root, dark via media + explicit stamp (3-state) ---- */
@@ -137,8 +137,7 @@
       <a href="/linux">Sysible Workstation</a>
       <a href="/server">Sysible Server</a>
       <a href="/controller">Controller</a>
-      <a href="/atlas" class="on">Atlas</a>
-      <a href="/atlas#screenshots">SysTerm</a>
+      <a href="/systerm" class="on">SysTerm</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
     </nav>
   </div>
@@ -147,11 +146,11 @@
 <!-- ============================== HERO ============================== -->
 <div class="hero">
   <div class="wrap">
-    <div class="eyebrow">AI companion · local models</div>
-    <h1>Meet <span class="grad">Sysible&nbsp;Atlas</span></h1>
-    <p class="lede">A second terminal that <b>reads your session</b>. When a command fails, Atlas explains it
-      and hands you the fix. Ask it a question and the answer streams in beside your shell. It runs on a
-      <b>local model</b> — nothing leaves the machine. Built into <b>SysTerm</b> on Sysible&nbsp;Workstation.</p>
+    <div class="eyebrow">The terminal · tabs, splits, palette</div>
+    <h1>Meet <span class="grad">SysTerm</span></h1>
+    <p class="lede">The terminal Sysible&nbsp;Workstation opens everywhere — tabbed sessions, split panes you can
+      broadcast a command across, and a right-click palette that keeps the checks you actually run one click
+      away. Dark by default, wired in as the system terminal, and installable on the distro you already use.</p>
     <div class="cta">
       <a class="btn primary" href="/#linux">Get Sysible Workstation</a>
       <a class="btn ghost" href="https://github.com/sysiblesoftware/SysTerm" rel="noopener">SysTerm on GitHub ↗</a>
@@ -163,16 +162,10 @@
 <div class="demo">
   <div class="wrap">
     <div class="frame">
-      <img src="/img/atlas-demo.png" loading="lazy" width="1369" height="810" alt="Sysible Atlas — a failed command explained in the companion pane, with a one-click Run in terminal fix" />
+      <img src="/img/systerm/systerm-split.png" loading="lazy" width="1581" height="758" alt="SysTerm split into multiple shell panes in one window" />
     </div>
-    <p class="cap">A real session: SysTerm with the Atlas companion open beside the shell. A command that exits
-      non-zero — here <code class="mono">iscsi: command not found</code> — is caught and explained, and the
-      fix (<code class="mono">sudo apt-get install open-iscsi</code>) comes with a one-click <b>Run in terminal</b>.</p>
-    <div class="frame" style="margin-top:36px">
-      <img src="/img/atlas-setup.png" loading="lazy" width="1664" height="812" alt="The Sysible Atlas setup pane — download a local model, or paste a Claude or GPT API key to use a cloud model" />
-    </div>
-    <p class="cap">Set up once from the pane: download a local model to run everything on-device, or paste a
-      <b>Claude</b> or <b>GPT</b> key to use a cloud model instead — your choice, saved to your own config.</p>
+    <p class="cap">One window, as many shells as the job needs — split horizontally or vertically, broadcast a
+      single command to every pane, and move between them without reaching for the mouse.</p>
   </div>
 </div>
 
@@ -181,29 +174,33 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">What it does</div>
-      <h2>Fewer dead ends, no copy-paste</h2>
-      <p>Atlas watches the pane you're working in and turns errors and questions into answers you can run.</p>
+      <h2>Built for the way you actually work</h2>
+      <p>One window, many shells, and the commands you run twenty times a day within reach of the mouse.</p>
     </div>
     <div class="grid">
       <div class="feat">
-        <div class="ic">⚠</div>
-        <h3>Catches failures</h3>
-        <p>When a command exits non-zero, Atlas reads that pane's output and explains it — cause, then the exact fix — without you asking. Silence it per-shell with <code>SYSIBLE_ATLAS_AUTO=0</code>.</p>
+        <div class="ic">⊞</div>
+        <h3>Split panes</h3>
+        <p>Divide a window horizontally or vertically into as many shells as you need, and cycle between them
+          without leaving the keyboard.</p>
       </div>
       <div class="feat">
-        <div class="ic">✦</div>
-        <h3>Ask in the pane</h3>
-        <p>Open Atlas (right-click → <b>Open Sysible Atlas</b>, or <code>Alt+A</code>) and type. The answer streams in beside your shell, with code and commands in ready-to-run blocks.</p>
+        <div class="ic">⇉</div>
+        <h3>Broadcast</h3>
+        <p>Type once, run everywhere: send a command to every pane in the window at the same time — the fast
+          way to do the same thing on eight boxes.</p>
       </div>
       <div class="feat">
-        <div class="ic">↵</div>
-        <h3>Runs its own fixes</h3>
-        <p>Every command Atlas suggests gets a <b>Run in terminal</b> button that types it straight into the pane it came from — and a <b>Copy</b> if you'd rather paste it yourself.</p>
+        <div class="ic">☰</div>
+        <h3>Command palette</h3>
+        <p>Right-click → <b>Run Command</b> keeps the usual checks — <code>apt</code> update/upgrade, disk and
+          memory usage, failed services — plus your own saved commands, one click away.</p>
       </div>
       <div class="feat">
-        <div class="ic">◐</div>
-        <h3>Local &amp; private</h3>
-        <p>Powered by a local model via <b>Ollama</b> — bundled with Sysible Workstation. Pick the model from the pane's selector. <b>Nothing leaves the machine.</b></p>
+        <div class="ic">◧</div>
+        <h3>The system terminal</h3>
+        <p>Wired in as the default across Sysible Workstation, so every <b>Open Terminal</b> lands here. Prefer
+          another distro? It installs on Ubuntu, Fedora, Arch and openSUSE too.</p>
       </div>
     </div>
   </div>
@@ -214,15 +211,11 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">Screenshots</div>
-      <h2>SysTerm — the terminal it lives in</h2>
-      <p>Atlas is one pane of a fast, engineer-focused terminal: tabbed sessions, a right-click command palette, and split panes for whole-fleet work.</p>
+      <h2>A closer look</h2>
+      <p>The terminal you get everywhere on Sysible Workstation.</p>
     </div>
     <div class="frame"><img src="/img/systerm/systerm-terminal.png" loading="lazy" width="1119" height="687" alt="The SysTerm terminal on Sysible Workstation — a clean dark prompt" /></div>
-    <p class="cap"><b>A clean, fast terminal.</b> SysTerm is the terminal Atlas lives in — dark by default and wired in as the system terminal across Sysible Workstation, so <b>Open Terminal</b> everywhere launches it.</p>
-    <div class="frame" style="margin-top:36px"><img src="/img/systerm/systerm-commands.png" loading="lazy" width="1123" height="693" alt="SysTerm right-click menu with the Run Command quick-commands palette open" /></div>
-    <p class="cap"><b>Right-click command palette.</b> <b>Run Command</b> keeps common actions — <code class="mono">apt</code> update/upgrade, disk &amp; memory usage, failed services — and your own saved commands one click away, next to splits, tabs, copy/paste, broadcast and Open&nbsp;Atlas.</p>
-    <div class="frame" style="margin-top:36px"><img src="/img/systerm/systerm-split.png" loading="lazy" width="1581" height="758" alt="SysTerm split into multiple shell panes in one window" /></div>
-    <p class="cap"><b>Split panes.</b> Divide a window into multiple shells — split horizontally or vertically, broadcast one command to every pane, and cycle between them without leaving the keyboard.</p>
+    <p class="cap"><b>The system terminal.</b> Dark by default and registered system-wide, so <b>Open Terminal</b> everywhere — the dock, the file manager, the editor — launches this. Nothing to configure on first run.</p>
   </div>
 </section>
 
@@ -231,12 +224,12 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">Under the hood</div>
-      <h2>On-device by default</h2>
+      <h2>No setup to do</h2>
     </div>
     <div class="facts">
-      <div class="fact"><b>Local model</b><span>Runs against Ollama on <code class="mono">127.0.0.1</code>. Defaults to a model that fits your hardware; switch it in the pane's selector.</span></div>
-      <div class="fact"><b>Built into SysTerm</b><span>The companion pane ships with the SysTerm terminal on Sysible Workstation — no separate app, no account, no setup beyond a one-time model download.</span></div>
-      <div class="fact"><b>Any distro</b><span>SysTerm (and Atlas) install on Ubuntu, Fedora, Arch and openSUSE too — one line from the SysTerm repo.</span></div>
+      <div class="fact"><b>Preinstalled</b><span>Ships with Sysible Workstation and is registered as the system terminal, so there is nothing to install, configure or set as default.</span></div>
+      <div class="fact"><b>Your commands</b><span>The palette's saved commands are yours — add, edit and reorder them; they live in your own config, not in the image.</span></div>
+      <div class="fact"><b>Any distro</b><span>SysTerm installs on Ubuntu, Fedora, Arch and openSUSE too — one line from the SysTerm repo.</span></div>
     </div>
   </div>
 </section>
@@ -245,8 +238,8 @@
 <section style="padding-top:0">
   <div class="wrap" style="text-align:center">
     <div class="sec-head" style="margin-bottom:22px">
-      <h2>Get Atlas</h2>
-      <p>It's part of Sysible Workstation. Or add SysTerm — with Atlas — to the distro you already run.</p>
+      <h2>Get SysTerm</h2>
+      <p>It's part of Sysible Workstation. Or add it to the distro you already run.</p>
     </div>
     <div class="cta">
       <a class="btn primary" href="/#linux">Download Sysible Workstation</a>

@@ -28,35 +28,6 @@
   .term .dim{color:var(--mut)} .term .ok{color:var(--green)} .term .warn{color:var(--amber)} .term .err{color:var(--red)}
   .term .cur{display:inline-block;width:8px;height:16px;background:var(--green);vertical-align:-3px;margin-left:3px;border-radius:1px}
   table.k{border-collapse:collapse;margin:2px 0} table.k td{padding:0 26px 0 0;color:#b6c4d6}
-  /* Atlas sidebar */
-  .atlas{width:410px;background:#0a0f1a;border-left:1px solid var(--line);display:flex;flex-direction:column}
-  .ah{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line)}
-  .ah .d{width:8px;height:8px;border-radius:50%;background:var(--green)}
-  .ah b{color:#dfeee6;font-size:12.5px;font-weight:600} .ah .sub{color:var(--mut);font-size:11.5px;margin-left:2px}
-  .ah .model{margin-left:auto;font-family:var(--mono);font-size:11px;color:#9fb0c6;border:1px solid var(--line2);border-radius:999px;padding:3px 9px}
-  .acards{padding:14px;display:flex;flex-direction:column;gap:12px;flex:1}
-  .card{background:#0e1626;border:1px solid var(--line2);border-left:3px solid var(--green);border-radius:9px;padding:12px 13px}
-  .card.err{border-left-color:var(--red)}
-  .ct{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em}
-  .ct .l{color:var(--green)} .ct.err .l{color:var(--red)} .ct .r{color:var(--mut)}
-  .prose{color:#b7c4d4;font-size:12.5px;line-height:1.6;margin-top:8px}
-  .prose code{font-family:var(--mono);color:#cfe6c4;background:rgba(92,199,70,.10);padding:1px 5px;border-radius:4px}
-  .cmd{margin-top:9px;background:#0a0f1a;border:1px solid var(--line2);border-radius:7px;padding:9px 11px;font-family:var(--mono);font-size:12px;color:#eaf1f8}
-  .cmd .$ {color:var(--green)}
-  .abtns{display:flex;gap:8px;margin-top:10px}
-  .abtn{font-family:var(--mono);font-size:11px;border:1px solid var(--line2);border-radius:6px;padding:5px 10px;color:#8ea1b8}
-  .abtn.run{color:var(--green);border-color:rgba(92,199,70,.4)}
-  .afoot{border-top:1px solid var(--line);padding:11px 14px;display:flex;align-items:center;gap:10px}
-  .ask{flex:1;background:#0e1626;border:1px solid var(--line2);border-radius:8px;padding:8px 11px;color:var(--mut);font-size:12px}
-  .askbtn{background:var(--green2);color:#08110a;font-weight:700;font-size:12px;border-radius:8px;padding:8px 14px}
-  /* context menu */
-  .menu{position:absolute;top:150px;left:360px;width:250px;background:#0e1626;border:1px solid var(--line2);
-    border-radius:10px;padding:6px;box-shadow:0 20px 50px rgba(0,0,0,.6);font-family:var(--sans)}
-  .mi{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;border-radius:7px;color:var(--ink);font-size:13px}
-  .mi:hover,.mi.hot{background:rgba(92,199,70,.12)}
-  .mi .k{color:var(--mut);font-family:var(--mono);font-size:11px}
-  .mi.head{color:var(--green);font-weight:600}
-  .msep{height:1px;background:var(--line);margin:5px 6px}
   .rel{position:relative}
   /* split panes */
   .pane{border:1px solid var(--line);border-radius:8px;background:#0b111c;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.62;overflow:hidden}
@@ -68,7 +39,7 @@
 </style></head><body>
 
 <!-- ============ SHOT 1: the terminal (tabs + a real session) ============ -->
-<div class="win" id="shot-atlas">
+<div class="win" id="shot-terminal">
   <div class="bar">
     <div class="dots"><i style="background:#e5675f"></i><i style="background:#f0c674"></i><i style="background:#5cc746"></i></div>
     <svg class="mark" viewBox="0 0 128 128"><rect x="8" y="8" width="112" height="112" rx="26" fill="#0f151f"/><rect x="8" y="8" width="112" height="112" rx="26" fill="none" stroke="#6ddb73" stroke-width="4"/><polyline points="42,44 66,64 42,84" fill="none" stroke="#eceff3" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><rect x="74" y="76" width="24" height="8" rx="4" fill="#6ddb73"/></svg>
@@ -123,9 +94,6 @@
       <div style="margin-top:8px"><span class="p">sysible@sysible</span>:<span class="pp">~</span>$ <span class="cur"></span></div>
     </div>
     <div class="menu">
-      <div class="mi head">Open Sysible Atlas <span class="k">Alt+A</span></div>
-      <div class="mi">Analyze in Sysible Atlas</div>
-      <div class="msep"></div>
       <div class="mi hot">Run Command <span class="k">▸</span></div>
       <div class="mi">Split Horizontally <span class="k">Ctrl+Shift+O</span></div>
       <div class="mi">Split Vertically <span class="k">Ctrl+Shift+E</span></div>

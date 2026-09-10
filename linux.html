@@ -2,12 +2,12 @@
 <title>Sysible Workstation — the engineering & automation workstation OS</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sysible Workstation is a Debian-stable engineering & automation workstation OS with the whole toolchain baked in — Docker, Kubernetes, OpenTofu, cloud CLIs, VSCodium, PowerShell — plus the SysTerm terminal and the Sysible Atlas AI companion. Installable ISOs for amd64 and arm64.">
+<meta name="description" content="Sysible Workstation is a Debian-stable engineering & automation workstation OS with the whole toolchain baked in — Docker, Kubernetes, OpenTofu, cloud CLIs, VSCodium, PowerShell — plus the SysTerm terminal. Installable ISOs for amd64 and arm64.">
 <link rel="canonical" href="https://sysible.com/linux">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
 <meta property="og:title" content="Sysible Workstation — the engineering & automation workstation OS">
-<meta property="og:description" content="A Debian-stable workstation OS with the whole engineering toolchain baked in, plus SysTerm and the Sysible Atlas AI companion. amd64 & arm64 ISOs.">
+<meta property="og:description" content="A Debian-stable workstation OS with the whole engineering toolchain baked in, plus the SysTerm terminal. amd64 & arm64 ISOs.">
 <meta property="og:url" content="https://sysible.com/linux">
 <meta property="og:image" content="https://sysible.com/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <a href="/linux" class="on">Sysible Workstation</a>
       <a href="/server">Sysible Server</a>
       <a href="/controller">Controller</a>
-      <a href="/atlas">Atlas</a>
+      <a href="/systerm">SysTerm</a>
       <a href="#download">Download</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
     </nav>
@@ -237,14 +237,14 @@
     <h1>Sysible <span class="grad">Workstation</span></h1>
     <p class="lede">A Debian-stable workstation OS for engineers who live on Linux — the whole toolchain baked
       in (containers, Kubernetes, infrastructure-as-code, cloud CLIs, VSCodium, PowerShell), the SysTerm
-      terminal with the Sysible&nbsp;Atlas AI companion built in, and Sysible Controller one click away. Boot
+      terminal, and Sysible Controller one click away. Boot
       the live ISO to try it, or install it to disk.</p>
     <div class="cta">
       <a class="btn primary" href="#download">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Download the ISO
       </a>
-      <a class="btn ghost" href="/atlas">Meet Sysible Atlas</a>
+      <a class="btn ghost" href="/systerm">Meet SysTerm</a>
     </div>
   </div>
 </div>
@@ -270,7 +270,7 @@
     <div class="why">
       <div class="feat"><div class="ic">Preinstalled</div><h3>The toolchain, already there</h3><p>Containers, Kubernetes, infrastructure-as-code, cloud CLIs, VSCodium and PowerShell are baked into the image — nothing to install before you start.</p></div>
       <div class="feat"><div class="ic">Debian&nbsp;stable</div><h3>A base you can trust</h3><p>Built on Debian stable, so it’s familiar, well-supported and boring in the best way — <span class="mono">apt</span>, systemd and the whole ecosystem, unchanged.</p></div>
-      <div class="feat"><div class="ic">AI&nbsp;terminal</div><h3>SysTerm + Sysible Atlas</h3><p>The default terminal reads your session: when a command fails it explains it and hands you a one-click fix, on a local model. <a style="color:var(--blue);text-decoration:none" href="/atlas">Meet Atlas →</a></p></div>
+      <div class="feat"><div class="ic">Terminal</div><h3>SysTerm, system-wide</h3><p>The system-default terminal: tabbed sessions, split panes you can broadcast across, and a right-click palette for the checks you run every day. <a style="color:var(--blue);text-decoration:none" href="/systerm">Meet SysTerm →</a></p></div>
       <div class="feat"><div class="ic">Fleet-ready</div><h3>Controller in the box</h3><p>Sysible Controller CE is baked in — launch <span class="mono">install-sysible-controller</span> and manage a whole Linux fleet from this machine.</p></div>
       <div class="feat"><div class="ic">Tuned desktop</div><h3>GNOME, dialled in</h3><p>A dark brand theme, four fixed workspaces, a bottom dock, a top-bar CPU/MEM/DISK monitor, and no idle-suspend to freeze a VM.</p></div>
       <div class="feat"><div class="ic">amd64 &amp; arm64</div><h3>Runs where you do</h3><p>Installable ISOs for Intel/AMD and for Apple&nbsp;Silicon — bare metal or a VM (open-vm-tools is preinstalled).</p></div>
@@ -287,7 +287,7 @@
       <div class="feat"><div class="ic">Cloud CLIs</div><h3>Azure &amp; Google Cloud</h3><p>The <span class="mono">az</span> and <span class="mono">gcloud</span> CLIs are in the image — sign in and go.</p></div>
       <div class="feat"><div class="ic">Editors</div><h3>VSCodium · CherryTree · LibreOffice</h3><p>A real IDE, a note-taking app and a full office suite — a workstation on day one, not just a shell.</p></div>
       <div class="feat"><div class="ic">Shells</div><h3>PowerShell &amp; modern CLI</h3><p>Bash and PowerShell, plus <span class="mono">git</span>, <span class="mono">eza</span> and <span class="mono">sops</span>, with SysTerm as the system-default terminal.</p></div>
-      <div class="feat"><div class="ic">AI companion</div><h3>Sysible Atlas</h3><p>A local-model assistant living in a SysTerm pane — it reads failed commands and hands you the fix. <a style="color:var(--blue);text-decoration:none" href="/atlas">More →</a></p></div>
+      <div class="feat"><div class="ic">Terminal</div><h3>SysTerm</h3><p>Tabs, split panes with broadcast, and a right-click command palette — registered as the system terminal. <a style="color:var(--blue);text-decoration:none" href="/systerm">More →</a></p></div>
       <div class="feat"><div class="ic">Hardened</div><h3>Secure defaults</h3><p>SSH off until you enable it (then key-only), <span class="mono">fail2ban</span>, password-quality rules and sysctl hardening — set at install.</p></div>
       <div class="feat"><div class="ic">Virtualization</div><h3>KVM/libvirt ready</h3><p>Groups, tooling and <span class="mono">open-vm-tools</span> in place for running VMs — or running Sysible Workstation itself in one.</p></div>
     </div>
@@ -334,15 +334,15 @@
 </section>
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">Comes with</span><h2>SysTerm, Atlas &amp; Controller</h2></div>
+    <div class="sec-head"><span class="kicker">Comes with</span><h2>SysTerm &amp; Controller</h2></div>
     <div class="split">
       <div class="feat">
         <div class="ic">Terminal</div>
-        <h3>SysTerm + Sysible Atlas</h3>
-        <p>The system-default terminal — tabs, split panes, a right-click command palette — with the Atlas AI
-          companion that explains a failed command and runs the fix, on a local model.</p>
+        <h3>SysTerm</h3>
+        <p>The system-default terminal — tabbed sessions, split panes you can broadcast one command across,
+          and a right-click palette holding the checks you run every day plus your own saved commands.</p>
         <div class="muted-links" style="margin-top:14px">
-          <a href="/atlas">Explore Atlas →</a>
+          <a href="/systerm">Explore SysTerm →</a>
         </div>
       </div>
       <div class="feat">
@@ -417,10 +417,10 @@
   <div class="wrap">
     <div class="cta-band">
       <h2>Your workstation, ready on first boot</h2>
-      <p>Download the ISO, boot it live, and you’re in a full engineering desktop — toolchain, terminal and AI companion included.</p>
+      <p>Download the ISO, boot it live, and you’re in a full engineering desktop — toolchain and terminal included.</p>
       <div class="cta" style="margin-top:0">
         <a class="btn primary" href="#download">Download the ISO</a>
-        <a class="btn ghost" href="/atlas">Meet Sysible Atlas</a>
+        <a class="btn ghost" href="/systerm">Meet SysTerm</a>
       </div>
     </div>
   </div>

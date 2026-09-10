@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects.
+#
+# /atlas was the Sysible Atlas page. Atlas is gone from SysTerm, so the page is
+# now SysTerm's own — same screenshots, none of the AI claims. Anything already
+# linking to /atlas (search results, the older ISO's docs, a bookmark) lands
+# where that content actually went rather than on a 404.
+/atlas      /systerm   301
+/atlas/*    /systerm   301
