@@ -6,3 +6,7 @@
 # where that content actually went rather than on a 404.
 /atlas      /systerm   301
 /atlas/*    /systerm   301
+
+# SLOP has a page now. Cloudflare Pages serves /slop from slop.html, but keep
+# the .html form working for anything that linked it directly.
+/slop.html  /slop  301

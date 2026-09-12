@@ -70,7 +70,14 @@
   .bar .wrap{display:flex; align-items:center; gap:14px; height:60px}
   .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
   .brand svg{width:26px; height:28px; display:block}
-  .bar nav{margin-left:auto; display:flex; gap:22px; align-items:center}
+  .bar nav{margin-left:auto; display:flex; gap:22px; align-items:center;
+    /* Wrap rather than push the page wider than the screen. A fixed row of
+       links overflowed the viewport on a phone on every page here — the whole
+       document then scrolled sideways, which is how a nav ends up dragging the
+       body with it. Adding one more product link only made it further out. */
+    flex-wrap:wrap; row-gap:6px; justify-content:flex-end; min-width:0}
+  @media(max-width:640px){ .bar .wrap{height:auto; padding-block:10px; flex-wrap:wrap}
+    .bar nav{gap:14px; font-size:13px} }
   .bar nav a{font-size:14px; color:var(--muted); text-decoration:none}
   .bar nav a:hover{color:var(--text)}
   .theme-btn{background:none; border:1px solid var(--line); color:var(--muted); border-radius:8px;
@@ -169,14 +176,21 @@
   .muted-links a:hover{text-decoration:underline}
 
   /* controller quick install */
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
-  @media (max-width:720px){.grid2{grid-template-columns:1fr}}
+  /* minmax(0,…), not 1fr: a bare 1fr track is min-content-floored, so a long
+     unbreakable line inside a <pre> made the COLUMN wider than the screen and
+     the whole page scrolled sideways — the pre's own overflow-x never got a
+     chance to do its job. */
+  .grid2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px}
+  @media (max-width:720px){.grid2{grid-template-columns:minmax(0,1fr)}}
   .subhead{font-size:13px; color:var(--muted); margin:0 0 10px; font-weight:600}
 
   footer{border-top:1px solid var(--line); padding:34px 0 46px; color:var(--muted); font-size:13.5px}
   footer .wrap{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
   footer .brand{font-size:14px}
-  footer nav{margin-left:auto; display:flex; gap:18px}
+  /* Same reason as the header nav: four release links in a fixed row are wider
+     than a phone, and the footer then drags the whole document sideways. */
+  footer nav{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap;
+    row-gap:8px; justify-content:flex-end; min-width:0}
   footer a{color:var(--muted); text-decoration:none}
   footer a:hover{color:var(--text)}
   .hidden{display:none !important}
@@ -222,6 +236,7 @@
       <a href="/linux" class="on">Sysible Workstation</a>
       <a href="/server">Sysible Server</a>
       <a href="/controller">Controller</a>
+      <a href="/slop">SLOP</a>
       <a href="/systerm">SysTerm</a>
       <a href="#download">Download</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
@@ -271,7 +286,7 @@
       <div class="feat"><div class="ic">Preinstalled</div><h3>The toolchain, already there</h3><p>Containers, Kubernetes, infrastructure-as-code, cloud CLIs, VSCodium and PowerShell are baked into the image — nothing to install before you start.</p></div>
       <div class="feat"><div class="ic">Debian&nbsp;stable</div><h3>A base you can trust</h3><p>Built on Debian stable, so it’s familiar, well-supported and boring in the best way — <span class="mono">apt</span>, systemd and the whole ecosystem, unchanged.</p></div>
       <div class="feat"><div class="ic">Terminal</div><h3>SysTerm, system-wide</h3><p>The system-default terminal: tabbed sessions, split panes you can broadcast across, and a right-click palette for the checks you run every day. <a style="color:var(--blue);text-decoration:none" href="/systerm">Meet SysTerm →</a></p></div>
-      <div class="feat"><div class="ic">Fleet-ready</div><h3>Controller in the box</h3><p>Sysible Controller CE is baked in — launch <span class="mono">install-sysible-controller</span> and manage a whole Linux fleet from this machine.</p></div>
+      <div class="feat"><div class="ic">Fleet-ready</div><h3>Controller in the box</h3><p>Sysible Controller CE is baked in — launch <span class="mono">install-sysible</span> and tick Controller to manage a whole Linux fleet from this machine.</p></div>
       <div class="feat"><div class="ic">Tuned desktop</div><h3>GNOME, dialled in</h3><p>A dark brand theme, four fixed workspaces, a bottom dock, a top-bar CPU/MEM/DISK monitor, and no idle-suspend to freeze a VM.</p></div>
       <div class="feat"><div class="ic">amd64 &amp; arm64</div><h3>Runs where you do</h3><p>Installable ISOs for Intel/AMD and for Apple&nbsp;Silicon — bare metal or a VM (open-vm-tools is preinstalled).</p></div>
     </div>
@@ -349,7 +364,7 @@
         <div class="ic">Fleet</div>
         <h3>Sysible Controller CE</h3>
         <p>Manage a whole Linux fleet — users, services, packages, storage, firewall, live terminals — from one
-          console. Baked in: launch <span class="mono">install-sysible-controller</span>.</p>
+          console. Baked in: launch <span class="mono">install-sysible</span>.</p>
         <div class="muted-links" style="margin-top:14px">
           <a href="/controller">About Controller →</a>
         </div>

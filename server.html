@@ -70,7 +70,14 @@
   .bar .wrap{display:flex; align-items:center; gap:14px; height:60px}
   .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
   .brand svg{width:26px; height:28px; display:block}
-  .bar nav{margin-left:auto; display:flex; gap:22px; align-items:center}
+  .bar nav{margin-left:auto; display:flex; gap:22px; align-items:center;
+    /* Wrap rather than push the page wider than the screen. A fixed row of
+       links overflowed the viewport on a phone on every page here — the whole
+       document then scrolled sideways, which is how a nav ends up dragging the
+       body with it. Adding one more product link only made it further out. */
+    flex-wrap:wrap; row-gap:6px; justify-content:flex-end; min-width:0}
+  @media(max-width:640px){ .bar .wrap{height:auto; padding-block:10px; flex-wrap:wrap}
+    .bar nav{gap:14px; font-size:13px} }
   .bar nav a{font-size:14px; color:var(--muted); text-decoration:none}
   .bar nav a:hover{color:var(--text)}
   .theme-btn{background:none; border:1px solid var(--line); color:var(--muted); border-radius:8px;
@@ -169,14 +176,21 @@
   .muted-links a:hover{text-decoration:underline}
 
   /* controller quick install */
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
-  @media (max-width:720px){.grid2{grid-template-columns:1fr}}
+  /* minmax(0,…), not 1fr: a bare 1fr track is min-content-floored, so a long
+     unbreakable line inside a <pre> made the COLUMN wider than the screen and
+     the whole page scrolled sideways — the pre's own overflow-x never got a
+     chance to do its job. */
+  .grid2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px}
+  @media (max-width:720px){.grid2{grid-template-columns:minmax(0,1fr)}}
   .subhead{font-size:13px; color:var(--muted); margin:0 0 10px; font-weight:600}
 
   footer{border-top:1px solid var(--line); padding:34px 0 46px; color:var(--muted); font-size:13.5px}
   footer .wrap{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
   footer .brand{font-size:14px}
-  footer nav{margin-left:auto; display:flex; gap:18px}
+  /* Same reason as the header nav: four release links in a fixed row are wider
+     than a phone, and the footer then drags the whole document sideways. */
+  footer nav{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap;
+    row-gap:8px; justify-content:flex-end; min-width:0}
   footer a{color:var(--muted); text-decoration:none}
   footer a:hover{color:var(--text)}
   .hidden{display:none !important}
@@ -222,6 +236,7 @@
       <a href="/linux">Sysible Workstation</a>
       <a href="/server" class="on">Sysible Server</a>
       <a href="/controller">Controller</a>
+      <a href="/slop">SLOP</a>
       <a href="/systerm">SysTerm</a>
       <a href="#download">Download</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>

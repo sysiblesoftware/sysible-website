@@ -1,19 +1,19 @@
 <meta charset="utf-8">
-<title>Sysible Controller — IT infrastructure management for Linux fleets</title>
+<title>Sysible SLOP — one front door for the Sysible suite</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sysible Controller is a self-hosted, point-and-click operations console for Linux fleets — users, health, services, packages, storage, networking, firewall and a live terminal, over an agent or SSH. No DSL, no control repo, no apply step.">
-<link rel="canonical" href="https://sysible.com/controller">
+<meta name="description" content="Sysible Linux Operations Platform (SLOP) puts one URL, one TLS certificate and one sign-in in front of Controller, the Engineering Platform, Connect, Flashback and the Visualizer — addressed by path, on the server's raw IP. No subdomains, no DNS, no changes to the apps.">
+<link rel="canonical" href="https://sysible.com/slop">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
-<meta property="og:title" content="Sysible Controller — IT infrastructure management for Linux fleets">
-<meta property="og:description" content="A self-hosted, point-and-click operations console for Linux fleets. One controller, agent or SSH, no DSL to learn.">
-<meta property="og:url" content="https://sysible.com/controller">
-<meta property="og:image" content="https://sysible.com/controller-card.png">
+<meta property="og:title" content="Sysible SLOP — one front door for the Sysible suite">
+<meta property="og:description" content="One URL, one certificate, one sign-in for Controller, the Engineering Platform, Connect, Flashback and the Visualizer. No subdomains, no DNS.">
+<meta property="og:url" content="https://sysible.com/slop">
+<meta property="og:image" content="https://sysible.com/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sysible Controller">
-<meta name="twitter:description" content="A self-hosted, point-and-click operations console for Linux fleets.">
-<meta name="twitter:image" content="https://sysible.com/controller-card.png">
+<meta name="twitter:title" content="Sysible SLOP">
+<meta name="twitter:description" content="One URL, one certificate, one sign-in for the whole Sysible suite.">
+<meta name="twitter:image" content="https://sysible.com/social-card.png">
 <style>
   /* ---- tokens: light in :root, dark via media + explicit stamp (3-state) ---- */
   :root{
@@ -230,10 +230,12 @@
   .gallery.tour{grid-template-columns:1fr; gap:44px; max-width:1040px; margin-inline:auto}
   .gallery.tour .shot{box-shadow:var(--shadow)}
   .gallery.tour figcaption{font-size:14.5px; padding:14px 18px}
+  /* A clone URL is longer than the column; wrapping keeps it out from under
+     the Copy button instead of scrolling beneath it. */
+  .code pre.wrap{white-space:pre-wrap; word-break:break-word}
   .tour-step{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
     font-weight:700; margin-bottom:10px}
 </style>
-
 <header class="bar">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Sysible Enterprise Software" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:inherit"><span style="font-weight:800;font-size:23px;letter-spacing:-1px;line-height:1;color:var(--text)">SES</span><span aria-hidden="true" style="width:2px;height:27px;background:var(--accent);border-radius:2px"></span><span style="display:flex;flex-direction:column;line-height:1.08;text-align:left"><span style="font-weight:700;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--text)">Sysible</span><span style="font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:var(--muted)">Enterprise&nbsp;Software</span></span></a>
@@ -241,10 +243,9 @@
       <a href="/">Home</a>
       <a href="/linux">Sysible Workstation</a>
       <a href="/server">Sysible Server</a>
-      <a href="/slop">SLOP</a>
+      <a href="/controller">Controller</a>
       <a href="#download">Download</a>
-      <a href="/controller-manual.html">Manual</a>
-      <a href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">GitHub</a>
+      <a href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform" rel="noopener">GitHub</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
     </nav>
   </div>
@@ -253,18 +254,19 @@
 <div class="hero">
   <canvas id="mesh" aria-hidden="true"></canvas>
   <div class="wrap">
-    <svg class="mark" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-ctrl"/></svg>
-    <div class="eyebrow">IT Infrastructure Management</div>
-    <h1>Sysible <span class="grad">Controller</span></h1>
-    <p class="lede">A self-hosted, point-and-click operations console for Linux fleets. One controller
-      drives every host — over its lightweight agent or straight over SSH — for users, health, services,
-      packages, storage, networking, firewall and a live terminal. No DSL, no control repo, no apply step.</p>
+    <svg class="mark" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slop"/></svg>
+    <div class="eyebrow">One Front Door for the Suite</div>
+    <h1>Sysible <span class="grad">Operations Platform</span></h1>
+    <p class="lede">SLOP puts one URL, one certificate and one sign-in in front of every Sysible app —
+      Controller, the Engineering Platform, Connect, Flashback and the Visualizer. Everything is addressed
+      by path on the server’s raw IP, so there are no subdomains, no DNS and nothing to configure. The apps
+      themselves are unchanged.</p>
     <div class="cta">
       <a class="btn primary" href="#download">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download Controller CE
+        Install SLOP CE
       </a>
-      <a class="btn ghost" href="/controller-manual.html">Read the manual</a>
+      <a class="btn ghost" href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform" rel="noopener">Source &amp; docs</a>
     </div>
   </div>
 </div>
@@ -273,140 +275,128 @@
 <section style="padding:40px 0 0">
   <div class="wrap">
     <figure class="shot hero-shot">
-      <img src="/img/controller/dashboard.png" width="1600" height="900"
-        alt="The Sysible Controller dashboard: live fleet health and a task-search box over every tool">
-      <figcaption>The dashboard — live fleet counts and health, with a task-search box that jumps straight to any tool.</figcaption>
+      <img src="/img/slop/portal.png" width="1600" height="900"
+        alt="The SLOP portal: one card per app — Engineering Platform, Controller, Connect, Flashback, Visualizer and Administration — each with a live health dot">
+      <figcaption>The portal — one card per app with a live health dot, behind a single sign-in. Administration appears only for a superuser.</figcaption>
     </figure>
   </div>
 </section>
+
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">Why Controller</span><h2>Built for the day-to-day, not the deploy</h2></div>
-    <p class="lede lead-narrow" style="margin:0 0 24px 0; text-align:left">
-      Config-management platforms (Ansible, Puppet, Chef) make you author a DSL, a control repo and an apply
-      step before you can touch a host; single-box panels (Webmin, Cockpit) manage one machine at a time.
-      Sysible Controller sits in the gap: a fleet-wide console for the work a sysadmin actually does between
-      deployments — lock an account, chase a full disk, restart a failed service, roll a repo to twenty boxes,
-      tail a log — all as buttons.</p>
-    <div class="why">
-      <div class="feat"><div class="ic">No YAML</div><h3>No DSL, no apply step</h3><p>Every action is a button, not a manifest. Nothing to author, lint or version before you can act on a host.</p></div>
-      <div class="feat"><div class="ic">Agent or SSH</div><h3>One tool, two transports</h3><p>Hosts that run a persistent agent and hosts that can’t sit in the same list, behind the same buttons — not two toolchains.</p></div>
-      <div class="feat"><div class="ic">Act in place</div><h3>Detect and remediate together</h3><p>Health &amp; Logs doesn’t just flag a critical host — the same window kills the process, restarts the service or tails the log.</p></div>
-      <div class="feat"><div class="ic">Self-hosted</div><h3>A light footprint</h3><p>One controller machine, one SQLite database, one systemd service. No message bus, no master/minion cluster, no external DB.</p></div>
-      <div class="feat"><div class="ic">Secure by default</div><h3>No PKI team required</h3><p>Self-signed TLS, a per-fleet SSH key pair, single-use enrollment tokens and an audit log — all provisioned at install.</p></div>
-      <div class="feat"><div class="ic">Cross-distro</div><h3>One mixed fleet</h3><p>Package and repo actions detect dnf, yum, zypper or apt at run time, so a RHEL/SUSE/Debian fleet is one fleet.</p></div>
+    <div class="sec-head"><span class="kicker">Why SLOP</span><h2>Stop bookmarking three consoles</h2></div>
+    <p class="lede lead-narrow" style="margin-top:-6px">Each Sysible app is happy on its own port. Running
+      several of them is where it gets tiresome: three addresses, three certificates to accept, three logins
+      to keep straight. SLOP is the front door you put in front of them — and nothing about the apps changes.</p>
+    <div class="features" style="margin-top:22px">
+      <div class="feat"><div class="ic">One URL</div><h3>Everything by path</h3><p>The portal at <span class="mono">/</span>, then <span class="mono">/controller</span>, <span class="mono">/slep</span>, <span class="mono">/connect</span>, <span class="mono">/flashback</span>. One origin, one bookmark.</p></div>
+      <div class="feat"><div class="ic">One login</div><h3>Real single sign-on</h3><p>SLOP ships its own identity provider. Sign in once at the portal and reach every app with no second login — and no app-by-app account sprawl.</p></div>
+      <div class="feat"><div class="ic">No DNS</div><h3>Nothing to configure</h3><p>It answers on 443 for whatever IP the host has. No subdomains, no <span class="mono">/etc/hosts</span>, no domain to buy before you can try it.</p></div>
+      <div class="feat"><div class="ic">One cert</div><h3>A single TLS story</h3><p>Caddy terminates HTTPS for the whole origin with an internal CA by default, so you accept one certificate instead of one per app. Bring real certs when you want them.</p></div>
+      <div class="feat"><div class="ic">Unchanged</div><h3>The apps stay themselves</h3><p>Each remains its own container on its own port, with its own native login for direct access. SLOP reverse-proxies; it does not fork or wrap them.</p></div>
+      <div class="feat"><div class="ic">Included</div><h3>Two modules of its own</h3><p>Flashback and the Visualizer ship with the gateway — a config time machine and a cross-app activity view that only make sense across the whole suite.</p></div>
     </div>
   </div>
 </section>
+
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">Capabilities</span><h2>One console, the whole fleet</h2></div>
+    <div class="sec-head"><span class="kicker">Behind the door</span><h2>One origin, every tool on it</h2></div>
     <div class="features">
-      <div class="feat"><div class="ic">Fleet</div><h3>Dashboard &amp; health</h3><p>Live fleet counts, an OK/Warning/Critical health overview, and one card per environment rolled up worst-first and expandable to its hosts.</p></div>
-      <div class="feat"><div class="ic">Posture</div><h3>Compliance &amp; posture</h3><p>An on-demand, read-only scan surfacing high-ticket signals — reboot required, root SSH login, firewall off, MAC not enforcing, EOL OS, expiring TLS — per host.</p></div>
-      <div class="feat"><div class="ic">Metrics</div><h3>Performance graphs</h3><p>Environment-first time-series for CPU, memory, disk, network and load, fed by the agent — drill from environment to host to per-core detail.</p></div>
-      <div class="feat"><div class="ic">Connect</div><h3>Live terminals &amp; files</h3><p>Multiple browser terminals per host, opened as your admin user — agent-hosted (works behind NAT, no inbound SSH) or a real SSH PTY — with per-host file transfer.</p></div>
-      <div class="feat"><div class="ic">Enroll</div><h3>Host enrollment</h3><p>Build single-use agent bundles or a curl one-liner, group hosts into environments, set per-host sudo policy, and disenroll cleanly.</p></div>
-      <div class="feat"><div class="ic">Users</div><h3>Users &amp; groups</h3><p>Create/lock/delete accounts, manage sudo and groups, password policy and aging, kill sessions — fleet-wide, with per-host results.</p></div>
-      <div class="feat"><div class="ic">Recover</div><h3>Health, logs &amp; recovery</h3><p>Disk/memory/CPU, failed services, log search, process control — plus boot-failure analysis, GRUB, kernel params and initramfs recovery.</p></div>
-      <div class="feat"><div class="ic">Services</div><h3>Service management</h3><p>Start/stop/enable systemd units, view logs and dependencies, one-click troubleshooting for one service or every failed one at once.</p></div>
-      <div class="feat"><div class="ic">Packages</div><h3>Packages &amp; repos</h3><p>Detect the package manager; install/remove/update, upload a local .deb/.rpm, and roll a repository out to the whole fleet — across dnf/yum/zypper/apt.</p></div>
-      <div class="feat"><div class="ic">Network</div><h3>Networking</h3><p>Connectivity and DNS diagnostics, port/socket inspection, packet capture, and IP/DNS/hostname/routing plus bonding, VLANs and bridges.</p></div>
-      <div class="feat"><div class="ic">Storage</div><h3>Storage &amp; filesystems</h3><p>Inspect and manage disks, partitions, mounts and filesystems across the fleet from one pane.</p></div>
-      <div class="feat"><div class="ic">Firewall</div><h3>Firewall &amp; hardening</h3><p>Manage firewall rules and security baselines, with the posture scan flagging what needs attention.</p></div>
+      <div class="feat"><div class="ic">/controller</div><h3>Sysible Controller</h3><p>Point-and-click fleet management — hosts, health, services, packages, and live terminals, agent or SSH. <a style="color:var(--blue);text-decoration:none" href="/controller">Overview →</a></p></div>
+      <div class="feat"><div class="ic">/slep</div><h3>Engineering Platform</h3><p>Infrastructure automation without the DSL sprawl — Terraform/OpenTofu, Ansible and Salt driven from one console.</p></div>
+      <div class="feat"><div class="ic">/connect</div><h3>Sysible Connect</h3><p>A browser terminal workspace for the fleet — drag hosts into split panes, run commands everywhere, transfer files.</p></div>
+      <div class="feat"><div class="ic">/flashback</div><h3>Sysible Flashback</h3><p>A config time machine for the fleet — browse each host’s file history, diff any two versions, and restore one live or at reboot.</p></div>
+      <div class="feat"><div class="ic">/visualizer</div><h3>Sysible Visualizer</h3><p>Activity and logs from every app in one place — Controller, Engineering Platform, Connect and Flashback, separated by app.</p></div>
+      <div class="feat"><div class="ic">/admin</div><h3>Administration</h3><p>Accounts and password resets for all of it, plus the platform’s own settings — sessions, login throttle and app upstreams. Superusers only.</p></div>
     </div>
   </div>
 </section>
+
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">A look inside</span><h2>Point-and-click, at fleet scale</h2></div>
-    <div class="gallery tour">
-      <div>
-        <div class="tour-step">01 · System Administration</div>
-        <figure class="shot">
-          <img loading="lazy" src="/img/controller/system_administration.png" width="3200" height="2000"
-            alt="The System Administration panel: eighteen fleet-wide tools, one click each">
-          <figcaption>Eighteen point-and-click tools — users, services, packages, storage, firewall, recovery — each acting across your whole fleet.</figcaption>
-        </figure>
-      </div>
-      <div>
-        <div class="tour-step">02 · Sysible Connect</div>
-        <figure class="shot">
-          <img loading="lazy" src="/img/controller/sysible_connect.png" width="3200" height="2000"
-            alt="Sysible Connect: a host list on the left, grouped actions and live terminals on the right">
-          <figcaption>One list of agent and SSH hosts, with live browser terminals and per-host file transfer.</figcaption>
-        </figure>
-      </div>
-      <div>
-        <div class="tour-step">03 · Performance</div>
-        <figure class="shot">
-          <img loading="lazy" src="/img/controller/performance.png" width="3200" height="2000"
-            alt="The Performance view: environment-first time-series charts for CPU, memory, disk and network">
-          <figcaption>Environment-first CPU / memory / disk / network graphs, drillable from environment down to a single host.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head"><span class="kicker">Transports</span><h2>Agent or SSH — the same buttons</h2></div>
+    <div class="sec-head"><span class="kicker">Single sign-on</span><h2>One sign-in, proved to every app</h2></div>
     <div class="split">
-      <div class="feat">
-        <div class="ic">Agent</div>
-        <h3>The Sysible agent</h3>
-        <p>A small Python daemon that heartbeats to the controller and polls for work. Runs as root by
-          default, or as a locked <span class="mono">sysible</span> account with passwordless sudo so every
-          action goes through a real audit trail. Its outbound channel also hosts terminals and metrics,
-          so it works behind NAT with no inbound SSH.</p>
-      </div>
-      <div class="feat">
-        <div class="ic">SSH</div>
-        <h3>Direct SSH</h3>
-        <p>For hosts that shouldn’t run a persistent daemon. Hand the controller a password once; it
-          generates and installs its own key pair and drives the host from then on — including a real
-          interactive terminal and SFTP file transfer.</p>
+      <figure class="shot">
+        <img src="/img/slop/sign-in.png" width="880" height="620"
+          alt="The SLOP sign-in page: one sign-in for Controller, Engineering Platform, Connect, Flashback and the Visualizer">
+        <figcaption>Sign in once, at the platform — not once per app.</figcaption>
+      </figure>
+      <div>
+        <div class="feat" style="margin-bottom:16px">
+          <div class="ic">Identity</div>
+          <h3>SLOP owns the accounts</h3>
+          <p>The platform ships its own identity provider: the user store, roles, and password resets for
+            every app — self-service at <span class="mono">/account</span>, superuser management at
+            <span class="mono">/admin</span>. One place to add someone, one place to lock them out.</p>
+        </div>
+        <div class="feat">
+          <div class="ic">Trust</div>
+          <h3>The gateway proves who you are</h3>
+          <p>On every proxied request the gateway asks the identity provider whether you are signed in, then
+            stamps your identity onto the upstream request together with a shared secret only it knows. Any
+            identity a browser tries to send is stripped first, so it cannot be forged — and each app trusts
+            that identity only when the secret matches.</p>
+        </div>
       </div>
     </div>
-    <p class="p-sub" style="margin-top:16px">Every action runs <b>as the administrator who triggered it</b> —
-      executed as that user on the target host with exactly their sudo rights, derived from their signed
-      login token, never from anything the client can spoof. Password-sudo hosts are fully supported.</p>
   </div>
 </section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">How it fits</span><h2>A reverse proxy, not a rewrite</h2></div>
+    <div class="code" style="max-width:760px">
+      <pre><span class="cmt"># one origin, on this host&#39;s IP — no domain, no subdomains</span>
+https://&lt;server-ip&gt;/            <span class="cmt">→ portal (sign in once)</span>
+https://&lt;server-ip&gt;/controller  <span class="cmt">→ Controller   :8800</span>
+https://&lt;server-ip&gt;/slep        <span class="cmt">→ Engineering  :8810</span>
+https://&lt;server-ip&gt;/connect     <span class="cmt">→ Connect      :8700</span>
+https://&lt;server-ip&gt;/flashback   <span class="cmt">→ Flashback    (internal)</span></pre>
+    </div>
+    <p class="p-sub" style="margin-top:16px;max-width:70ch">The gateway strips the path prefix before proxying,
+      so each app still serves at its own root and needs no knowledge of SLOP. Already running the apps and
+      only want the front door? <span class="mono">sudo ./install.sh gateway</span> installs the gateway and
+      identity provider alone and leaves the apps exactly as they are.</p>
+  </div>
+</section>
+
 <section style="padding-top:0">
   <div class="wrap">
     <div class="sec-head"><span class="kicker">Editions</span><h2>Community &amp; Enterprise</h2></div>
     <div class="split">
       <div class="feat">
         <div class="ic">Free · Open</div>
-        <h3>Community Edition (CE)</h3>
-        <p>The full fleet operations console — dashboard, posture, performance, live terminals, enrollment,
-          and every System Administration tool above. Self-hosted, one machine, one database.</p>
+        <h3>CE SLOP</h3>
+        <p>The gateway, the portal, the identity provider, Flashback and the Visualizer, in front of the
+          Community Edition apps. Everything runs in containers on one host.</p>
         <div class="muted-links" style="margin-top:14px">
-          <a href="#download">Download CE →</a>
-          <a href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">GitHub →</a>
+          <a href="#download">Install CE →</a>
+          <a href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform" rel="noopener">GitHub →</a>
         </div>
       </div>
       <div class="feat">
         <div class="ic">Enterprise</div>
-        <h3>Enterprise Edition (EE)</h3>
-        <p>Everything in CE plus D3lorean — fleet-wide host backup &amp; point-in-time restore — and further
-          capabilities for larger estates. <a style="color:var(--blue);text-decoration:none" href="mailto:sysiblesoftware@gmail.com">Get in touch</a> for access.</p>
+        <h3>EE SLOP</h3>
+        <p>The same gateway and portal in front of the Enterprise builds — PostgreSQL Controller, SSO/MFA and
+          HA. The gateway config is edition-agnostic; only the upstreams and the auth backend differ.
+          <a style="color:var(--blue);text-decoration:none" href="mailto:sysiblesoftware@gmail.com">Get in touch</a> for access.</p>
       </div>
     </div>
   </div>
 </section>
+
 <section id="download">
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">Download</span><h2>Get Controller CE</h2></div>
+    <div class="sec-head"><span class="kicker">Install</span><h2>Get SLOP CE</h2></div>
     <div class="panel">
       <div class="p-head">
-        <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-ctrl"/></svg>
+        <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slop"/></svg>
         <div>
-          <div class="p-title">Sysible Controller — Community Edition</div>
-          <p class="p-sub">Install on a single Linux machine and manage the rest — agent or SSH.</p>
+          <div class="p-title">Sysible Linux Operations Platform — Community Edition</div>
+          <p class="p-sub">One command stands up the whole stack: the apps, the gateway and the identity provider.</p>
         </div>
-        <span class="pill" id="ctrl-ver">Latest: <b>—</b></span>
+        <span class="pill">Install from source</span>
       </div>
       <div class="p-body">
         <div class="grid2">
@@ -414,34 +404,45 @@
             <p class="subhead">On Sysible Workstation</p>
             <div class="code">
               <button class="copy">Copy</button>
-              <pre><span class="cmt"># It’s baked in — just launch the installer:</span>
-install-sysible controller</pre>
+              <pre class="wrap"><span class="cmt"># Baked in — launch the installer and tick SLOP:</span>
+install-sysible slop</pre>
             </div>
-            <p class="p-sub" style="margin-top:12px">Or double-click <b>Install Sysible Software</b> on the desktop and tick <b>Controller</b>.</p>
+            <p class="p-sub" style="margin-top:12px">Or double-click <b>Install Sysible Software</b> on the desktop and tick <b>SLOP</b>.</p>
           </div>
           <div>
             <p class="subhead">Anywhere else</p>
-            <p class="p-sub" style="margin:0 0 12px">Latest Community Edition release, straight from GitHub:</p>
-            <div class="files" id="ctrl-files"></div>
+            <div class="code">
+              <button class="copy">Copy</button>
+              <pre class="wrap">git clone https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform
+cd Sysible-Linux-Operations-Platform
+sudo ./install.sh</pre>
+            </div>
+            <p class="p-sub" style="margin-top:12px">Installs Docker and git if they are missing, clones each
+              app from its own repo, and opens the portal at <span class="mono">https://&lt;server-ip&gt;/</span>.</p>
           </div>
         </div>
+        <p class="p-sub" style="margin-top:18px">To take a new release, use <span class="mono">sysible_ctl slop update</span>
+          rather than a bare rebuild: the gateway runs a bind-mounted config, so a rebuild alone leaves the new
+          one on disk and unloaded. <span class="mono">sysible_ctl</span> validates it, loads it, proves the
+          sign-in gate still fires, and waits for 443 to answer before reporting success.</p>
         <div class="muted-links" style="margin-top:18px">
-          <a href="/controller-manual.html"><b>Read the manual →</b></a>
-          <a href="https://github.com/sysiblesoftware/sysible-controller" rel="noopener">Source on GitHub ↗</a>
-          <a href="https://github.com/sysiblesoftware/sysible-controller/releases" rel="noopener">All releases ↗</a>
+          <a href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform" rel="noopener"><b>Source &amp; docs on GitHub ↗</b></a>
+          <a href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform/blob/main/docs/SSO.md" rel="noopener">How single sign-on works ↗</a>
+          <a href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture ↗</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <section style="padding-top:0">
   <div class="wrap">
     <div class="cta-band">
-      <h2>Run your fleet from one console</h2>
-      <p>Install Sysible Controller CE on a single Linux machine and manage the rest — agent or SSH.</p>
+      <h2>One address for your Linux operations</h2>
+      <p>Put SLOP in front of the apps you already run — one URL, one certificate, one sign-in.</p>
       <div class="cta" style="margin-top:0">
-        <a class="btn primary" href="#download">Download Controller CE</a>
-        <a class="btn ghost" href="/controller-manual.html">Read the docs</a>
+        <a class="btn primary" href="#download">Install SLOP CE</a>
+        <a class="btn ghost" href="/controller">Sysible Controller →</a>
       </div>
     </div>
   </div>
@@ -453,11 +454,11 @@ install-sysible controller</pre>
     <a class="brand" href="/" style="font-size:14px;text-decoration:none"><svg viewBox="-24 -26 48 52" width="22" height="24" aria-hidden="true"><use href="#mark"/></svg> Sysible</a>
     <nav>
       <a href="/linux">Sysible Workstation</a>
-      <a href="/controller-manual.html">Manual</a>
+      <a href="/controller">Controller</a>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
     </nav>
   </div>
-  <div class="wrap" style="margin-top:14px;font-size:12.5px;opacity:.8"><span>Sysible Workstation, SysTerm &amp; Controller are products of <b style="font-weight:600">Sysible Enterprise&nbsp;Software</b> (SES).</span></div>
+  <div class="wrap" style="margin-top:14px;font-size:12.5px;opacity:.8"><span>Sysible Workstation, SysTerm, Controller &amp; SLOP are products of <b style="font-weight:600">Sysible Enterprise&nbsp;Software</b> (SES).</span></div>
 </footer>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -467,13 +468,14 @@ install-sysible controller</pre>
     <g id="mark"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></g><g id="mark-ses"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><text x="0" y="6.5" text-anchor="middle" font-family="Sora,system-ui,sans-serif" font-weight="800" font-size="17" letter-spacing="-0.5" fill="#eceff3">SES</text><rect x="-13" y="14.5" width="26" height="2.9" rx="1.45" fill="#6ddb73"/></g>
     <!-- Sysible Controller mark: same tile + hub-and-nodes topology -->
     <g id="mark-ctrl"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g stroke="#8aa0c8" stroke-width="1.1" stroke-linecap="round" opacity="0.85"><line x1="0" y1="0" x2="13" y2="0"/><line x1="0" y1="0" x2="6.5" y2="11.26"/><line x1="0" y1="0" x2="-6.5" y2="11.26"/><line x1="0" y1="0" x2="-13" y2="0"/><line x1="0" y1="0" x2="-6.5" y2="-11.26"/><line x1="0" y1="0" x2="6.5" y2="-11.26"/></g><circle cx="13" cy="0" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="11.26" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="11.26" r="2.7" fill="#eceff3"/><circle cx="-13" cy="0" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="-11.26" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="-11.26" r="2.7" fill="#7aa2ff"/><circle cx="0" cy="0" r="4.6" fill="#6ddb73"/></g>
+    <!-- Sysible SLOP mark: same tile + one front door with the apps behind it -->
+    <g id="mark-slop"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g opacity="0.9"><rect x="-13" y="-18.5" width="8" height="6.4" rx="1.5" fill="none" stroke="#8aa0c8" stroke-width="1.3"/><rect x="-4" y="-18.5" width="8" height="6.4" rx="1.5" fill="none" stroke="#8aa0c8" stroke-width="1.3"/><rect x="5" y="-18.5" width="8" height="6.4" rx="1.5" fill="none" stroke="#8aa0c8" stroke-width="1.3"/></g><path d="M-8 16 V-1 a8 8 0 0 1 16 0 V16 Z" fill="none" stroke="#6ddb73" stroke-width="2.1" stroke-linejoin="round"/><circle cx="4.3" cy="7.5" r="1.6" fill="#eceff3"/></g>
   </defs>
 </svg>
 
 <script>
 (function(){
   "use strict";
-  var CTRL_REPO = "sysiblesoftware/sysible-controller";
 
   /* ---------- theme toggle ---------- */
   var root = document.documentElement, tbtn = document.getElementById("themeToggle");
@@ -533,39 +535,6 @@ install-sysible controller</pre>
     x.globalAlpha = 1;
   }
 
-  /* ---------- helpers ---------- */
-  function fmtSize(b){ if(b==null) return ""; var u=["B","KB","MB","GB"],i=0; b=+b;
-    while(b>=1024&&i<u.length-1){b/=1024;i++;} return (b>=100||i===0?Math.round(b):b.toFixed(1))+" "+u[i]; }
-  function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
-  function fileRow(a, small){
-    var e = el("a", "file"+(small?" small":""));
-    e.href = a.browser_download_url; e.rel="noopener";
-    e.appendChild(el("span","fn mono", a.name));
-    if(a.size!=null) e.appendChild(el("span","fmeta", fmtSize(a.size)));
-    e.appendChild(el("span","dl",
-      '<svg width="15" height="15" viewBox="0 0 16 16"><path d="M8 1v8m0 0L5 6m3 3l3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'));
-    return e;
-  }
-
-  /* ---------- Controller releases from GitHub ---------- */
-  function renderCtrl(release){
-    var verEl=document.querySelector("#ctrl-ver b"), box=document.getElementById("ctrl-files");
-    box.innerHTML="";
-    if(release && release.tag_name && (release.assets||[]).length){
-      verEl.textContent = release.tag_name;
-      release.assets.slice(0,5).forEach(function(a){ box.appendChild(fileRow(a, true)); });
-    } else {
-      verEl.textContent = "on GitHub";
-      var l = el("a","file small");
-      l.href = "https://github.com/"+CTRL_REPO+"/releases"; l.rel="noopener";
-      l.appendChild(el("span","fn mono","Browse Controller CE releases ↗"));
-      box.appendChild(l);
-    }
-  }
-  function ghLatest(repo){
-    return fetch("https://api.github.com/repos/"+repo+"/releases/latest", {headers:{Accept:"application/vnd.github+json"}})
-      .then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; });
-  }
 
   /* ---------- copy button ---------- */
   document.addEventListener("click", function(ev){
@@ -576,8 +545,6 @@ install-sysible controller</pre>
     });
   });
 
-  renderCtrl(null);
   drawTopo(); addEventListener("resize", drawTopo);
-  ghLatest(CTRL_REPO).then(function(r){ if(r) renderCtrl(r); });
 })();
 </script>
