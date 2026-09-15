@@ -10,3 +10,4 @@
 # SLOP has a page now. Cloudflare Pages serves /slop from slop.html, but keep
 # the .html form working for anything that linked it directly.
 /slop.html  /slop  301
+/slep.html  /slep  301

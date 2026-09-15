@@ -210,7 +210,8 @@
       <a href="/linux">Sysible Workstation</a>
       <a href="/server">Sysible Server</a>
       <a href="/controller">Controller</a>
-      <a href="/slop">SLOP</a>
+      <a href="/slep">Engineering Platform</a>
+      <a href="/slop">Operations Platform</a>
       <a href="/systerm">SysTerm</a>
       <a href="#controller">Download</a>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
@@ -412,6 +413,54 @@ install-sysible controller</pre>
     </div>
   </section>
 
+  <!-- ================ SYSIBLE LINUX ENGINEERING PLATFORM ============= -->
+  <section id="slep" style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Infrastructure automation</span>
+        <h2>Sysible Linux Engineering Platform</h2>
+      </div>
+
+      <div class="panel">
+        <div class="p-head">
+          <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slep"/></svg>
+          <div>
+            <div class="p-title">Sysible Linux Engineering Platform — Community Edition</div>
+            <p class="p-sub">Author, orchestrate and run Ansible, Terraform and Salt from one console —
+              with a real in-browser IDE.</p>
+          </div>
+        </div>
+        <div class="p-body">
+          <div class="grid2">
+            <div>
+              <p class="subhead">On Sysible Workstation</p>
+              <div class="code">
+                <button class="copy">Copy</button>
+                <pre class="wrap"><span class="cmt"># Baked in — launch the installer and tick SLEP:</span>
+install-sysible slep</pre>
+              </div>
+              <p class="p-sub" style="margin-top:12px">Or double-click <b>Install Sysible Software</b> on the desktop and tick <b>SLEP</b>.</p>
+            </div>
+            <div>
+              <p class="subhead">Anywhere else</p>
+              <div class="code">
+                <button class="copy">Copy</button>
+                <pre class="wrap">git clone https://github.com/sysiblesoftware/Sysible-Linux-Engineering-Platform
+cd Sysible-Linux-Engineering-Platform
+sudo ./deploy/install.sh</pre>
+              </div>
+              <p class="p-sub" style="margin-top:12px">One container, SQLite by default — no Kubernetes, no mesh.</p>
+            </div>
+          </div>
+          <div class="muted-links" style="margin-top:18px">
+            <a href="/slep"><b>Full Sysible Linux Engineering Platform overview →</b></a>
+            <a href="https://github.com/sysiblesoftware/Sysible-Linux-Engineering-Platform" rel="noopener">Source &amp; docs on GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========================== SYSIBLE SLOP ========================= -->
   <section id="slop" style="padding-top:8px">
     <div class="wrap">
@@ -487,6 +536,9 @@ sudo ./install.sh</pre>
     <!-- Sysible SLOP mark: nested arches = the single portal / front door.
          Ported from the platform's own favicon, not redrawn. -->
     <g id="mark-slop"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#43a047" stroke-width="1.6"/><path d="M-10.3 13.5 L-10.3 0 A10.3 10.3 0 0 1 10.3 0 L10.3 13.5" fill="none" stroke="#43a047" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M-4 13.5 L-4 1.6 A4 4 0 0 1 4 1.6 L4 13.5" fill="none" stroke="#5580ee" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <!-- Sysible Linux Engineering Platform mark: brand-blue code brackets framing a
+         brand-green run triangle. Ported from portal/marks/slep.svg, not redrawn. -->
+    <g id="mark-slep"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g fill="none" stroke="#7aa2ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="-5.2,-7.4 -11.5,0 -5.2,7.4"/><polyline points="5.2,-7.4 11.5,0 5.2,7.4"/></g>
   </defs>
 </svg>
 

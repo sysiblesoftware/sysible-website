@@ -2,7 +2,7 @@
 <title>Sysible Linux Operations Platform — one front door for the Sysible suite</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sysible Linux Operations Platform (SLOP) puts one URL, one TLS certificate and one sign-in in front of Controller, the Engineering Platform, Connect, Flashback and the Visualizer — addressed by path, on the server's raw IP. No subdomains, no DNS, no changes to the apps.">
+<meta name="description" content="Sysible Linux Operations Platform puts one URL, one TLS certificate and one sign-in in front of Controller, the Engineering Platform, Connect, Flashback and the Visualizer — addressed by path, on the server's raw IP. No subdomains, no DNS, no changes to the apps.">
 <link rel="canonical" href="https://sysible.com/slop">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
@@ -257,14 +257,14 @@
     <svg class="mark" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slop"/></svg>
     <div class="eyebrow">One Front Door for the Suite</div>
     <h1>Sysible <span class="grad">Linux Operations Platform</span></h1>
-    <p class="lede">SLOP puts one URL, one certificate and one sign-in in front of every Sysible app —
+    <p class="lede">Sysible Linux Operations Platform puts one URL, one certificate and one sign-in in front of every Sysible app —
       Controller, the Engineering Platform, Connect, Flashback and the Visualizer. Everything is addressed
       by path on the server’s raw IP, so there are no subdomains, no DNS and nothing to configure. The apps
       themselves are unchanged.</p>
     <div class="cta">
       <a class="btn primary" href="#download">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Install SLOP CE
+        Install Sysible Linux Operations Platform CE
       </a>
       <a class="btn ghost" href="https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform" rel="noopener">Source &amp; docs</a>
     </div>
@@ -276,7 +276,7 @@
   <div class="wrap">
     <figure class="shot hero-shot">
       <img src="/img/slop/portal.png" width="1600" height="900"
-        alt="The SLOP portal: one card per app — Engineering Platform, Controller, Connect, Flashback, Visualizer and Administration — each with a live health dot">
+        alt="The Sysible Linux Operations Platform portal: one card per app — Engineering Platform, Controller, Connect, Flashback, Visualizer and Administration — each with a live health dot">
       <figcaption>The portal — one card per app with a live health dot, behind a single sign-in. Administration appears only for a superuser.</figcaption>
     </figure>
   </div>
@@ -284,16 +284,16 @@
 
 <section>
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">Why SLOP</span><h2>Stop bookmarking three consoles</h2></div>
+    <div class="sec-head"><span class="kicker">Why Sysible Linux Operations Platform</span><h2>Stop bookmarking three consoles</h2></div>
     <p class="lede lead-narrow" style="margin-top:-6px">Each Sysible app is happy on its own port. Running
       several of them is where it gets tiresome: three addresses, three certificates to accept, three logins
-      to keep straight. SLOP is the front door you put in front of them — and nothing about the apps changes.</p>
+      to keep straight. Sysible Linux Operations Platform is the front door you put in front of them — and nothing about the apps changes.</p>
     <div class="features" style="margin-top:22px">
       <div class="feat"><div class="ic">One URL</div><h3>Everything by path</h3><p>The portal at <span class="mono">/</span>, then <span class="mono">/controller</span>, <span class="mono">/slep</span>, <span class="mono">/connect</span>, <span class="mono">/flashback</span>. One origin, one bookmark.</p></div>
-      <div class="feat"><div class="ic">One login</div><h3>Real single sign-on</h3><p>SLOP ships its own identity provider. Sign in once at the portal and reach every app with no second login — and no app-by-app account sprawl.</p></div>
+      <div class="feat"><div class="ic">One login</div><h3>Real single sign-on</h3><p>Sysible Linux Operations Platform ships its own identity provider. Sign in once at the portal and reach every app with no second login — and no app-by-app account sprawl.</p></div>
       <div class="feat"><div class="ic">No DNS</div><h3>Nothing to configure</h3><p>It answers on 443 for whatever IP the host has. No subdomains, no <span class="mono">/etc/hosts</span>, no domain to buy before you can try it.</p></div>
       <div class="feat"><div class="ic">One cert</div><h3>A single TLS story</h3><p>Caddy terminates HTTPS for the whole origin with an internal CA by default, so you accept one certificate instead of one per app. Bring real certs when you want them.</p></div>
-      <div class="feat"><div class="ic">Unchanged</div><h3>The apps stay themselves</h3><p>Each remains its own container on its own port, with its own native login for direct access. SLOP reverse-proxies; it does not fork or wrap them.</p></div>
+      <div class="feat"><div class="ic">Unchanged</div><h3>The apps stay themselves</h3><p>Each remains its own container on its own port, with its own native login for direct access. Sysible Linux Operations Platform reverse-proxies; it does not fork or wrap them.</p></div>
       <div class="feat"><div class="ic">Included</div><h3>Two modules of its own</h3><p>Flashback and the Visualizer ship with the gateway — a config time machine and a cross-app activity view that only make sense across the whole suite.</p></div>
     </div>
   </div>
@@ -319,13 +319,13 @@
     <div class="split">
       <figure class="shot">
         <img src="/img/slop/sign-in.png" width="880" height="620"
-          alt="The SLOP sign-in page: one sign-in for Controller, Engineering Platform, Connect, Flashback and the Visualizer">
+          alt="The Sysible Linux Operations Platform sign-in page: one sign-in for Controller, Engineering Platform, Connect, Flashback and the Visualizer">
         <figcaption>Sign in once, at the platform — not once per app.</figcaption>
       </figure>
       <div>
         <div class="feat" style="margin-bottom:16px">
           <div class="ic">Identity</div>
-          <h3>SLOP owns the accounts</h3>
+          <h3>Sysible Linux Operations Platform owns the accounts</h3>
           <p>The platform ships its own identity provider: the user store, roles, and password resets for
             every app — self-service at <span class="mono">/account</span>, superuser management at
             <span class="mono">/admin</span>. One place to add someone, one place to lock them out.</p>
@@ -355,7 +355,7 @@ https://&lt;server-ip&gt;/connect     <span class="cmt">→ Connect      :8700</
 https://&lt;server-ip&gt;/flashback   <span class="cmt">→ Flashback    (internal)</span></pre>
     </div>
     <p class="p-sub" style="margin-top:16px;max-width:70ch">The gateway strips the path prefix before proxying,
-      so each app still serves at its own root and needs no knowledge of SLOP. Already running the apps and
+      so each app still serves at its own root and needs no knowledge of Sysible Linux Operations Platform. Already running the apps and
       only want the front door? <span class="mono">sudo ./install.sh gateway</span> installs the gateway and
       identity provider alone and leaves the apps exactly as they are.</p>
   </div>
@@ -367,7 +367,7 @@ https://&lt;server-ip&gt;/flashback   <span class="cmt">→ Flashback    (intern
     <div class="split">
       <div class="feat">
         <div class="ic">Free · Open</div>
-        <h3>CE SLOP</h3>
+        <h3>Community Edition</h3>
         <p>The gateway, the portal, the identity provider, Flashback and the Visualizer, in front of the
           Community Edition apps. Everything runs in containers on one host.</p>
         <div class="muted-links" style="margin-top:14px">
@@ -377,7 +377,7 @@ https://&lt;server-ip&gt;/flashback   <span class="cmt">→ Flashback    (intern
       </div>
       <div class="feat">
         <div class="ic">Enterprise</div>
-        <h3>EE SLOP</h3>
+        <h3>Enterprise Edition</h3>
         <p>The same gateway and portal in front of the Enterprise builds — PostgreSQL Controller, SSO/MFA and
           HA. The gateway config is edition-agnostic; only the upstreams and the auth backend differ.
           <a style="color:var(--blue);text-decoration:none" href="mailto:sysiblesoftware@gmail.com">Get in touch</a> for access.</p>
@@ -388,7 +388,7 @@ https://&lt;server-ip&gt;/flashback   <span class="cmt">→ Flashback    (intern
 
 <section id="download">
   <div class="wrap">
-    <div class="sec-head"><span class="kicker">Install</span><h2>Get SLOP CE</h2></div>
+    <div class="sec-head"><span class="kicker">Install</span><h2>Get Sysible Linux Operations Platform CE</h2></div>
     <div class="panel">
       <div class="p-head">
         <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slop"/></svg>
@@ -439,9 +439,9 @@ sudo ./install.sh</pre>
   <div class="wrap">
     <div class="cta-band">
       <h2>One address for your Linux operations</h2>
-      <p>Put SLOP in front of the apps you already run — one URL, one certificate, one sign-in.</p>
+      <p>Put Sysible Linux Operations Platform in front of the apps you already run — one URL, one certificate, one sign-in.</p>
       <div class="cta" style="margin-top:0">
-        <a class="btn primary" href="#download">Install SLOP CE</a>
+        <a class="btn primary" href="#download">Install Sysible Linux Operations Platform CE</a>
         <a class="btn ghost" href="/controller">Sysible Controller →</a>
       </div>
     </div>
@@ -458,7 +458,7 @@ sudo ./install.sh</pre>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
     </nav>
   </div>
-  <div class="wrap" style="margin-top:14px;font-size:12.5px;opacity:.8"><span>Sysible Workstation, SysTerm, Controller &amp; SLOP are products of <b style="font-weight:600">Sysible Enterprise&nbsp;Software</b> (SES).</span></div>
+  <div class="wrap" style="margin-top:14px;font-size:12.5px;opacity:.8"><span>Sysible Workstation, SysTerm, Controller &amp; the Sysible Linux Operations Platform are products of <b style="font-weight:600">Sysible Enterprise&nbsp;Software</b> (SES).</span></div>
 </footer>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
