@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Sysible Linux Operations Platform — Administrator &amp; User Guide</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="One URL, one certificate and one sign-in in front of the whole Sysible suite — plus the accounts, the update console, Flashback and the Visualizer."><style>
+:root{--navy:#1a2744;--blue:#2f6fed;--ink:#202733;--dim:#5b6573;--hair:#e2e6ee;
+--bg:#eef1f6;--paper:#fff;--green:#2f9e44;--amber:#e0a93c;--red:#e05656;--code:#f4f6fa;}
+*{box-sizing:border-box;}
+@font-face{font-family:"Sora";font-style:normal;font-weight:100 800;font-display:swap;src:url("/fonts/Sora-variable.woff2") format("woff2"),url("/fonts/Sora.ttf") format("truetype");}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;
+font-family:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.page{max-width:900px;margin:0 auto 28px;background:var(--paper);padding:52px 60px;
+box-shadow:0 0 40px rgba(0,0,0,.08);}
+.cover{text-align:center;padding:90px 40px;background:linear-gradient(155deg,#15352a 0%,#0f1a2e 55%,#0b0e14 100%);color:#fff;}
+.cover h1{font-size:40px;margin:0 0 8px;} .cover .sub{font-size:18px;opacity:.9;}
+.cover .meta{margin-top:34px;font-size:13px;opacity:.8;}
+h2{color:var(--navy);border-bottom:2px solid var(--hair);padding-bottom:6px;margin-top:38px;font-size:24px;}
+h3{color:var(--navy);margin-top:26px;font-size:18px;}
+h4{color:var(--navy);margin:20px 0 4px;font-size:15.5px;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+code{background:var(--code);border:1px solid var(--hair);border-radius:4px;padding:1px 5px;font-size:13px;}
+pre{background:#1e2430;color:#e6e9ef;border-radius:8px;padding:14px 16px;overflow:auto;font-size:13px;}
+pre code{background:none;border:none;color:inherit;padding:0;}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:#f6f8fc;}
+.toc{columns:2;font-size:14px;} .toc a{display:block;padding:2px 0;}
+.note{border-left:4px solid var(--blue);background:#f3f7ff;padding:10px 14px;border-radius:0 6px 6px 0;margin:14px 0;}
+.note.warn{border-left-color:var(--amber);background:#fff9ec;}
+.note.role{border-left-color:var(--green);background:#f2fbf4;}
+ol li,ul li{margin:4px 0;}
+.pill{display:inline-block;background:#eef2fb;color:var(--blue);border-radius:10px;padding:1px 9px;font-size:12px;font-weight:600;}
+.shot{margin:18px 0;text-align:center;}
+.shot img{max-width:100%;border:1px solid var(--hair);border-radius:8px;box-shadow:0 2px 14px rgba(0,0,0,.10);}
+.shot figcaption{color:var(--dim);font-size:13px;margin-top:6px;}
+/* An empty slot is meant to be loud: a quiet gap is one nobody fills. */
+.shot-slot{border:2px dashed #c3cbdb;border-radius:8px;background:#f7f9fd;color:var(--dim);
+padding:30px 18px;font-size:13px;}
+.shot-slot b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px;}
+.shot-slot code{background:#fff;}
+footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);font-size:12px;}
+@media print{body{background:#fff;} .page{box-shadow:none;margin:0;} .shot-slot{display:none;}}
+</style></head><body><div class="cover"><span class="cover-mark"><svg viewBox="-24 -26 48 52" width="96" height="104" role="img" aria-label="Sysible"><defs><linearGradient id="tgCover" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient></defs><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tgCover)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></svg></span><h1>Sysible Linux Operations Platform</h1><div class="sub">Administrator &amp; User Guide</div><div class="meta">Version 1.0.0 · 2026-10-05</div></div><div class="page"><h2>Contents</h2><div class="toc"><a href="#overview">1. Overview</a><a href="#requirements">2. Requirements</a><a href="#installation">3. Installation</a><a href="#first-sign-in">4. First sign-in</a><a href="#the-portal">5. The portal</a><a href="#accounts-and-roles">6. Accounts and roles</a><a href="#configuration">7. Configuration</a><a href="#apps">8. Apps</a><a href="#software-services">9. Software &amp; services</a><a href="#flashback">10. Flashback</a><a href="#visualizer">11. Visualizer</a><a href="#the-gateway-and-routing">12. The gateway and routing</a><a href="#tls">13. TLS</a><a href="#single-sign-on">14. Single sign-on</a><a href="#the-sysiblectl-cli">15. The sysiblectl CLI</a><a href="#backup-and-data">16. Backup and data</a><a href="#troubleshooting">17. Troubleshooting</a><a href="#security-model">18. Security model</a><a href="#reference-ports-and-paths">19. Reference: ports and paths</a><a href="#reference-environment-variables">20. Reference: environment variables</a></div></div><div class="page"><h2 id="overview">1. Overview</h2>
+<p><b>Sysible Linux Operations Platform</b> (SLOP) is the front door to the Sysible suite. It puts one URL, one TLS certificate and one sign-in in front of every Sysible app on a host, and adds the pieces a platform needs once there is more than one app on it: a user store, an update console, a config time machine and a read-only window onto what everything has been doing.</p>
+<p>It is deliberately thin. SLOP does not replace, fork or re-host the apps — it fronts them. Each app is still its own container stack, still built from its own official repository, and still works without SLOP in front of it.</p>
+<p>What you get at <code>https://&lt;server-ip&gt;/</code>:</p>
+<table><thead><tr><th>Path</th><th>What is there</th></tr></thead><tbody><tr><td><code>/</code></td><td>The <b>portal</b> — one card per installed app, each with a live health dot</td></tr><tr><td><code>/controller/</code></td><td>Sysible Controller</td></tr><tr><td><code>/slep/</code></td><td>Sysible Linux Engineering Platform</td></tr><tr><td><code>/connect/</code></td><td>Sysible Connect</td></tr><tr><td><code>/flashback/</code></td><td><b>Flashback</b> — every version of every tracked config file</td></tr><tr><td><code>/visualizer/</code></td><td><b>Visualizer</b> — activity, logs and fleet topology</td></tr><tr><td><code>/login</code>, <code>/account</code></td><td>Sign in, and change your own password</td></tr><tr><td><code>/admin</code></td><td>Administration — accounts, configuration, apps, software &amp; services</td></tr></tbody></table>
+<figure class="shot" data-shot="portal-signed-in"><div class="shot-slot"><b>Screenshot to come</b>The portal: one card per app, each with a live health dot.<br><br>Drop it at <code>manuals/shots/slop/portal-signed-in.png</code> and re-run <code>python3 tools/generate_manuals.py slop</code>.</div></figure>
+<h3 id="what-slop-is-not">What SLOP is not</h3>
+<p>It is not a hypervisor, an orchestrator, or a replacement for the Controller. It does not manage the apps&#x27; lifecycle beyond updating them — starting, stopping and configuring a fleet is the Controller&#x27;s job, and authoring automation is SLEP&#x27;s.</p>
+<h2 id="requirements">2. Requirements</h2>
+<ul>
+<li>A 64-bit Linux host (x86-64 or arm64) you can reach on ports <b>80</b> and <b>443</b>.</li>
+<li><b>Docker Engine</b> and the <b>compose</b> plugin. The installer sets both up if they</li>
+</ul>
+<p>are missing, via Docker&#x27;s official script with a distribution-package fallback.</p>
+<ul>
+<li><b>git</b>, to clone each app from its own repository.</li>
+<li>Root, or <code>sudo</code>. The installer re-executes itself under <code>sudo</code> if you forget.</li>
+<li>Roughly 10 GB of disk for the images, the app source checkouts and Flashback&#x27;s</li>
+</ul>
+<p>history. A fleet with large config sets will want more.</p>
+<p>There is <b>no DNS requirement and nothing to configure</b>. SLOP answers on whatever address the host has.</p>
+<h2 id="installation">3. Installation</h2>
+<p>From a clone of the SLOP repository, on the host that will run it:</p>
+<pre><code class="language-sh">git clone https://github.com/sysiblesoftware/Sysible-Linux-Operations-Platform slop
+cd slop
+sudo ./install.sh</code></pre>
+<p>That brings up the whole stack. Three forms are accepted:</p>
+<table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>sudo ./install.sh</code></td><td>Apps <b>and</b> gateway — the whole stack</td></tr><tr><td><code>sudo ./install.sh apps</code></td><td>Only Controller, SLEP and Connect</td></tr><tr><td><code>sudo ./install.sh gateway</code></td><td>Only the gateway, portal, Flashback, Visualizer and updater</td></tr></tbody></table>
+<p>The installer clones Controller, SLEP and Connect into <code>/opt/sysible-src/&lt;repo&gt;</code> and brings each up through the suite&#x27;s unified <code>sysiblectl</code> CLI — which it also installs, so you can manage everything afterwards from one command. The gateway comes up from the checkout you ran it in.</p>
+<p>Nothing is re-hosted. Every app is cloned from its own official repository and built from source on your host.</p>
+<div class="note">The installer mints one strong shared secret and wires it into the gateway and every app. That secret is what makes single sign-on safe — see <b>Single sign-on</b> below — so it is written into each app&#x27;s compose <code>.env</code> and survives every later rebuild.</div>
+<h2 id="first-sign-in">4. First sign-in</h2>
+<p>Open <code>https://&lt;server-ip&gt;/</code> and you will be redirected to <code>/login</code>.</p>
+<p>On first run SLOP creates one superuser. The username is <code>admin</code> unless you set <code>SLOP_ADMIN_USER</code>. If you did not set <code>SLOP_ADMIN_PASSWORD</code>, a random password is generated and printed <b>once</b> to the <code>idp</code> service&#x27;s log:</p>
+<pre><code class="language-sh">sudo docker compose logs idp | head -20</code></pre>
+<p>You are required to change it at first sign-in. To skip that — only on a host where you set the password yourself — set <code>SLOP_ADMIN_FORCE_CHANGE=0</code>.</p>
+<figure class="shot" data-shot="login"><div class="shot-slot"><b>Screenshot to come</b>The sign-in page. One sign-in covers the portal and every app behind it.<br><br>Drop it at <code>manuals/shots/slop/login.png</code> and re-run <code>python3 tools/generate_manuals.py slop</code>.</div></figure>
+<div class="note warn">Your browser will warn about the certificate on first visit. That is expected: by default SLOP mints its own. See <b>TLS</b> for the three ways to resolve it, and do resolve it — clicking through a warning every day teaches everyone to click through warnings.</div>
+<h2 id="the-portal">5. The portal</h2>
+<p>The portal is the root page. It shows one card per app, each with a live health dot, so &quot;is Connect up?&quot; is answered without opening Connect.</p>
+<p>The dots are not guesses. The portal calls <b>same-origin</b> health paths (<code>/healthz/controller</code>, <code>/healthz/slep</code>, and so on) and the gateway proxies each to that app&#x27;s own health endpoint. Same-origin avoids every cross-domain and CORS problem that a dashboard of links to other hosts would otherwise have.</p>
+<p>A dot has three states: healthy, unhealthy, and still being checked. An app that is not installed on this host is not shown as broken — it is simply absent.</p>
+<h2 id="accounts-and-roles">6. Accounts and roles</h2>
+<p><b>Administration → Accounts</b> (<code>/admin</code>) is where users are created, roles are set, passwords are reset and accounts are removed. It is superuser-only.</p>
+<p>There are three roles, and they mean the same thing in every app behind SLOP:</p>
+<table><thead><tr><th>Role</th><th>Can</th></tr></thead><tbody><tr><td><code>superuser</code></td><td>Everything, including managing accounts and updating software</td></tr><tr><td><code>operator</code></td><td>Do the work — run jobs, restore configs, change app state</td></tr><tr><td><code>auditor</code></td><td>Read. Nothing an auditor does changes anything</td></tr></tbody></table>
+<div class="note role">The role is asserted by SLOP and enforced by each app independently. An auditor cannot reach an operator&#x27;s actions by going to an app directly, because the app re-checks the role itself rather than trusting that the gateway already did.</div>
+<figure class="shot" data-shot="admin-accounts"><div class="shot-slot"><b>Screenshot to come</b>Administration → Accounts: the user store, roles and password resets.<br><br>Drop it at <code>manuals/shots/slop/admin-accounts.png</code> and re-run <code>python3 tools/generate_manuals.py slop</code>.</div></figure>
+<h3 id="your-account">Your account</h3>
+<p>Any signed-in user can open <b>Your account</b> (<code>/account</code>) to change their own password. Minimum length is 10 characters by default (<code>SLOP_MIN_PASSWORD_LEN</code>). A sign-in lasts 12 hours (<code>SLOP_SESSION_TTL</code>).</p>
+<p>Repeated failed sign-ins are throttled: 8 attempts per source in a rolling 5-minute window by default.</p>
+<h2 id="configuration">7. Configuration</h2>
+<p><b>Administration → Configuration</b> (<code>/admin/settings</code>) shows the settings this SLOP is actually running with, each with a line on what it does — the bootstrap admin, password policy, session lifetime, login throttling and the upstreams.</p>
+<p>It is <b>read-only on purpose</b>. These are environment variables set on the containers, so the file on disk and the running service can never disagree about what is in effect: the page reports what the process holds, not what somebody meant to set. To change one, edit the compose <code>.env</code> and recreate the stack.</p>
+<figure class="shot" data-shot="admin-configuration"><div class="shot-slot"><b>Screenshot to come</b>Administration → Configuration: the effective settings, and what each one does.<br><br>Drop it at <code>manuals/shots/slop/admin-configuration.png</code> and re-run <code>python3 tools/generate_manuals.py slop</code>.</div></figure>
+<h2 id="apps">8. Apps</h2>
+<p><b>Administration → Apps</b> (<code>/admin/apps</code>) hosts each app&#x27;s own administration UI in place, so the settings that belong to the Controller stay in the Controller rather than being copied into a second screen that drifts out of date.</p>
+<h2 id="software-services">9. Software &amp; services</h2>
+<p><b>Administration → Software &amp; services</b> (<code>/admin/updates</code>) is the update console for everything on the host: Controller, SLEP, Connect and SLOP itself.</p>
+<p>Each product shows one line of state — up to date, an update available with the two commits, or why it cannot be checked — plus whether its containers are running. Each row offers:</p>
+<ul>
+<li><b>Update now</b> — pull the checkout forward and rebuild its containers.</li>
+<li><b>Update all</b> — every product that can be updated, in one sequential job, SLOP</li>
+</ul>
+<p>last. One product failing does not stop the rest.</p>
+<ul>
+<li><b>Manage</b> — Restart, Stop, Start and Recreate that product&#x27;s containers, so a</li>
+</ul>
+<p>wedged service can be recovered without a shell on the host.</p>
+<figure class="shot" data-shot="admin-updates"><div class="shot-slot"><b>Screenshot to come</b>Administration → Software &amp; services: what is behind, and what can be done about it.<br><br>Drop it at <code>manuals/shots/slop/admin-updates.png</code> and re-run <code>python3 tools/generate_manuals.py slop</code>.</div></figure>
+<p>An update is a real job with a live log. Availability is remembered for a few minutes so that merely browsing the console does not query every git remote on every page; <b>Check now</b> forces a fresh look.</p>
+<div class="note">Updating SLOP recreates the gateway and this console, so you are signed out briefly while it rebuilds. That is why it is always updated <b>last</b> in a batch — anything queued behind it would be killed mid-pull. The job is handed to a detached helper so it survives the container it started in.</div>
+<h3 id="when-an-update-is-refused">When an update is refused</h3>
+<p>A checkout with local modifications to tracked files is not updated, because a pull would overwrite them. The row says so and names the command that shows them. Untracked files — including the <code>.env</code> the installer writes — are not local modifications and do not block anything.</p>
+<p>If the console says an update is available and <code>git pull</code> on the host says &quot;Already up to date&quot;, check the path shown on the row: <code>SYSIBLE_&lt;APP&gt;_DIR</code> can point somewhere other than <code>/opt/sysible-src/&lt;repo&gt;</code>, and the two of you may be looking at different checkouts.</p>
+<h2 id="flashback">10. Flashback</h2>
+<p><b>Flashback</b> is the config time machine: every version of every tracked config file on every host, with a diff, a download, a viewer and a one-click restore. It ships inside the SLOP stack and is reached at <code>/flashback/</code>.</p>
+<p>It has its own manual — see the <a href="/flashback-manual.html">Sysible Flashback guide</a>.</p>
+<h2 id="visualizer">11. Visualizer</h2>
+<p><b>Visualizer</b> is the read-only window onto the platform: who did what across every app, the logs those apps expose, and the fleet drawn as a picture. It ships inside the SLOP stack and is reached at <code>/visualizer/</code>.</p>
+<p>It has its own manual — see the <a href="/visualizer-manual.html">Sysible Visualizer guide</a>.</p>
+<h2 id="the-gateway-and-routing">12. The gateway and routing</h2>
+<p>There is one origin and no DNS. SLOP answers on 443 for whatever address the host has, and everything lives on that origin addressed by <b>path</b>:</p>
+<pre><code>https://&lt;server-ip&gt;/              the portal
+https://&lt;server-ip&gt;/controller/   → SLOP_CONTROLLER_UPSTREAM (host port 8800)
+https://&lt;server-ip&gt;/slep/         → SLOP_SLEP_UPSTREAM        (host port 8810)
+https://&lt;server-ip&gt;/connect/      → SLOP_CONNECT_UPSTREAM     (host port 8700)
+https://&lt;server-ip&gt;/flashback/    → the flashback service
+https://&lt;server-ip&gt;/visualizer/   → the visualizer service</code></pre>
+<p><b>Why paths and not subdomains.</b> One origin means one session cookie and zero DNS: no apex record, no wildcard certificate, no <code>/etc/hosts</code> entries, and it works on a raw IP from any machine on the network. Each app is built with its prefix as its front-end base path, so the browser asks for <code>/controller/assets/...</code>; the gateway strips the prefix and the app sees its own root paths, cookies and websockets unchanged.</p>
+<p>Port 80 exists only to redirect to 443.</p>
+<h2 id="tls">13. TLS</h2>
+<p>Caddy owns TLS for every site, and there are three ways to run it.</p>
+<p><b>Internal CA (the default).</b> Caddy mints one certificate under a fixed internal name and serves it for every raw-IP request. This is why the first visit warns. To make the warning go away properly, export the root and trust it on the machines that will use SLOP:</p>
+<pre><code class="language-sh">sudo docker compose cp gateway:/data/caddy/pki/authorities/local/root.crt .</code></pre>
+<p><b>Public certificates.</b> Point a real DNS name at the host, give the <code>:443</code> site that name and set an ACME email in the global block. Caddy fetches and renews Let&#x27;s Encrypt certificates automatically.</p>
+<p><b>Your own certificate.</b> Mount a certificate and key and use <code>tls /path/cert.pem /path/key.pem</code>.</p>
+<p>The apps keep serving their own HTTPS internally; the gateway reaches them over the loopback interface and does not verify those internal certificates, which are self-signed by design.</p>
+<h2 id="single-sign-on">14. Single sign-on</h2>
+<p>In Community Edition <b>SLOP owns identity</b>. It ships a small identity provider with the user store, the login page and the account screens, and the apps behind it no longer show their own login.</p>
+<p>On every proxied request the gateway asks the IdP whether the browser is signed in. A yes lets the request through; a no redirects to <code>/login?next=…</code> so you land back where you were going.</p>
+<h3 id="the-trust-boundary">The trust boundary</h3>
+<p>Before proxying, the gateway does three things, and the order matters:</p>
+<ol>
+<li><b>Strips</b> any client-supplied <code>X-Sysible-User</code>, <code>X-Sysible-Role</code> and</li>
+</ol>
+<p><code>X-Sysible-Auth</code> headers. A browser must never be able to assert who it is.</p>
+<ol>
+<li><b>Injects</b> the real identity from the IdP.</li>
+<li><b>Stamps</b> a shared secret proving the request came through the gateway.</li>
+</ol>
+<p>Each app honours an asserted identity <b>only</b> when its trust flag is on *and* the shared secret matches. Someone reaching an app directly cannot know the secret, so they cannot forge the headers — and if the secret is unset the apps <b>fail closed</b> and ignore identity headers entirely rather than trusting them.</p>
+<div class="note warn">This means the shared secret is the whole boundary. Treat it like a private key: it lives in each app&#x27;s <code>.env</code> at mode 0600, and it should never be passed on a command line, where any local user can read it out of <code>/proc</code>.</div>
+<h2 id="the-sysiblectl-cli">15. The sysiblectl CLI</h2>
+<p>Everything on the host is managed with one command. SLOP is a product like the others:</p>
+<pre><code class="language-sh">sysiblectl status                  # every product, at a glance
+sysiblectl slop restart            # restart the gateway stack
+sysiblectl controller update       # pull and rebuild one product
+sysiblectl update all              # everything
+sysiblectl slop logs               # follow a product&#x27;s logs</code></pre>
+<p>The verbs are <code>start</code>, <code>stop</code>, <code>restart</code>, <code>status</code>, <code>logs</code>, <code>update</code>, <code>rebuild</code>, <code>backup</code> and <code>destroy</code>. <code>rebuild</code> is the one that builds images from source; <code>start</code> will build first if a product has never been built on this host.</p>
+<h2 id="backup-and-data">16. Backup and data</h2>
+<p>SLOP keeps its state in named Docker volumes:</p>
+<table><thead><tr><th>Volume</th><th>Holds</th></tr></thead><tbody><tr><td><code>slop-idp-data</code></td><td>The user store — accounts, roles, password hashes</td></tr><tr><td><code>slop-caddy-data</code></td><td>TLS certificates and the internal CA</td></tr><tr><td><code>flashback-data</code></td><td>Every captured config version</td></tr></tbody></table>
+<p>The app checkouts under <code>/opt/sysible-src</code> are ordinary git clones and can be re-cloned. The volumes cannot — back them up. <code>sysiblectl slop backup</code> captures the stack&#x27;s volumes; losing <code>slop-idp-data</code> means recreating every account, and losing <code>flashback-data</code> means losing the config history.</p>
+<h2 id="troubleshooting">17. Troubleshooting</h2>
+<p><b>The portal shows grey dots.</b> The dot means &quot;still checking&quot;. If it stays grey, that app&#x27;s health endpoint is not answering — check <code>sysiblectl status</code> and the app&#x27;s own logs. Grey is not the same as red: red means it answered and said it was unhealthy.</p>
+<p><b>A browser warning on every visit.</b> Expected with the default internal CA. Trust the root certificate (see <b>TLS</b>) rather than clicking through.</p>
+<p><b>An app shows its own login page.</b> Its SSO trust flag or shared secret is missing, so it has failed closed and fallen back to local authentication. Check that app&#x27;s <code>.env</code> for <code>SYSIBLE_SSO_SHARED_SECRET</code> and its trust flag.</p>
+<p><b>Sign-in says too many attempts.</b> The throttle has tripped: 8 failures per source in 5 minutes by default. Wait it out or raise <code>SLOP_LOGIN_MAX_ATTEMPTS</code>.</p>
+<p><b>An update will not start.</b> See <b>When an update is refused</b> above.</p>
+<h2 id="security-model">18. Security model</h2>
+<ul>
+<li><b>One origin, one cookie.</b> The session cookie is host-only with no <code>Domain=</code>,</li>
+</ul>
+<p>which is both the correct cookie for a raw IP and the thing that makes a single sign-in cover every app.</p>
+<ul>
+<li><b>The gateway is the enforcement point</b>, and every app re-checks the identity</li>
+</ul>
+<p>it is handed. Defence does not depend on the gateway alone.</p>
+<ul>
+<li><b>Fail closed everywhere.</b> No shared secret means identity headers are</li>
+</ul>
+<p>ignored, not trusted. No pinned fingerprint means a vendor key is refused, not installed.</p>
+<ul>
+<li><b>The updater holds the Docker socket</b>, which is root-equivalent on the host.</li>
+</ul>
+<p>It therefore accepts exactly one thing from a caller: a key from a fixed allowlist. It never accepts a path, a repository, a branch or a command.</p>
+<ul>
+<li><b>Security headers</b> are set at the gateway for every response, including HSTS,</li>
+</ul>
+<p><code>nosniff</code>, a frame policy and a referrer policy.</p>
+<ul>
+<li><b>Nothing is re-hosted.</b> Every app is built from its own official repository on</li>
+</ul>
+<p>your host, and vendor signing keys are pinned by fingerprint — an unrecognised key fails the build rather than being trusted.</p>
+<h2 id="reference-ports-and-paths">19. Reference: ports and paths</h2>
+<table><thead><tr><th>Port</th><th>Who</th><th>Notes</th></tr></thead><tbody><tr><td>80</td><td>Gateway</td><td>Redirects to 443</td></tr><tr><td>443</td><td>Gateway</td><td>The only published front door</td></tr><tr><td>8800</td><td>Controller</td><td>Its own console, fronted at <code>/controller/</code></td></tr><tr><td>8810</td><td>SLEP</td><td>Fronted at <code>/slep/</code></td></tr><tr><td>8700</td><td>Connect</td><td>Fronted at <code>/connect/</code></td></tr><tr><td>9000</td><td>Controller backend</td><td>The agent/API port</td></tr></tbody></table>
+<p>The IdP, Flashback&#x27;s console, the Visualizer and the updater are <b>not published</b> on the host. They are reachable only through the gateway, which is the point.</p>
+<h2 id="reference-environment-variables">20. Reference: environment variables</h2>
+<p>Set these in the compose <code>.env</code> next to <code>docker-compose.yml</code>.</p>
+<table><thead><tr><th>Variable</th><th>Default</th><th>Meaning</th></tr></thead><tbody><tr><td><code>SLOP_ADMIN_USER</code></td><td><code>admin</code></td><td>First-run superuser name</td></tr><tr><td><code>SLOP_ADMIN_PASSWORD</code></td><td>generated</td><td>First-run password; printed once to the idp log if unset</td></tr><tr><td><code>SLOP_ADMIN_FORCE_CHANGE</code></td><td><code>1</code></td><td>Require a password change at first sign-in</td></tr><tr><td><code>SLOP_MIN_PASSWORD_LEN</code></td><td><code>10</code></td><td>Minimum password length</td></tr><tr><td><code>SLOP_SESSION_TTL</code></td><td><code>43200</code></td><td>Sign-in lifetime, in seconds (12 hours)</td></tr><tr><td><code>SLOP_LOGIN_MAX_ATTEMPTS</code></td><td><code>8</code></td><td>Failed sign-ins per source before throttling</td></tr><tr><td><code>SLOP_LOGIN_WINDOW_S</code></td><td><code>300</code></td><td>The window those failures are counted over</td></tr><tr><td><code>SYSIBLE_SSO_SHARED_SECRET</code></td><td>generated</td><td>Proves a request came through the gateway</td></tr><tr><td><code>SLOP_CONTROLLER_UPSTREAM</code></td><td><code>host.docker.internal:8800</code></td><td>Where the Controller is</td></tr><tr><td><code>SLOP_SLEP_UPSTREAM</code></td><td><code>host.docker.internal:8810</code></td><td>Where SLEP is</td></tr><tr><td><code>SLOP_CONNECT_UPSTREAM</code></td><td><code>host.docker.internal:8700</code></td><td>Where Connect is</td></tr><tr><td><code>SYSIBLE_SRC_DIR</code></td><td><code>/opt/sysible-src</code></td><td>Where the app checkouts live</td></tr><tr><td><code>SYSIBLE_FLASHBACK_KEEP</code></td><td><code>50</code></td><td>Versions kept per file (see the Flashback guide)</td></tr></tbody></table></div><footer>Sysible Linux Operations Platform v1.0.0 — generated 2026-10-05 by tools/generate_manuals.py<div style="margin-top:14px;opacity:.8">The Sysible Linux platforms are products of <b>Sysible Enterprise&nbsp;Software</b> (SES).</div></footer></body></html>
