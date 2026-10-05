@@ -1,17 +1,17 @@
 {
   "arches": {
     "amd64": {
-      "iso": "live-image-amd64.hybrid.iso",
+      "iso": "sysible-workstation-amd64.iso",
       "parts": [
         {
-          "name": "live-image-amd64.hybrid.iso.00.part",
+          "name": "sysible-workstation-amd64.iso.00.part",
           "size": 1992294400,
-          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-amd64.hybrid.iso.00.part"
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/sysible-workstation-amd64.iso.00.part"
         },
         {
-          "name": "live-image-amd64.hybrid.iso.01.part",
-          "size": 1471283200,
-          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-amd64.hybrid.iso.01.part"
+          "name": "sysible-workstation-amd64.iso.01.part",
+          "size": 1518075904,
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/sysible-workstation-amd64.iso.01.part"
         }
       ],
       "partsSums": {
@@ -28,17 +28,17 @@
       }
     },
     "arm64": {
-      "iso": "live-image-arm64.hybrid.iso",
+      "iso": "sysible-workstation-arm64.iso",
       "parts": [
         {
-          "name": "live-image-arm64.hybrid.iso.00.part",
+          "name": "sysible-workstation-arm64.iso.00.part",
           "size": 1992294400,
-          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-arm64.hybrid.iso.00.part"
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/sysible-workstation-arm64.iso.00.part"
         },
         {
-          "name": "live-image-arm64.hybrid.iso.01.part",
-          "size": 1095630848,
-          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/live-image-arm64.hybrid.iso.01.part"
+          "name": "sysible-workstation-arm64.iso.01.part",
+          "size": 1167589376,
+          "url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/download/v1.0.2/sysible-workstation-arm64.iso.01.part"
         }
       ],
       "partsSums": {
@@ -58,7 +58,7 @@
   "codename": "Ignition",
   "html_url": "https://github.com/sysiblesoftware/Sysible-Workstation/releases/tag/v1.0.2",
   "name": "Sysible Workstation v1.0.2",
-  "published_at": "2026-08-14T04:02:30Z",
+  "published_at": "2026-10-05T12:59:06Z",
   "tag": "v1.0.2",
   "version": "1.0.2"
 }
