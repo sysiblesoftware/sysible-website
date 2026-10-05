@@ -85,6 +85,9 @@
      the bar carries a handful of items and the names get the room they need
      inside it. <details> rather than a scripted dropdown: it opens on click and
      on Enter/Space, and it still works with no JS at all. */
+  /* The header is sticky, so an in-page jump put the target's heading underneath
+     it. Every anchored id on the site was affected (#download, #verify, #key…). */
+  [id]{scroll-margin-top:84px}
   .bar nav .menu{position:relative}
   .bar nav .menu>summary{list-style:none; cursor:pointer; color:var(--muted);
     font-size:14px; display:inline-flex; align-items:center; gap:.4em}

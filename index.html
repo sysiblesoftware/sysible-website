@@ -85,6 +85,9 @@
      the bar carries a handful of items and the names get the room they need
      inside it. <details> rather than a scripted dropdown: it opens on click and
      on Enter/Space, and it still works with no JS at all. */
+  /* The header is sticky, so an in-page jump put the target's heading underneath
+     it. Every anchored id on the site was affected (#download, #verify, #key…). */
+  [id]{scroll-margin-top:84px}
   .bar nav .menu{position:relative}
   .bar nav .menu>summary{list-style:none; cursor:pointer; color:var(--muted);
     font-size:14px; display:inline-flex; align-items:center; gap:.4em}
@@ -246,7 +249,7 @@
           <a href="/systerm">SysTerm</a>
         </div>
       </details>
-      <a href="#controller">Download</a>
+      <a href="#download">Download</a>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
     </nav>
@@ -274,6 +277,11 @@
 </div>
 
 <main>
+  <!-- The nav's "Download" lands here: the top of the run of installable images,
+       Workstation first. It used to point at #controller — one product out of six,
+       and the one with no ISO — which read as arbitrary because it was. Every other
+       page already uses #download, so the link is now the same everywhere. -->
+  <span id="download" aria-hidden="true"></span>
   <!-- ====================== SYSIBLE WORKSTATION ====================== -->
   <section id="linux">
     <div class="wrap">
