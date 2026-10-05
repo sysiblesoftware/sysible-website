@@ -67,7 +67,7 @@
   /* ---- top bar ---- */
   header.bar{position:sticky; top:0; z-index:20; backdrop-filter:saturate(1.2) blur(10px);
     background:color-mix(in srgb, var(--bg) 82%, transparent); border-bottom:1px solid var(--line)}
-  .bar .wrap{display:flex; align-items:center; gap:14px; height:60px}
+  .bar .wrap{display:flex; align-items:center; gap:14px; min-height:60px; padding-block:8px}
   .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
   .brand svg{width:26px; height:28px; display:block}
   .bar nav{margin-left:auto; display:flex; gap:22px; align-items:center;
@@ -244,7 +244,7 @@
       <a href="/linux">Sysible Workstation</a>
       <a href="/server">Sysible Server</a>
       <a href="/controller">Controller</a>
-      <a href="/slop">Operations Platform</a>
+      <a href="/slop">Sysible Linux Operations Platform</a>
       <a href="#download">Install</a>
       <a href="https://github.com/sysiblesoftware/Sysible-Linux-Engineering-Platform" rel="noopener">GitHub</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
@@ -392,7 +392,7 @@ cd Sysible-Linux-Engineering-Platform
 sudo ./deploy/install.sh</pre>
             </div>
             <p class="p-sub" style="margin-top:12px">The console comes up on <span class="mono">https://&lt;host&gt;:8810/</span>.
-              Behind the <a style="color:var(--blue);text-decoration:none" href="/slop">Operations Platform</a> it is at <span class="mono">/slep</span> instead, with no second login.</p>
+              Behind the <a style="color:var(--blue);text-decoration:none" href="/slop">Sysible Linux Operations Platform</a> it is at <span class="mono">/slep</span> instead, with no second login.</p>
           </div>
         </div>
         <div class="muted-links" style="margin-top:18px">
@@ -425,7 +425,7 @@ sudo ./deploy/install.sh</pre>
     <nav>
       <a href="/linux">Sysible Workstation</a>
       <a href="/controller">Controller</a>
-      <a href="/slop">Operations Platform</a>
+      <a href="/slop">Sysible Linux Operations Platform</a>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
     </nav>
   </div>
