@@ -121,7 +121,7 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <ul>
 <li><b>The agent endpoint is separate and deliberately narrow.</b> Agents post</li>
 </ul>
-<p>snapshots to their own port, which is bound to the Docker bridge address rather than to every interface: reachable from this host and from containers on it, not from the network. It is authenticated with its own token (<code>SYSIBLE_FLASHBACK_AGENT_TOKEN</code>), distinct from any operator&#x27;s session.</p>
+<p>snapshots to their own port, which is bound to the Docker bridge address rather than to every interface: reachable from this host and from containers on it, not from the network. It is authenticated with its own token (<code>SYSIBLE_FLASHBACK_AGENT_TOKEN</code>), distinct from any operator&#x27;s session. Only the Controller holds that token — managed hosts never see it, they talk to the Controller and it relays.</p>
 <ul>
 <li><b>A restore cannot be used to write arbitrary content.</b> It names a host, a path</li>
 </ul>
@@ -134,6 +134,7 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <li><b>Everything that changes a host is audited</b>, with the account that asked.</li>
 </ul>
 <div class="note warn">Captured configuration frequently contains secrets: keys in <code>/etc/ssh</code>, credentials in service configs, tokens in environment files. Flashback is therefore as sensitive as the hosts it protects. Give <code>auditor</code> to people who should read config history, and treat the <code>flashback-data</code> volume with the same care as a password store.</div>
+<div class="note warn"><b>Do not point <code>SYSIBLE_FLASHBACK_AGENT_BIND</code> at <code>0.0.0.0</code>.</b> The agent endpoint takes the host identifier from the caller and authenticates with one token shared by everything that posts snapshots, so publishing it on every interface means anything holding that token can write <i>any</i> host&#x27;s config history and read the restores queued for it. That is safe as shipped only because the port is on the Docker bridge and only the Controller has the token. Flashback prints a warning at startup if this is set to a wildcard; do not configure it that way unless you have given each agent its own credential.</div>
 <h2 id="troubleshooting">11. Troubleshooting</h2>
 <p><b>No hosts at all.</b> The Controller is not pointed at Flashback, or no agent has checked in yet. The banner at the top of the hosts column says which.</p>
 <p><b>A host is listed but has no files.</b> It has been seen but has not captured yet. Use <b>Back up now</b> on its row and give it one check-in interval.</p>

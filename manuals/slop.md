@@ -90,14 +90,26 @@ Open `https://<server-ip>/` and you will be redirected to `/login`.
 
 On first run SLOP creates one superuser. The username is `admin` unless you set
 `SLOP_ADMIN_USER`. If you did not set `SLOP_ADMIN_PASSWORD`, a random password is
-generated and printed **once** to the `idp` service's log:
+generated and written to a file inside the `idp` container, readable only by
+root:
+
+```sh
+sudo docker compose exec idp cat /data/initial-password
+```
+
+The `idp` log tells you the same path, so start there if you are unsure:
 
 ```sh
 sudo docker compose logs idp | head -20
 ```
 
-You are required to change it at first sign-in. To skip that — only on a host
-where you set the password yourself — set `SLOP_ADMIN_FORCE_CHANGE=0`.
+The password itself is deliberately **not** in the log. A container log is kept
+and `docker compose logs` replays it to anyone who can read it for as long as the
+service lives, so "shown once" was never once. The file is deleted the first time
+that account signs in.
+
+You are required to change the password at first sign-in. To skip that — only on
+a host where you set the password yourself — set `SLOP_ADMIN_FORCE_CHANGE=0`.
 
 :::shot login
 The sign-in page. One sign-in covers the portal and every app behind it.
@@ -305,9 +317,16 @@ the shared secret matches. Someone reaching an app directly cannot know the
 secret, so they cannot forge the headers — and if the secret is unset the apps
 **fail closed** and ignore identity headers entirely rather than trusting them.
 
+Reaching an app directly is also made harder, separately: the installer binds
+each app's console to the Docker bridge rather than to every interface, so the
+gateway can reach it and the network cannot. That is not what stops a forged
+identity — the secret is — but it does mean the gateway's security headers and
+the IdP's login throttle cannot be skipped by going straight to `:8800`. See
+**Reference: ports and paths**.
+
 :::warn
-This means the shared secret is the whole boundary. Treat it like a private key:
-it lives in each app's `.env` at mode 0600, and it should never be passed on a
+The shared secret is the boundary that matters. Treat it like a private key: it
+lives in each app's `.env` at mode 0600, and it should never be passed on a
 command line, where any local user can read it out of `/proc`.
 :::
 
@@ -387,14 +406,26 @@ source in 5 minutes by default. Wait it out or raise
 | Port | Who | Notes |
 |---|---|---|
 | 80 | Gateway | Redirects to 443 |
-| 443 | Gateway | The only published front door |
-| 8800 | Controller | Its own console, fronted at `/controller/` |
-| 8810 | SLEP | Fronted at `/slep/` |
-| 8700 | Connect | Fronted at `/connect/` |
-| 9000 | Controller backend | The agent/API port |
+| 443 | Gateway | The only front door on the network |
+| 8800 | Controller | Its own console. Bound to the Docker bridge — see below |
+| 8810 | SLEP | Its own console. Bound to the Docker bridge |
+| 8700 | Connect | Its own console. Bound to the Docker bridge |
+| 9000 | Controller backend | The agent/CLI API. **On every interface, by design** |
 
 The IdP, Flashback's console, the Visualizer and the updater are **not published**
-on the host. They are reachable only through the gateway, which is the point.
+on the host at all. They are reachable only through the gateway.
+
+The three app consoles are published, but the installer binds them to the Docker
+bridge gateway address rather than to every interface — reachable from this host
+and the containers on it, which is how the gateway reaches them, and not from the
+network. Without that, the gateway could simply be walked around: straight to
+`:8800` and its HSTS, CSP and frame headers are gone, along with the IdP's
+central login throttle. Override per app with `SYSIBLE_CONTROLLER_CONSOLE_BIND`,
+`SYSIBLE_SLEP_BIND` and `SYSIBLE_CONNECT_BIND` in each app's own `.env`.
+
+Port **9000 is deliberately left on every interface**. It is the Controller's
+agent and CLI API, and managed hosts across the network dial it; restricting it
+would cut off every agent on the fleet.
 
 ## Reference: environment variables
 
@@ -403,7 +434,7 @@ Set these in the compose `.env` next to `docker-compose.yml`.
 | Variable | Default | Meaning |
 |---|---|---|
 | `SLOP_ADMIN_USER` | `admin` | First-run superuser name |
-| `SLOP_ADMIN_PASSWORD` | generated | First-run password; printed once to the idp log if unset |
+| `SLOP_ADMIN_PASSWORD` | generated | First-run password. If unset, one is generated into `/data/initial-password` (mode 0600) in the idp container, never the log |
 | `SLOP_ADMIN_FORCE_CHANGE` | `1` | Require a password change at first sign-in |
 | `SLOP_MIN_PASSWORD_LEN` | `10` | Minimum password length |
 | `SLOP_SESSION_TTL` | `43200` | Sign-in lifetime, in seconds (12 hours) |
@@ -415,3 +446,8 @@ Set these in the compose `.env` next to `docker-compose.yml`.
 | `SLOP_CONNECT_UPSTREAM` | `host.docker.internal:8700` | Where Connect is |
 | `SYSIBLE_SRC_DIR` | `/opt/sysible-src` | Where the app checkouts live |
 | `SYSIBLE_FLASHBACK_KEEP` | `50` | Versions kept per file (see the Flashback guide) |
+| `SLOP_MAX_REQUEST_BYTES` | `1048576` | Largest request body the IdP accepts |
+| `SYSIBLE_UPDATER_MAX_REQUEST_BYTES` | `262144` | Largest request body the updater accepts |
+| `SYSIBLE_CONTROLLER_CONSOLE_BIND` | the Docker bridge | Address the Controller's console binds to |
+| `SYSIBLE_SLEP_BIND` | the Docker bridge | Address SLEP's console binds to |
+| `SYSIBLE_CONNECT_BIND` | the Docker bridge | Address Connect's console binds to |

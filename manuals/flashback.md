@@ -209,7 +209,9 @@ in minutes, and the history cannot be rebuilt at all.
   snapshots to their own port, which is bound to the Docker bridge address rather
   than to every interface: reachable from this host and from containers on it,
   not from the network. It is authenticated with its own token
-  (`SYSIBLE_FLASHBACK_AGENT_TOKEN`), distinct from any operator's session.
+  (`SYSIBLE_FLASHBACK_AGENT_TOKEN`), distinct from any operator's session. Only
+  the Controller holds that token — managed hosts never see it, they talk to the
+  Controller and it relays.
 - **A restore cannot be used to write arbitrary content.** It names a host, a path
   and a version that Flashback already stores; anything else is refused. You
   cannot restore a file to a host that never had it, or restore content that was
@@ -224,6 +226,17 @@ credentials in service configs, tokens in environment files. Flashback is
 therefore as sensitive as the hosts it protects. Give `auditor` to people who
 should read config history, and treat the `flashback-data` volume with the same
 care as a password store.
+:::
+
+:::warn
+**Do not point `SYSIBLE_FLASHBACK_AGENT_BIND` at `0.0.0.0`.** The agent endpoint
+takes the host identifier from the caller and authenticates with one token shared
+by everything that posts snapshots, so publishing it on every interface means
+anything holding that token can write *any* host's config history and read the
+restores queued for it. That is safe as shipped only because the port is on the
+Docker bridge and only the Controller has the token. Flashback prints a warning
+at startup if this is set to a wildcard; do not configure it that way unless you
+have given each agent its own credential.
 :::
 
 ## Troubleshooting
