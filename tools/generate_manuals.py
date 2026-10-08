@@ -103,6 +103,12 @@ def _inline(text: str) -> str:
     text = html.escape(text)
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", text)
+    # Single asterisks too. Four places in the manuals had been written in plain
+    # Markdown's *emphasis* and were coming out as literal asterisks in the
+    # published HTML, which is the sort of thing nobody re-reads a shipped manual
+    # to find. ** is consumed above, so nothing here can see a bold marker; the
+    # boundary guards stop a lone asterisk eating the rest of a paragraph.
+    text = re.sub(r"(?<![*\w])\*([^*]+)\*(?![*\w])", r"<i>\1</i>", text)
     text = re.sub(r"(?<!\w)_([^_]+)_(?!\w)", r"<i>\1</i>", text)
     return re.sub(r"\x00(\d+)\x00", lambda m: f"<code>{spans[int(m.group(1))]}</code>", text)
 
