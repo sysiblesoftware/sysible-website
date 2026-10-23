@@ -1,7 +1,7 @@
 title: Sysible Linux Operations Platform
 subtitle: Administrator & User Guide
 version: 1.0.0
-description: One URL, one certificate and one sign-in in front of the whole Sysible suite — plus the accounts, the update console, Flashback and the Visualizer.
+description: One URL, one certificate and one sign-in in front of the whole Sysible suite — plus the accounts, the update console, Baseline and the Visualizer.
 
 ## Overview
 
@@ -23,7 +23,7 @@ What you get at `https://<server-ip>/`:
 | `/controller/` | Sysible Controller |
 | `/slep/` | Sysible Linux Engineering Platform |
 | `/connect/` | Sysible Connect |
-| `/flashback/` | **Flashback** — every version of every tracked config file |
+| `/baseline/` | **Baseline** — every version of every tracked config file |
 | `/visualizer/` | **Visualizer** — activity, logs and fleet topology |
 | `/login`, `/account` | Sign in, and change your own password |
 | `/admin` | Administration — accounts, configuration, apps, software & services |
@@ -45,7 +45,7 @@ configuring a fleet is the Controller's job, and authoring automation is SLEP's.
   are missing, via Docker's official script with a distribution-package fallback.
 - **git**, to clone each app from its own repository.
 - Root, or `sudo`. The installer re-executes itself under `sudo` if you forget.
-- Roughly 10 GB of disk for the images, the app source checkouts and Flashback's
+- Roughly 10 GB of disk for the images, the app source checkouts and Baseline's
   history. A fleet with large config sets will want more.
 
 There is **no DNS requirement and nothing to configure**. SLOP answers on whatever
@@ -67,7 +67,7 @@ That brings up the whole stack. Three forms are accepted:
 |---|---|
 | `sudo ./install.sh` | Apps **and** gateway — the whole stack |
 | `sudo ./install.sh apps` | Only Controller, SLEP and Connect |
-| `sudo ./install.sh gateway` | Only the gateway, portal, Flashback, Visualizer and updater |
+| `sudo ./install.sh gateway` | Only the gateway, portal, Baseline, Visualizer and updater |
 
 The installer clones Controller, SLEP and Connect into `/opt/sysible-src/<repo>`
 and brings each up through the suite's unified `sysiblectl` CLI — which it also
@@ -230,13 +230,14 @@ If the console says an update is available and `git pull` on the host says
 point somewhere other than `/opt/sysible-src/<repo>`, and the two of you may be
 looking at different checkouts.
 
-## Flashback
+## Baseline
 
-**Flashback** is the config time machine: every version of every tracked config
+**Baseline** is config history and restore: every version of every tracked config
 file on every host, with a diff, a download, a viewer and a one-click restore. It
-ships inside the SLOP stack and is reached at `/flashback/`.
+ships inside the SLOP stack and is reached at `/baseline/`. It was called
+Sysible Flashback until the rebrand; `/flashback/` still redirects here.
 
-It has its own manual — see the [Sysible Flashback guide](/flashback-manual.html).
+It has its own manual — see the [Sysible Baseline guide](/baseline-manual.html).
 
 ## Visualizer
 
@@ -256,7 +257,7 @@ https://<server-ip>/              the portal
 https://<server-ip>/controller/   → SLOP_CONTROLLER_UPSTREAM (host port 8800)
 https://<server-ip>/slep/         → SLOP_SLEP_UPSTREAM        (host port 8810)
 https://<server-ip>/connect/      → SLOP_CONNECT_UPSTREAM     (host port 8700)
-https://<server-ip>/flashback/    → the flashback service
+https://<server-ip>/baseline/     → the baseline service
 https://<server-ip>/visualizer/   → the visualizer service
 ```
 
@@ -355,7 +356,7 @@ SLOP keeps its state in named Docker volumes:
 |---|---|
 | `slop-idp-data` | The user store — accounts, roles, password hashes |
 | `slop-caddy-data` | TLS certificates and the internal CA |
-| `flashback-data` | Every captured config version |
+| `flashback-data` | Every captured config version (Baseline's store — the name predates the rebrand and must not be changed) |
 
 The app checkouts under `/opt/sysible-src` are ordinary git clones and can be
 re-cloned. The volumes cannot — back them up. `sysiblectl slop backup` captures
@@ -412,7 +413,7 @@ source in 5 minutes by default. Wait it out or raise
 | 8700 | Connect | Its own console. Bound to the Docker bridge |
 | 9000 | Controller backend | The agent/CLI API. **On every interface, by design** |
 
-The IdP, Flashback's console, the Visualizer and the updater are **not published**
+The IdP, Baseline's console, the Visualizer and the updater are **not published**
 on the host at all. They are reachable only through the gateway.
 
 The three app consoles are published, but the installer binds them to the Docker
@@ -445,7 +446,7 @@ Set these in the compose `.env` next to `docker-compose.yml`.
 | `SLOP_SLEP_UPSTREAM` | `host.docker.internal:8810` | Where SLEP is |
 | `SLOP_CONNECT_UPSTREAM` | `host.docker.internal:8700` | Where Connect is |
 | `SYSIBLE_SRC_DIR` | `/opt/sysible-src` | Where the app checkouts live |
-| `SYSIBLE_FLASHBACK_KEEP` | `50` | Versions kept per file (see the Flashback guide) |
+| `SYSIBLE_BASELINE_KEEP` | `50` | Versions kept per file (see the Baseline guide) |
 | `SLOP_MAX_REQUEST_BYTES` | `1048576` | Largest request body the IdP accepts |
 | `SYSIBLE_UPDATER_MAX_REQUEST_BYTES` | `262144` | Largest request body the updater accepts |
 | `SYSIBLE_CONTROLLER_CONSOLE_BIND` | the Docker bridge | Address the Controller's console binds to |

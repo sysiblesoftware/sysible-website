@@ -5,7 +5,7 @@ at the site root by `tools/generate_manuals.py`.
 
 ```sh
 python3 tools/generate_manuals.py            # all of them
-python3 tools/generate_manuals.py flashback  # just one
+python3 tools/generate_manuals.py baseline   # just one
 ```
 
 No dependencies — standard library only, so a fresh clone can regenerate the
