@@ -204,6 +204,31 @@ running. Each row offers:
 - **Manage** — Restart, Stop, Start and Recreate that product's containers, so a
   wedged service can be recovered without a shell on the host.
 
+### Inside a product
+
+Some products are several things in one checkout. The Operations Platform is the
+clearest case: the gateway, sign-in, Flashback, Baseline, the Visualizer and the
+updater are all built from one git tree by one compose file. Each of them gets
+its **own section** under the product's row, naming what it is and whether it is
+running — so "something in SLOP is down" is answered on the spot rather than by
+reading `docker compose ps` on the host.
+
+A module's **Restart / Stop / Start / Recreate** act on that one service and
+appear with the product's own controls under **Manage**. There is deliberately
+**no per-module Update**: one git tree built by one compose file means updating
+any of them updates all of them, so a button claiming otherwise would be worse
+than no button.
+
+A few modules offer fewer controls, and say why in place of them:
+
+| Module | Not offered | Why |
+| --- | --- | --- |
+| Gateway | Stop | It is the platform's only front door — stopping it from the console removes the console. |
+| Sign-in & accounts | Stop | It *is* this console. |
+| Updater | all of them | It is the service carrying out the request; acting on it would kill the call mid-run. |
+
+Use `sysiblectl slop restart` on the host for any of those.
+
 :::shot admin-updates
 Administration → Software & services: what is behind, and what can be done about it.
 :::
@@ -235,8 +260,9 @@ looking at different checkouts.
 
 **Flashback** is config history and restore: every version of every tracked config
 file on every host, with a diff, a download, a viewer and a one-click restore. It
-ships inside the SLOP stack and is reached at `/flashback/`. It was called
-Sysible Flashback until the rebrand; `/flashback/` still redirects here.
+ships inside the SLOP stack and is reached at `/flashback/`. Its full name is
+**Sysible Flashback**; it is a different product from Baseline, with its own
+route, its own service and its own data.
 
 It has its own manual — see the [Sysible Flashback guide](/flashback-manual.html).
 

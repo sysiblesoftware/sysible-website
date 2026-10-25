@@ -61,9 +61,8 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <ul>
 <li><b>Back up now</b> on a single host&#x27;s row</li>
 <li><b>Back up all</b> for the whole fleet</li>
-<li><b>Back up selected</b> for the hosts you tick — the unit an operator usually</li>
+<li><b>Back up selected</b> for the hosts you tick — the unit an operator usually actually wants, since environments are how fleets are run</li>
 </ul>
-<p>actually wants, since environments are how fleets are run</p>
 <p>A capture is a request, not an instruction executed inline: the host&#x27;s agent performs it on its next check-in, so rows stop saying &quot;no backup captured yet&quot; on their own shortly afterwards.</p>
 <h2 id="finding-things">3. Finding things</h2>
 <h3 id="hosts">Hosts</h3>
@@ -85,15 +84,9 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <h2 id="restoring">5. Restoring</h2>
 <p><b>Restore this version</b> queues the restore and asks you to confirm first. What happens next:</p>
 <ol>
-<li>The restore is queued against that host, for that exact path and version.</li>
-</ol>
-<p>A version that is not a real stored version of that host and path is refused outright.</p>
-<ol>
+<li>The restore is queued against that host, for that exact path and version. A version that is not a real stored version of that host and path is refused outright.</li>
 <li>The host&#x27;s agent picks it up on its next check-in.</li>
-<li>The agent <b>backs up the file as it currently is</b> before overwriting it — so</li>
-</ol>
-<p>the restore is itself undoable — then writes the stored version back.</p>
-<ol>
+<li>The agent <b>backs up the file as it currently is</b> before overwriting it — so the restore is itself undoable — then writes the stored version back.</li>
 <li>The agent acknowledges, and the restore shows as complete.</li>
 </ol>
 <div class="note warn">A restore changes a file on a live host. It does not restart the service that reads it: nginx will not reload because its config was restored. Plan the restart alongside the restore.</div>
@@ -122,22 +115,10 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <div class="note warn"><b>Leave this volume&#x27;s name alone.</b> Renaming a Docker volume does not move anything into it: Docker simply creates a new empty volume, Flashback would come up with no history at all, and your captures would sit in an unreferenced volume until someone ran <code>docker volume prune</code>. Nothing reads the name but Docker. If you have scripts that back this volume up, they need no change.</div>
 <h2 id="security-model">11. Security model</h2>
 <ul>
-<li><b>The console is only reachable through the gateway.</b> Flashback&#x27;s web</li>
-</ul>
-<p>interface is not published on a host port; SLOP is the sole front door, and the identity it asserts is checked against the shared secret on every request.</p>
-<ul>
-<li><b>The agent endpoint is separate and deliberately narrow.</b> Agents post</li>
-</ul>
-<p>snapshots to their own port, which is bound to the Docker bridge address rather than to every interface: reachable from this host and from containers on it, not from the network. It is authenticated with its own token (<code>SYSIBLE_FLASHBACK_AGENT_TOKEN</code>), distinct from any operator&#x27;s session. Only the Controller holds that token — managed hosts never see it, they talk to the Controller and it relays.</p>
-<ul>
-<li><b>A restore cannot be used to write arbitrary content.</b> It names a host, a path</li>
-</ul>
-<p>and a version that Flashback already stores; anything else is refused. You cannot restore a file to a host that never had it, or restore content that was never captured.</p>
-<ul>
-<li><b>Stored config is treated as hostile input</b> everywhere it is displayed — see</li>
-</ul>
-<p>the note under <b>Reading a version</b>.</p>
-<ul>
+<li><b>The console is only reachable through the gateway.</b> Flashback&#x27;s web interface is not published on a host port; SLOP is the sole front door, and the identity it asserts is checked against the shared secret on every request.</li>
+<li><b>The agent endpoint is separate and deliberately narrow.</b> Agents post snapshots to their own port, which is bound to the Docker bridge address rather than to every interface: reachable from this host and from containers on it, not from the network. It is authenticated with its own token (<code>SYSIBLE_FLASHBACK_AGENT_TOKEN</code>), distinct from any operator&#x27;s session. Only the Controller holds that token — managed hosts never see it, they talk to the Controller and it relays.</li>
+<li><b>A restore cannot be used to write arbitrary content.</b> It names a host, a path and a version that Flashback already stores; anything else is refused. You cannot restore a file to a host that never had it, or restore content that was never captured.</li>
+<li><b>Stored config is treated as hostile input</b> everywhere it is displayed — see the note under <b>Reading a version</b>.</li>
 <li><b>Everything that changes a host is audited</b>, with the account that asked.</li>
 </ul>
 <div class="note warn">Captured configuration frequently contains secrets: keys in <code>/etc/ssh</code>, credentials in service configs, tokens in environment files. Flashback is therefore as sensitive as the hosts it protects. Give <code>auditor</code> to people who should read config history, and treat the <code>flashback-data</code> volume with the same care as a password store.</div>

@@ -93,17 +93,10 @@ nginx_running:
 <table><thead><tr><th>Role</th><th>Can</th></tr></thead><tbody><tr><td><b>Viewer</b></td><td>read states, rules and run history</td></tr><tr><td><b>Operator</b></td><td>everything above, plus declare states, assign them and edit rules</td></tr><tr><td><b>Superuser</b></td><td>everything above, plus the platform&#x27;s own settings</td></tr></tbody></table>
 <h2 id="security-model">8. Security model</h2>
 <ul>
-<li><b>The console is only reachable through the gateway.</b> Baseline has no login</li>
+<li><b>The console is only reachable through the gateway.</b> Baseline has no login of its own; it trusts the identity SLOP asserts, proven with a shared secret. A browser reaching it directly cannot spoof that.</li>
+<li><b>The Controller authenticates with its own bearer token</b> (<code>SYSIBLE_BASELINE_AGENT_TOKEN</code>), separate from Flashback&#x27;s. The two services have different powers — Flashback&#x27;s token reads and writes a host&#x27;s stored configuration, Baseline&#x27;s declares what a host must become — and one token for both would make a compromise of either a compromise of both.</li>
+<li><b>A <code>command</code> rule runs as root on your hosts.</b> It is a shell string you typed, dispatched through the same attributed, logged path as any other operator-initiated command. Treat the rule list with the same care as sudo access, and prefer <code>capture</code> and <code>notify</code> where they will do.</li>
 </ul>
-<p>of its own; it trusts the identity SLOP asserts, proven with a shared secret. A browser reaching it directly cannot spoof that.</p>
-<ul>
-<li><b>The Controller authenticates with its own bearer token</b></li>
-</ul>
-<p>(<code>SYSIBLE_BASELINE_AGENT_TOKEN</code>), separate from Flashback&#x27;s. The two services have different powers — Flashback&#x27;s token reads and writes a host&#x27;s stored configuration, Baseline&#x27;s declares what a host must become — and one token for both would make a compromise of either a compromise of both.</p>
-<ul>
-<li><b>A <code>command</code> rule runs as root on your hosts.</b> It is a shell string you</li>
-</ul>
-<p>typed, dispatched through the same attributed, logged path as any other operator-initiated command. Treat the rule list with the same care as sudo access, and prefer <code>capture</code> and <code>notify</code> where they will do.</p>
 <div class="note warn">A state can do anything Salt can do, which is anything. Review a declaration the way you would review a playbook that runs as root on every host it is assigned to — because that is what it is.</div>
 <h2 id="where-the-data-lives">9. Where the data lives</h2>
 <p>Everything is in the <code>baseline-data</code> Docker volume: declared states, their version history, assignments, rules and run history.</p>

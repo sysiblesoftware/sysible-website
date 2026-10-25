@@ -4,3 +4,9 @@
 branding
 README.md
 .assetsignore
+# Build-time only. The generator and its tests turn manuals/*.md into the
+# *-manual.html pages at the root; nothing links to them and serving a build
+# script as site content is just surface.
+tools
+tests
+.gitignore

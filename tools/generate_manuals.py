@@ -233,8 +233,19 @@ def render(md: str, product: str) -> tuple[str, list[tuple[str, str]]]:
             if len(list_stack) <= depth:
                 out.append(f"<{tag}>")
                 list_stack.append(tag)
-            out.append(f"<li>{_inline(m.group(3))}</li>")
+            # A bullet that wraps onto the next line is still that bullet.
+            # Consuming exactly one line here sent the continuation down to the
+            # paragraph branch, which calls close_lists() first — so a wrapped
+            # bullet ENDED the list and reappeared as a paragraph starting
+            # mid-sentence ("wedged service can be recovered without a shell on
+            # the host."). 25 of them across the four published manuals.
+            item = [m.group(3)]
             i += 1
+            while i < n and lines[i].strip() and not re.match(
+                    r"^(#{1,6}\s|```|:::|\s*([-*]|\d+\.)\s|\s*\|)", lines[i]):
+                item.append(lines[i].strip())
+                i += 1
+            out.append(f"<li>{_inline(' '.join(item))}</li>")
             continue
 
         if not line.strip():

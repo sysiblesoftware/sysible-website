@@ -47,15 +47,11 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <h2 id="requirements">2. Requirements</h2>
 <ul>
 <li>A 64-bit Linux host (x86-64 or arm64) you can reach on ports <b>80</b> and <b>443</b>.</li>
-<li><b>Docker Engine</b> and the <b>compose</b> plugin. The installer sets both up if they</li>
-</ul>
-<p>are missing, via Docker&#x27;s official script with a distribution-package fallback.</p>
-<ul>
+<li><b>Docker Engine</b> and the <b>compose</b> plugin. The installer sets both up if they are missing, via Docker&#x27;s official script with a distribution-package fallback.</li>
 <li><b>git</b>, to clone each app from its own repository.</li>
 <li>Root, or <code>sudo</code>. The installer re-executes itself under <code>sudo</code> if you forget.</li>
-<li>Roughly 10 GB of disk for the images, the app source checkouts and Flashback&#x27;s</li>
+<li>Roughly 10 GB of disk for the images, the app source checkouts and Flashback&#x27;s history. A fleet with large config sets will want more.</li>
 </ul>
-<p>history. A fleet with large config sets will want more.</p>
 <p>There is <b>no DNS requirement and nothing to configure</b>. SLOP answers on whatever address the host has.</p>
 <h2 id="installation">3. Installation</h2>
 <p>From a clone of the SLOP repository, on the host that will run it:</p>
@@ -101,13 +97,15 @@ sudo ./install.sh</code></pre>
 <p>Each product shows one line of state — up to date, an update available with the two commits, or why it cannot be checked — plus whether its containers are running. Each row offers:</p>
 <ul>
 <li><b>Update now</b> — pull the checkout forward and rebuild its containers.</li>
-<li><b>Update all</b> — every product that can be updated, in one sequential job, SLOP</li>
+<li><b>Update all</b> — every product that can be updated, in one sequential job, SLOP last. One product failing does not stop the rest.</li>
+<li><b>Manage</b> — Restart, Stop, Start and Recreate that product&#x27;s containers, so a wedged service can be recovered without a shell on the host.</li>
 </ul>
-<p>last. One product failing does not stop the rest.</p>
-<ul>
-<li><b>Manage</b> — Restart, Stop, Start and Recreate that product&#x27;s containers, so a</li>
-</ul>
-<p>wedged service can be recovered without a shell on the host.</p>
+<h3 id="inside-a-product">Inside a product</h3>
+<p>Some products are several things in one checkout. The Operations Platform is the clearest case: the gateway, sign-in, Flashback, Baseline, the Visualizer and the updater are all built from one git tree by one compose file. Each of them gets its <b>own section</b> under the product&#x27;s row, naming what it is and whether it is running — so &quot;something in SLOP is down&quot; is answered on the spot rather than by reading <code>docker compose ps</code> on the host.</p>
+<p>A module&#x27;s <b>Restart / Stop / Start / Recreate</b> act on that one service and appear with the product&#x27;s own controls under <b>Manage</b>. There is deliberately <b>no per-module Update</b>: one git tree built by one compose file means updating any of them updates all of them, so a button claiming otherwise would be worse than no button.</p>
+<p>A few modules offer fewer controls, and say why in place of them:</p>
+<table><thead><tr><th>Module</th><th>Not offered</th><th>Why</th></tr></thead><tbody><tr><td>Gateway</td><td>Stop</td><td>It is the platform&#x27;s only front door — stopping it from the console removes the console.</td></tr><tr><td>Sign-in &amp; accounts</td><td>Stop</td><td>It <i>is</i> this console.</td></tr><tr><td>Updater</td><td>all of them</td><td>It is the service carrying out the request; acting on it would kill the call mid-run.</td></tr></tbody></table>
+<p>Use <code>sysiblectl slop restart</code> on the host for any of those.</p>
 <figure class="shot" data-shot="admin-updates"><div class="shot-slot"><b>Screenshot to come</b>Administration → Software &amp; services: what is behind, and what can be done about it.<br><br>Drop it at <code>manuals/shots/slop/admin-updates.png</code> and re-run <code>python3 tools/generate_manuals.py slop</code>.</div></figure>
 <p>An update is a real job with a live log. Availability is remembered for a few minutes so that merely browsing the console does not query every git remote on every page; <b>Check now</b> forces a fresh look.</p>
 <div class="note">Updating SLOP recreates the gateway and this console, so you are signed out briefly while it rebuilds. That is why it is always updated <b>last</b> in a batch — anything queued behind it would be killed mid-pull. The job is handed to a detached helper so it survives the container it started in.</div>
@@ -115,7 +113,7 @@ sudo ./install.sh</code></pre>
 <p>A checkout with local modifications to tracked files is not updated, because a pull would overwrite them. The row says so and names the command that shows them. Untracked files — including the <code>.env</code> the installer writes — are not local modifications and do not block anything.</p>
 <p>If the console says an update is available and <code>git pull</code> on the host says &quot;Already up to date&quot;, check the path shown on the row: <code>SYSIBLE_&lt;APP&gt;_DIR</code> can point somewhere other than <code>/opt/sysible-src/&lt;repo&gt;</code>, and the two of you may be looking at different checkouts.</p>
 <h2 id="flashback">10. Flashback</h2>
-<p><b>Flashback</b> is config history and restore: every version of every tracked config file on every host, with a diff, a download, a viewer and a one-click restore. It ships inside the SLOP stack and is reached at <code>/flashback/</code>. It was called Sysible Flashback until the rebrand; <code>/flashback/</code> still redirects here.</p>
+<p><b>Flashback</b> is config history and restore: every version of every tracked config file on every host, with a diff, a download, a viewer and a one-click restore. It ships inside the SLOP stack and is reached at <code>/flashback/</code>. Its full name is <b>Sysible Flashback</b>; it is a different product from Baseline, with its own route, its own service and its own data.</p>
 <p>It has its own manual — see the <a href="/flashback-manual.html">Sysible Flashback guide</a>.</p>
 <h2 id="baseline">11. Baseline</h2>
 <p><b>Baseline</b> is desired-state configuration: declare what a host&#x27;s configuration must be as a Salt state, assign it, and Baseline keeps the host matching it — reporting what it had to change and running whatever you asked to happen afterwards. It ships inside the SLOP stack and is reached at <code>/baseline/</code>.</p>
@@ -149,10 +147,7 @@ https://&lt;server-ip&gt;/visualizer/   → the visualizer service</code></pre>
 <h3 id="the-trust-boundary">The trust boundary</h3>
 <p>Before proxying, the gateway does three things, and the order matters:</p>
 <ol>
-<li><b>Strips</b> any client-supplied <code>X-Sysible-User</code>, <code>X-Sysible-Role</code> and</li>
-</ol>
-<p><code>X-Sysible-Auth</code> headers. A browser must never be able to assert who it is.</p>
-<ol>
+<li><b>Strips</b> any client-supplied <code>X-Sysible-User</code>, <code>X-Sysible-Role</code> and <code>X-Sysible-Auth</code> headers. A browser must never be able to assert who it is.</li>
 <li><b>Injects</b> the real identity from the IdP.</li>
 <li><b>Stamps</b> a shared secret proving the request came through the gateway.</li>
 </ol>
@@ -179,29 +174,13 @@ sysiblectl slop logs               # follow a product&#x27;s logs</code></pre>
 <p><b>An update will not start.</b> See <b>When an update is refused</b> above.</p>
 <h2 id="security-model">19. Security model</h2>
 <ul>
-<li><b>One origin, one cookie.</b> The session cookie is host-only with no <code>Domain=</code>,</li>
+<li><b>One origin, one cookie.</b> The session cookie is host-only with no <code>Domain=</code>, which is both the correct cookie for a raw IP and the thing that makes a single sign-in cover every app.</li>
+<li><b>The gateway is the enforcement point</b>, and every app re-checks the identity it is handed. Defence does not depend on the gateway alone.</li>
+<li><b>Fail closed everywhere.</b> No shared secret means identity headers are ignored, not trusted. No pinned fingerprint means a vendor key is refused, not installed.</li>
+<li><b>The updater holds the Docker socket</b>, which is root-equivalent on the host. It therefore accepts exactly one thing from a caller: a key from a fixed allowlist. It never accepts a path, a repository, a branch or a command.</li>
+<li><b>Security headers</b> are set at the gateway for every response, including HSTS, <code>nosniff</code>, a frame policy and a referrer policy.</li>
+<li><b>Nothing is re-hosted.</b> Every app is built from its own official repository on your host, and vendor signing keys are pinned by fingerprint — an unrecognised key fails the build rather than being trusted.</li>
 </ul>
-<p>which is both the correct cookie for a raw IP and the thing that makes a single sign-in cover every app.</p>
-<ul>
-<li><b>The gateway is the enforcement point</b>, and every app re-checks the identity</li>
-</ul>
-<p>it is handed. Defence does not depend on the gateway alone.</p>
-<ul>
-<li><b>Fail closed everywhere.</b> No shared secret means identity headers are</li>
-</ul>
-<p>ignored, not trusted. No pinned fingerprint means a vendor key is refused, not installed.</p>
-<ul>
-<li><b>The updater holds the Docker socket</b>, which is root-equivalent on the host.</li>
-</ul>
-<p>It therefore accepts exactly one thing from a caller: a key from a fixed allowlist. It never accepts a path, a repository, a branch or a command.</p>
-<ul>
-<li><b>Security headers</b> are set at the gateway for every response, including HSTS,</li>
-</ul>
-<p><code>nosniff</code>, a frame policy and a referrer policy.</p>
-<ul>
-<li><b>Nothing is re-hosted.</b> Every app is built from its own official repository on</li>
-</ul>
-<p>your host, and vendor signing keys are pinned by fingerprint — an unrecognised key fails the build rather than being trusted.</p>
 <h2 id="reference-ports-and-paths">20. Reference: ports and paths</h2>
 <table><thead><tr><th>Port</th><th>Who</th><th>Notes</th></tr></thead><tbody><tr><td>80</td><td>Gateway</td><td>Redirects to 443</td></tr><tr><td>443</td><td>Gateway</td><td>The only front door on the network</td></tr><tr><td>8800</td><td>Controller</td><td>Its own console. Bound to the Docker bridge — see below</td></tr><tr><td>8810</td><td>SLEP</td><td>Its own console. Bound to the Docker bridge</td></tr><tr><td>8700</td><td>Connect</td><td>Its own console. Bound to the Docker bridge</td></tr><tr><td>9000</td><td>Controller backend</td><td>The agent/CLI API. <b>On every interface, by design</b></td></tr></tbody></table>
 <p>The IdP, Flashback&#x27;s console, the Visualizer and the updater are <b>not published</b> on the host at all. They are reachable only through the gateway.</p>

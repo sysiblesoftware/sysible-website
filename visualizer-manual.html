@@ -50,13 +50,9 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <p>This is the most important thing to know about it. Visualizer has no database and no volume. Every record it shows is fetched live from the app that owns it, at the moment you ask, <b>using your own identity</b> — so each app applies its own role rules to you rather than to the Visualizer.</p>
 <p>Two consequences follow, and both are deliberate:</p>
 <ul>
-<li>There is no second copy of your audit trail to secure, to back up, or to drift</li>
+<li>There is no second copy of your audit trail to secure, to back up, or to drift out of agreement with the original.</li>
+<li>An auditor and a superuser looking at the same screen may see different rows, because the upstream apps answered each of them differently. That is correct.</li>
 </ul>
-<p>out of agreement with the original.</p>
-<ul>
-<li>An auditor and a superuser looking at the same screen may see different rows,</li>
-</ul>
-<p>because the upstream apps answered each of them differently. That is correct.</p>
 <div class="note">Visualizer changes nothing. There is no button in it that alters a host, a job or an account. If you need to act on what you find, the row tells you which app owns it and the topology links hosts straight into the Controller.</div>
 <h2 id="activity">2. Activity</h2>
 <p>Activity is one tab per app — Controller, SLEP, Connect and Flashback — showing a normalised feed: when, who, what source, what action, against what, with detail.</p>
@@ -85,19 +81,12 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <p>With posture on, hosts carrying critical findings are ringed and gateways are labelled, so &quot;which of these needs attention&quot; is answered without reading a list.</p>
 <h3 id="working-with-the-map">Working with the map</h3>
 <ul>
-<li><b>Collapse all / Expand all</b> fold the groups, which is what makes a</li>
-</ul>
-<p>several-hundred-host fleet legible.</p>
-<ul>
+<li><b>Collapse all / Expand all</b> fold the groups, which is what makes a several-hundred-host fleet legible.</li>
 <li><b>Zoom in / out</b>, and <b>fit</b>, which also resets any node you have dragged.</li>
 <li>Nodes can be dragged; the layout remembers where you put them.</li>
-<li><b>Auto</b> refreshes the map every ten seconds. It only polls while you are</li>
+<li><b>Auto</b> refreshes the map every ten seconds. It only polls while you are looking at the topology — leaving the view stops it.</li>
+<li><b>Clicking a host opens it in the Controller</b>, which is where you can actually do something about it.</li>
 </ul>
-<p>looking at the topology — leaving the view stops it.</p>
-<ul>
-<li><b>Clicking a host opens it in the Controller</b>, which is where you can actually</li>
-</ul>
-<p>do something about it.</p>
 <h2 id="roles">5. Roles</h2>
 <p>Visualizer uses the platform&#x27;s three roles, and every one of them may view it — including <code>auditor</code>, because read-only oversight is exactly what this is for.</p>
 <p>What differs is not the Visualizer&#x27;s permissions but the upstream apps&#x27;. The Visualizer forwards your identity on every fetch, so what you can see here is precisely what you could see in each app directly. It cannot show you more, and it does not try.</p>
@@ -106,22 +95,12 @@ footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);fon
 <p>An app that reports nothing and an app that could not be reached are shown differently, on purpose: the first is a quiet, healthy fleet and the second is a problem.</p>
 <h2 id="security-model">7. Security model</h2>
 <ul>
-<li><b>Read-only by construction.</b> There is no write path. The service exposes</li>
-</ul>
-<p>nothing that changes any other app&#x27;s state.</p>
-<ul>
+<li><b>Read-only by construction.</b> There is no write path. The service exposes nothing that changes any other app&#x27;s state.</li>
 <li><b>Stateless.</b> No database, no volume, no cached copy of anybody&#x27;s audit trail.</li>
-<li><b>Your identity, not its own.</b> Every upstream fetch carries the caller&#x27;s</li>
+<li><b>Your identity, not its own.</b> Every upstream fetch carries the caller&#x27;s forwarded identity, so each app enforces its own rules. The Visualizer holds no privileged credential that could be used to read more than the caller may.</li>
+<li><b>Reachable only through the gateway.</b> It is not published on a host port, and it honours an asserted identity only when the gateway&#x27;s shared secret matches. Without that secret it fails closed.</li>
+<li><b>Limits are enforced</b>, on the row count and the request size, so a caller cannot turn the console into a way to pull an app&#x27;s entire history in one go.</li>
 </ul>
-<p>forwarded identity, so each app enforces its own rules. The Visualizer holds no privileged credential that could be used to read more than the caller may.</p>
-<ul>
-<li><b>Reachable only through the gateway.</b> It is not published on a host port, and</li>
-</ul>
-<p>it honours an asserted identity only when the gateway&#x27;s shared secret matches. Without that secret it fails closed.</p>
-<ul>
-<li><b>Limits are enforced</b>, on the row count and the request size, so a caller</li>
-</ul>
-<p>cannot turn the console into a way to pull an app&#x27;s entire history in one go.</p>
 <h2 id="troubleshooting">8. Troubleshooting</h2>
 <p><b>A tab says it could not read an app.</b> That app is down, or its upstream address is wrong. Check the portal&#x27;s health dot for it and <code>sysiblectl status</code>.</p>
 <p><b>An app&#x27;s tab is empty but healthy.</b> It has recorded nothing. The empty state distinguishes this from a failed read — read the wording.</p>
