@@ -2,17 +2,17 @@
 <title>Sysible Linux Engineering Platform — author and run your automation from one console</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sysible Linux Engineering Platform (SLEP) is a self-hosted console for authoring, orchestrating and running Ansible, Terraform and Salt — with a real in-browser IDE. One container, SQLite by default, SSH-native. Ansible Automation Platform without the Kubernetes.">
+<meta name="description" content="Sysible Linux Engineering Platform (SLEP) is a self-hosted console for authoring, orchestrating and running Ansible and Terraform — with a real in-browser IDE. One container, SQLite by default, SSH-native. Ansible Automation Platform without the Kubernetes.">
 <link rel="canonical" href="https://sysible.com/slep">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
 <meta property="og:title" content="Sysible Linux Engineering Platform">
-<meta property="og:description" content="Author, orchestrate and run Ansible, Terraform and Salt from one self-hosted console — with a real in-browser IDE.">
+<meta property="og:description" content="Author, orchestrate and run Ansible and Terraform from one self-hosted console — with a real in-browser IDE.">
 <meta property="og:url" content="https://sysible.com/slep">
 <meta property="og:image" content="https://sysible.com/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sysible Linux Engineering Platform">
-<meta name="twitter:description" content="Author, orchestrate and run Ansible, Terraform and Salt from one self-hosted console.">
+<meta name="twitter:description" content="Author, orchestrate and run Ansible and Terraform from one self-hosted console.">
 <meta name="twitter:image" content="https://sysible.com/social-card.png">
 <style>
   /* ---- tokens: light in :root, dark via media + explicit stamp (3-state) ---- */
@@ -296,7 +296,7 @@
     <svg class="mark" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slep"/></svg>
     <div class="eyebrow">Infrastructure Automation</div>
     <h1>Sysible <span class="grad">Linux Engineering Platform</span></h1>
-    <p class="lede">Author, orchestrate and run your automation — Ansible, Terraform and Salt — from one
+    <p class="lede">Author, orchestrate and run your automation — Ansible and Terraform — from one
       self-hosted console, with a real in-browser IDE. It is to infrastructure <i>automation</i> what Sysible
       Controller is to fleet <i>administration</i>: the Ansible Automation Platform model, without the
       Kubernetes execution environments and operator sprawl that make AAP a project to stand up.</p>
@@ -316,7 +316,7 @@
     <figure class="shot hero-shot">
       <img src="/img/slep/ide.png" width="1600" height="900"
         alt="The SLEP console: an Ansible playbook open in the built-in editor, with the project file tree, the actions rail and a Run button">
-      <figcaption>The built-in IDE — write a playbook, Terraform config or Salt state and run it without leaving the page.</figcaption>
+      <figcaption>The built-in IDE — write a playbook or Terraform config and run it without leaving the page.</figcaption>
     </figure>
   </div>
 </section>
@@ -330,7 +330,7 @@
     <div class="features" style="margin-top:22px">
       <div class="feat"><div class="ic">One container</div><h3>No Kubernetes</h3><p>A single container (or a venv) with SQLite by default. No execution environments, no operator, no automation mesh to stand up first.</p></div>
       <div class="feat"><div class="ic">SSH-native</div><h3>The way Ansible already works</h3><p>Direct SSH to the hosts, not receptors and a mesh. Jump hosts where you need them, and nothing to learn that Ansible has not already taught you.</p></div>
-      <div class="feat"><div class="ic">Three engines</div><h3>Not Ansible only</h3><p>Ansible, Terraform/OpenTofu and Salt run side by side in the same console, with one history and one set of credentials.</p></div>
+      <div class="feat"><div class="ic">Two engines</div><h3>Not Ansible only</h3><p>Ansible and Terraform/OpenTofu run side by side in the same console, with one history and one set of credentials. Keeping hosts in a declared state afterwards is <a href="/baseline-manual.html">Sysible Baseline</a>’s job — SLEP builds and provisions.</p></div>
       <div class="feat"><div class="ic">Built-in IDE</div><h3>Author where you run</h3><p>A Monaco editor with a file tree and YAML/HCL/Jinja syntax. Write the playbook and run it in the same window — SCM optional, not mandatory.</p></div>
       <div class="feat"><div class="ic">Simple model</div><h3>Self-hosted, one admin model</h3><p>No licence tiers to navigate and no RBAC matrix to design before the first run. Organizations and users when you want them.</p></div>
       <div class="feat"><div class="ic">Shared fleet</div><h3>Your Controller inventory, imported</h3><p>Pull the hosts you already manage in Sysible Controller straight into an automation inventory rather than keeping two lists in step by hand.</p></div>
@@ -342,11 +342,11 @@
   <div class="wrap">
     <div class="sec-head"><span class="kicker">What it does</span><h2>Projects, inventory, credentials, runs</h2></div>
     <div class="features">
-      <div class="feat"><div class="ic">Projects</div><h3>A workspace per stack</h3><p>Playbooks, Terraform configs or Salt states — authored in the browser IDE or synced from Git, whichever suits the team.</p></div>
+      <div class="feat"><div class="ic">Projects</div><h3>A workspace per stack</h3><p>Playbooks or Terraform configs — authored in the browser IDE or synced from Git, whichever suits the team.</p></div>
       <div class="feat"><div class="ic">IDE</div><h3>Monaco, in the console</h3><p>File tree, syntax highlighting for YAML, HCL and Jinja, and a run panel beside the code. Start from a playbook, state or Terraform template.</p></div>
       <div class="feat"><div class="ic">Inventory</div><h3>Hosts and groups</h3><p>Entered by hand or imported from a Sysible Controller, with jump hosts and per-inventory environments.</p></div>
       <div class="feat"><div class="ic">Credentials</div><h3>Never in the browser</h3><p>SSH keys and passwords, cloud credentials and vault tokens are stored server-side and injected into runs — never surfaced back to the page.</p></div>
-      <div class="feat"><div class="ic">Runners</div><h3>Isolated, streamed, kept</h3><p><span class="mono">ansible-playbook</span>, <span class="mono">terraform plan/apply</span> and <span class="mono">salt</span>/<span class="mono">salt-ssh</span> each run in their own workdir, streaming live output into a full run history.</p></div>
+      <div class="feat"><div class="ic">Runners</div><h3>Isolated, streamed, kept</h3><p><span class="mono">ansible-playbook</span> and <span class="mono">terraform plan/apply</span> each run in their own workdir, streaming live output into a full run history.</p></div>
       <div class="feat"><div class="ic">Pipelines</div><h3>Chain and schedule</h3><p>Sequence runs into pipelines and put them on a schedule, with an activity trail of what ran, when, and what it changed.</p></div>
     </div>
   </div>
@@ -366,7 +366,7 @@
         <div class="ic">Sysible Linux Engineering Platform</div>
         <h3>What this asks of you</h3>
         <p>One container, or a venv, with SQLite by default. Direct SSH, the way Ansible already works.
-          Ansible <b>and</b> Terraform <b>and</b> Salt. An in-browser IDE, with SCM optional. A simple admin
+          Ansible <b>and</b> Terraform. An in-browser IDE, with SCM optional. A simple admin
           model, self-hosted.</p>
       </div>
     </div>
@@ -406,7 +406,7 @@
         <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-slep"/></svg>
         <div>
           <div class="p-title">Sysible Linux Engineering Platform — Community Edition</div>
-          <p class="p-sub">One container, SQLite by default. Ansible, Terraform and Salt bake into the image.</p>
+          <p class="p-sub">One container, SQLite by default. Ansible and Terraform bake into the image.</p>
         </div>
         <span class="pill">Install from source</span>
       </div>
@@ -447,7 +447,7 @@ sudo ./deploy/install.sh</pre>
   <div class="wrap">
     <div class="cta-band">
       <h2>Write it and run it in the same window</h2>
-      <p>Ansible, Terraform and Salt from one self-hosted console — no Kubernetes, no mesh, no control repo required.</p>
+      <p>Ansible and Terraform from one self-hosted console — no Kubernetes, no mesh, no control repo required.</p>
       <div class="cta" style="margin-top:0">
         <a class="btn primary" href="#download">Install SLEP CE</a>
         <a class="btn ghost" href="/slop">See it behind one sign-in →</a>

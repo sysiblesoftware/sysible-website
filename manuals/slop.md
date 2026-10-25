@@ -23,7 +23,8 @@ What you get at `https://<server-ip>/`:
 | `/controller/` | Sysible Controller |
 | `/slep/` | Sysible Linux Engineering Platform |
 | `/connect/` | Sysible Connect |
-| `/flashback/` | **Flashback** — every version of every tracked config file |
+| `/flashback/` | **Flashback** — every version of every tracked config file, plus the platform's own |
+| `/baseline/` | **Baseline** — declare what each host's configuration must be, and keep it there |
 | `/visualizer/` | **Visualizer** — activity, logs and fleet topology |
 | `/login`, `/account` | Sign in, and change your own password |
 | `/admin` | Administration — accounts, configuration, apps, software & services |
@@ -239,6 +240,23 @@ Sysible Flashback until the rebrand; `/flashback/` still redirects here.
 
 It has its own manual — see the [Sysible Flashback guide](/flashback-manual.html).
 
+## Baseline
+
+**Baseline** is desired-state configuration: declare what a host's configuration
+must be as a Salt state, assign it, and Baseline keeps the host matching it —
+reporting what it had to change and running whatever you asked to happen
+afterwards. It ships inside the SLOP stack and is reached at `/baseline/`.
+
+It is **masterless**: no Salt master, no minion daemon on your hosts, and
+nothing new listening on the network. The Controller runs `salt-call --local`
+over the channel it already has to each agent.
+
+Baseline and Flashback are a pair, and deliberately not one product: Baseline
+declares what a host *must be*, Flashback records what it *actually is*. When
+the two disagree, that is drift — which is the thing you want to see.
+
+It has its own manual — see the [Sysible Baseline guide](/baseline-manual.html).
+
 ## Visualizer
 
 **Visualizer** is the read-only window onto the platform: who did what across
@@ -258,6 +276,7 @@ https://<server-ip>/controller/   → SLOP_CONTROLLER_UPSTREAM (host port 8800)
 https://<server-ip>/slep/         → SLOP_SLEP_UPSTREAM        (host port 8810)
 https://<server-ip>/connect/      → SLOP_CONNECT_UPSTREAM     (host port 8700)
 https://<server-ip>/flashback/     → the flashback service
+https://<server-ip>/baseline/      → the baseline service
 https://<server-ip>/visualizer/   → the visualizer service
 ```
 
@@ -356,12 +375,14 @@ SLOP keeps its state in named Docker volumes:
 |---|---|
 | `slop-idp-data` | The user store — accounts, roles, password hashes |
 | `slop-caddy-data` | TLS certificates and the internal CA |
-| `flashback-data` | Every captured config version (Flashback's store — the name predates the rebrand and must not be changed) |
+| `flashback-data` | Every captured config version — Flashback's store. Do not rename it |
+| `baseline-data` | Declared states, their history and run results — Baseline's store |
 
 The app checkouts under `/opt/sysible-src` are ordinary git clones and can be
 re-cloned. The volumes cannot — back them up. `sysiblectl slop backup` captures
 the stack's volumes; losing `slop-idp-data` means recreating every account, and
-losing `flashback-data` means losing the config history.
+losing `flashback-data` means losing the config history, and losing
+`baseline-data` means losing every declaration of what the fleet should be.
 
 ## Troubleshooting
 
@@ -446,7 +467,8 @@ Set these in the compose `.env` next to `docker-compose.yml`.
 | `SLOP_SLEP_UPSTREAM` | `host.docker.internal:8810` | Where SLEP is |
 | `SLOP_CONNECT_UPSTREAM` | `host.docker.internal:8700` | Where Connect is |
 | `SYSIBLE_SRC_DIR` | `/opt/sysible-src` | Where the app checkouts live |
-| `SYSIBLE_FLASHBACK_KEEP` | `50` | Versions kept per file (see the Flashback guide) |
+| `SYSIBLE_FLASHBACK_KEEP` | `50` | Config versions kept per file (see the Flashback guide) |
+| `SYSIBLE_BASELINE_KEEP` | `50` | Declared-state versions kept (see the Baseline guide) |
 | `SLOP_MAX_REQUEST_BYTES` | `1048576` | Largest request body the IdP accepts |
 | `SYSIBLE_UPDATER_MAX_REQUEST_BYTES` | `262144` | Largest request body the updater accepts |
 | `SYSIBLE_CONTROLLER_CONSOLE_BIND` | the Docker bridge | Address the Controller's console binds to |

@@ -192,6 +192,40 @@ Because a version is only written when the content actually changed, 50 versions
 of a file is 50 real changes to it, not 50 days of an unchanged file. On most
 configuration this is years of history.
 
+## Backing up the platform itself
+
+Per-host history never covered the thing doing the managing: lose the SLOP host
+and every managed machine's `/etc` was recorded in detail while the stack that
+read it was not recorded at all.
+
+Flashback captures the platform's **shape** alongside the hosts — the compose
+file that defines the stack, the gateway's Caddyfile, the portal, and an
+inventory of the named volumes. It is stored under a reserved id that cannot
+collide with a hostname, and it diffs and restores like any other file history.
+
+:::warn
+**This is not a disaster-recovery plan on its own, and it is important that you
+know which half you have.** What is captured is the platform's *configuration*.
+Volume **contents** are not: the IdP's user database, Caddy's issued
+certificates, Baseline's declared states and Flashback's own store are data, not
+configuration. What is recorded is that each volume existed and how large it
+was, so a restore can tell whether it came back. For the volumes themselves you
+still need a volume-level backup.
+:::
+
+:::note
+**Secrets are never stored.** The `.env` — which holds the SSO shared secret,
+the updater secret and both service tokens — is not captured at all, and any
+secret-shaped value in a file that *is* captured is replaced, keeping the key so
+a diff can still tell "the SSO secret is set" from "it is missing". Compose
+variable references like `${SYSIBLE_FLASHBACK_AGENT_TOKEN:-}` are kept as-is:
+they are the wiring, not a credential, and blanking them would turn the most
+useful artefact here into a list of keys.
+:::
+
+Restoring the platform means re-running `install.sh`, which mints fresh secrets,
+and then comparing the result against the captured shape.
+
 ## Where the data lives
 
 Everything is in the `flashback-data` Docker volume: the SQLite index and the
