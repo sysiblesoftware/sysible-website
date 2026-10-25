@@ -2,12 +2,12 @@
 <title>Sysible Linux Operations Platform — one front door for the Sysible suite</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sysible Linux Operations Platform puts one URL, one TLS certificate and one sign-in in front of Controller, the Engineering Platform, Connect, Baseline and the Visualizer — addressed by path, on the server's raw IP. No subdomains, no DNS, no changes to the apps.">
+<meta name="description" content="Sysible Linux Operations Platform puts one URL, one TLS certificate and one sign-in in front of Controller, the Engineering Platform, Connect, Flashback and the Visualizer — addressed by path, on the server's raw IP. No subdomains, no DNS, no changes to the apps.">
 <link rel="canonical" href="https://sysible.com/slop">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sysible">
 <meta property="og:title" content="Sysible Linux Operations Platform — one front door for the Sysible suite">
-<meta property="og:description" content="One URL, one certificate, one sign-in for Controller, the Engineering Platform, Connect, Baseline and the Visualizer. No subdomains, no DNS.">
+<meta property="og:description" content="One URL, one certificate, one sign-in for Controller, the Engineering Platform, Connect, Flashback and the Visualizer. No subdomains, no DNS.">
 <meta property="og:url" content="https://sysible.com/slop">
 <meta property="og:image" content="https://sysible.com/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -298,7 +298,7 @@
     <div class="eyebrow">One Front Door for the Suite</div>
     <h1>Sysible <span class="grad">Linux Operations Platform</span></h1>
     <p class="lede">Sysible Linux Operations Platform puts one URL, one certificate and one sign-in in front of every Sysible app —
-      Controller, the Engineering Platform, Connect, Baseline and the Visualizer. Everything is addressed
+      Controller, the Engineering Platform, Connect, Flashback and the Visualizer. Everything is addressed
       by path on the server’s raw IP, so there are no subdomains, no DNS and nothing to configure. The apps
       themselves are unchanged.</p>
     <div class="cta">
@@ -316,7 +316,7 @@
   <div class="wrap">
     <figure class="shot hero-shot">
       <img src="/img/slop/portal.png" width="1600" height="900"
-        alt="The Sysible Linux Operations Platform portal: one card per app — Engineering Platform, Controller, Connect, Baseline, Visualizer and Administration — each with a live health dot">
+        alt="The Sysible Linux Operations Platform portal: one card per app — Engineering Platform, Controller, Connect, Flashback, Visualizer and Administration — each with a live health dot">
       <figcaption>The portal — one card per app with a live health dot, behind a single sign-in. Administration appears only for a superuser.</figcaption>
     </figure>
   </div>
@@ -329,12 +329,12 @@
       several of them is where it gets tiresome: three addresses, three certificates to accept, three logins
       to keep straight. Sysible Linux Operations Platform is the front door you put in front of them — and nothing about the apps changes.</p>
     <div class="features" style="margin-top:22px">
-      <div class="feat"><div class="ic">One URL</div><h3>Everything by path</h3><p>The portal at <span class="mono">/</span>, then <span class="mono">/controller</span>, <span class="mono">/slep</span>, <span class="mono">/connect</span>, <span class="mono">/baseline</span>. One origin, one bookmark.</p></div>
+      <div class="feat"><div class="ic">One URL</div><h3>Everything by path</h3><p>The portal at <span class="mono">/</span>, then <span class="mono">/controller</span>, <span class="mono">/slep</span>, <span class="mono">/connect</span>, <span class="mono">/flashback</span>. One origin, one bookmark.</p></div>
       <div class="feat"><div class="ic">One login</div><h3>Real single sign-on</h3><p>Sysible Linux Operations Platform ships its own identity provider. Sign in once at the portal and reach every app with no second login — and no app-by-app account sprawl.</p></div>
       <div class="feat"><div class="ic">No DNS</div><h3>Nothing to configure</h3><p>It answers on 443 for whatever IP the host has. No subdomains, no <span class="mono">/etc/hosts</span>, no domain to buy before you can try it.</p></div>
       <div class="feat"><div class="ic">One cert</div><h3>A single TLS story</h3><p>Caddy terminates HTTPS for the whole origin with an internal CA by default, so you accept one certificate instead of one per app. Bring real certs when you want them.</p></div>
       <div class="feat"><div class="ic">Unchanged</div><h3>The apps stay themselves</h3><p>Each remains its own container on its own port, with its own native login for direct access. Sysible Linux Operations Platform reverse-proxies; it does not fork or wrap them.</p></div>
-      <div class="feat"><div class="ic">Included</div><h3>Two modules of its own</h3><p>Baseline and the Visualizer ship with the gateway — config history and restore, and a cross-app activity view that only make sense across the whole suite.</p></div>
+      <div class="feat"><div class="ic">Included</div><h3>Two modules of its own</h3><p>Flashback and the Visualizer ship with the gateway — config history and restore, and a cross-app activity view that only make sense across the whole suite.</p></div>
     </div>
   </div>
 </section>
@@ -346,8 +346,8 @@
       <div class="feat"><div class="ic">/controller</div><h3>Sysible Controller</h3><p>Point-and-click fleet management — hosts, health, services, packages, and live terminals, agent or SSH. <a style="color:var(--blue);text-decoration:none" href="/controller">Overview →</a></p></div>
       <div class="feat"><div class="ic">/slep</div><h3>Engineering Platform</h3><p>Infrastructure automation without the DSL sprawl — Terraform/OpenTofu, Ansible and Salt driven from one console.</p></div>
       <div class="feat"><div class="ic">/connect</div><h3>Sysible Connect</h3><p>A browser terminal workspace for the fleet — drag hosts into split panes, run commands everywhere, transfer files.</p></div>
-      <div class="feat"><div class="ic">/baseline</div><h3>Sysible Baseline</h3><p>Config history and restore for the fleet — browse each host’s file history, diff any two versions, and restore one live or at reboot.</p></div>
-      <div class="feat"><div class="ic">/visualizer</div><h3>Sysible Visualizer</h3><p>Activity and logs from every app in one place — Controller, Engineering Platform, Connect and Baseline, separated by app.</p></div>
+      <div class="feat"><div class="ic">/flashback</div><h3>Sysible Flashback</h3><p>Config history and restore for the fleet — browse each host’s file history, diff any two versions, and restore one live or at reboot.</p></div>
+      <div class="feat"><div class="ic">/visualizer</div><h3>Sysible Visualizer</h3><p>Activity and logs from every app in one place — Controller, Engineering Platform, Connect and Flashback, separated by app.</p></div>
       <div class="feat"><div class="ic">/admin</div><h3>Administration</h3><p>Accounts and password resets for all of it, plus the platform’s own settings — sessions, login throttle and app upstreams. Superusers only.</p></div>
     </div>
   </div>
@@ -359,7 +359,7 @@
     <div class="split">
       <figure class="shot">
         <img src="/img/slop/sign-in.png" width="880" height="620"
-          alt="The Sysible Linux Operations Platform sign-in page: one sign-in for Controller, Engineering Platform, Connect, Baseline and the Visualizer">
+          alt="The Sysible Linux Operations Platform sign-in page: one sign-in for Controller, Engineering Platform, Connect, Flashback and the Visualizer">
         <figcaption>Sign in once, at the platform — not once per app.</figcaption>
       </figure>
       <div>
@@ -392,7 +392,7 @@ https://&lt;server-ip&gt;/            <span class="cmt">→ portal (sign in once
 https://&lt;server-ip&gt;/controller  <span class="cmt">→ Controller   :8800</span>
 https://&lt;server-ip&gt;/slep        <span class="cmt">→ Engineering  :8810</span>
 https://&lt;server-ip&gt;/connect     <span class="cmt">→ Connect      :8700</span>
-https://&lt;server-ip&gt;/baseline    <span class="cmt">→ Baseline     (internal)</span></pre>
+https://&lt;server-ip&gt;/flashback    <span class="cmt">→ Flashback     (internal)</span></pre>
     </div>
     <p class="p-sub" style="margin-top:16px;max-width:70ch">The gateway strips the path prefix before proxying,
       so each app still serves at its own root and needs no knowledge of Sysible Linux Operations Platform. Already running the apps and
@@ -408,7 +408,7 @@ https://&lt;server-ip&gt;/baseline    <span class="cmt">→ Baseline     (intern
       <div class="feat">
         <div class="ic">Free · Open</div>
         <h3>Community Edition</h3>
-        <p>The gateway, the portal, the identity provider, Baseline and the Visualizer, in front of the
+        <p>The gateway, the portal, the identity provider, Flashback and the Visualizer, in front of the
           Community Edition apps. Everything runs in containers on one host.</p>
         <div class="muted-links" style="margin-top:14px">
           <a href="#download">Install CE →</a>

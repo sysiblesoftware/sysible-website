@@ -1,12 +1,12 @@
-title: Sysible Baseline
+title: Sysible Flashback
 subtitle: Administrator & User Guide
 version: 1.0.0
-description: Config history and restore — every version of every tracked config file on every host, with diffs, downloads and one-click restore.
+description: Backup and restore for the SLOP platform — every version of every tracked config file on every host, with diffs, downloads and one-click restore.
 
 ## Overview
 
-**Sysible Baseline** keeps the history of your fleet's configuration. Every host
-running a Sysible agent sends its tracked configuration files in, and Baseline
+**Sysible Flashback** keeps the history of your fleet's configuration. Every host
+running a Sysible agent sends its tracked configuration files in, and Flashback
 keeps every version of every one of them — so the question "what did this file look like before the
 change, and who changed it" has an answer that does not depend on anyone having
 remembered to take a backup.
@@ -20,16 +20,9 @@ From the console you can, for any host and any file:
 - **restore** a version back to the host
 - **compare** the same path across the whole fleet, to find the box that drifted
 
-Baseline ships inside the SLOP stack and is reached at
-`https://<server-ip>/baseline/`. It needs no separate install.
+Flashback ships inside the SLOP stack and is reached at
+`https://<server-ip>/flashback/`. It needs no separate install.
 
-:::note
-**Baseline was called Sysible Flashback.** Only the name changed — same product,
-same data, same console. The old address `/flashback/` still works and sends you
-here, every `SYSIBLE_FLASHBACK_*` setting is still honoured, and your existing
-config history is untouched. If you are looking for something you read about
-under the old name, it is in this guide.
-:::
 
 :::shot console
 The console: hosts on the left, that host's files in the middle, that file's versions beside them.
@@ -46,18 +39,18 @@ day. For machine-level backup and restore, use the Controller's backup tooling.
 ## How a version gets here
 
 Nothing is pulled. The host's agent pushes a snapshot of its tracked files, and
-Baseline records a new version of a file **only when its content differs** from
+Flashback records a new version of a file **only when its content differs** from
 that file's most recent stored version. A fleet that is not changing produces
 almost no new rows, which is what makes keeping every version affordable.
 
-The capture is driven by the Controller: it is the Controller's Baseline wiring
+The capture is driven by the Controller: it is the Controller's Flashback wiring
 that tells agents what to capture and where to send it. If that wiring is
 missing, no host can capture anything, and the console says so once at the top of
 the hosts column rather than letting every row read as a stale agent.
 
 :::note
 If the hosts column is empty, the usual cause is that the Controller is not
-pointed at Baseline — not that the agents are broken. The console distinguishes
+pointed at Flashback — not that the agents are broken. The console distinguishes
 "not wired up" from "nothing captured yet", and the wording tells you which.
 :::
 
@@ -162,7 +155,7 @@ log records who asked for what.
 **Compare files across hosts** answers the question an operator usually arrives
 with after an incident: *this box behaves differently — is its config different?*
 
-Pick a path that several hosts have, and Baseline shows you which hosts hold
+Pick a path that several hosts have, and Flashback shows you which hosts hold
 which content for it, grouped so that identical boxes collapse together and the
 odd one out is obvious. From there you can diff any two of them.
 
@@ -176,7 +169,7 @@ Comparing one path across the fleet: the hosts that agree, and the one that does
 
 ## Roles
 
-Baseline uses the platform's three roles, asserted by SLOP:
+Flashback uses the platform's three roles, asserted by SLOP:
 
 | Role | Can |
 |---|---|
@@ -190,8 +183,8 @@ them — the console not showing a control is a convenience, not the enforcement
 
 ## Retention
 
-Baseline keeps the **50 most recent versions per file** by default, set with
-`SYSIBLE_BASELINE_KEEP`. When a file exceeds that, its oldest versions are
+Flashback keeps the **50 most recent versions per file** by default, set with
+`SYSIBLE_FLASHBACK_KEEP`. When a file exceeds that, its oldest versions are
 pruned and the content they referenced is garbage-collected if no other version
 still points at it.
 
@@ -209,10 +202,9 @@ That volume is the whole product. Back it up — the app can be rebuilt from sou
 in minutes, and the history cannot be rebuilt at all.
 
 :::warn
-**The volume kept its old name on purpose, and you should leave it alone.** It is
-still `flashback-data`, not `baseline-data`, because renaming a Docker volume
-does not move anything into it: Docker would simply create a new empty volume,
-Baseline would come up with no history at all, and your captures would sit in an
+**Leave this volume's name alone.** Renaming a Docker volume
+does not move anything into it: Docker simply creates a new empty volume,
+Flashback would come up with no history at all, and your captures would sit in an
 unreferenced volume until someone ran `docker volume prune`. Nothing reads the
 name but Docker. If you have scripts that back this volume up, they need no
 change.
@@ -220,18 +212,18 @@ change.
 
 ## Security model
 
-- **The console is only reachable through the gateway.** Baseline's web
+- **The console is only reachable through the gateway.** Flashback's web
   interface is not published on a host port; SLOP is the sole front door, and the
   identity it asserts is checked against the shared secret on every request.
 - **The agent endpoint is separate and deliberately narrow.** Agents post
   snapshots to their own port, which is bound to the Docker bridge address rather
   than to every interface: reachable from this host and from containers on it,
   not from the network. It is authenticated with its own token
-  (`SYSIBLE_BASELINE_AGENT_TOKEN`), distinct from any operator's session. Only
+  (`SYSIBLE_FLASHBACK_AGENT_TOKEN`), distinct from any operator's session. Only
   the Controller holds that token — managed hosts never see it, they talk to the
   Controller and it relays.
 - **A restore cannot be used to write arbitrary content.** It names a host, a path
-  and a version that Baseline already stores; anything else is refused. You
+  and a version that Flashback already stores; anything else is refused. You
   cannot restore a file to a host that never had it, or restore content that was
   never captured.
 - **Stored config is treated as hostile input** everywhere it is displayed — see
@@ -240,32 +232,32 @@ change.
 
 :::warn
 Captured configuration frequently contains secrets: keys in `/etc/ssh`,
-credentials in service configs, tokens in environment files. Baseline is
+credentials in service configs, tokens in environment files. Flashback is
 therefore as sensitive as the hosts it protects. Give `auditor` to people who
 should read config history, and treat the `flashback-data` volume with the same
 care as a password store.
 :::
 
 :::warn
-**Do not point `SYSIBLE_BASELINE_AGENT_BIND` at `0.0.0.0`.** The agent endpoint
+**Do not point `SYSIBLE_FLASHBACK_AGENT_BIND` at `0.0.0.0`.** The agent endpoint
 takes the host identifier from the caller and authenticates with one token shared
 by everything that posts snapshots, so publishing it on every interface means
 anything holding that token can write *any* host's config history and read the
 restores queued for it. That is safe as shipped only because the port is on the
-Docker bridge and only the Controller has the token. Baseline prints a warning
+Docker bridge and only the Controller has the token. Flashback prints a warning
 at startup if this is set to a wildcard; do not configure it that way unless you
 have given each agent its own credential.
 :::
 
 ## Troubleshooting
 
-**No hosts at all.** The Controller is not pointed at Baseline, or no agent has
+**No hosts at all.** The Controller is not pointed at Flashback, or no agent has
 checked in yet. The banner at the top of the hosts column says which.
 
 **A host is listed but has no files.** It has been seen but has not captured yet.
 Use **Back up now** on its row and give it one check-in interval.
 
-**A file I expect is not there.** Baseline stores what the agent was told to
+**A file I expect is not there.** Flashback stores what the agent was told to
 capture. The capture set is configured in the Controller, not here.
 
 **"No backup captured yet" after pressing Back up now.** The request is queued for
@@ -280,18 +272,19 @@ restore activity for the acknowledgement.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SYSIBLE_BASELINE_KEEP` | `50` | Versions kept per file before pruning |
-| `SYSIBLE_BASELINE_DATA` | `/data` | Where the index and content live |
-| `SYSIBLE_BASELINE_AGENT_TOKEN` | — | Token agents present when posting snapshots |
-| `SYSIBLE_BASELINE_AGENT_BIND` | `172.17.0.1` | Address the agent endpoint binds to |
-| `SYSIBLE_BASELINE_AGENT_PORT` | `8770` | Port the agent endpoint binds to |
-| `SYSIBLE_BASELINE_TRUST_GATEWAY_AUTH` | `1` in SLOP | Honour the identity SLOP asserts |
-| `SYSIBLE_BASELINE_MAX_REQUEST_BYTES` | — | Largest snapshot accepted |
+| `SYSIBLE_FLASHBACK_KEEP` | `50` | Versions kept per file before pruning |
+| `SYSIBLE_FLASHBACK_DATA` | `/data` | Where the index and content live |
+| `SYSIBLE_FLASHBACK_AGENT_TOKEN` | — | Token agents present when posting snapshots |
+| `SYSIBLE_FLASHBACK_AGENT_BIND` | `172.17.0.1` | Address the agent endpoint binds to |
+| `SYSIBLE_FLASHBACK_AGENT_PORT` | `8770` | Port the agent endpoint binds to |
+| `SYSIBLE_FLASHBACK_TRUST_GATEWAY_AUTH` | `1` in SLOP | Honour the identity SLOP asserts |
+| `SYSIBLE_FLASHBACK_MAX_REQUEST_BYTES` | — | Largest snapshot accepted |
 
-:::note
-**The pre-rebrand `SYSIBLE_FLASHBACK_*` names still work**, and will keep
-working — a rename that required you to edit `.env` before the service would
-start is an outage, not a rebrand. If both spellings are present the
-`SYSIBLE_BASELINE_*` one wins, so you can migrate a setting at a time. Re-running
-the SLOP installer renames the keys in your `.env` for you, keeping each value.
+:::warn
+**Do not confuse these settings with Sysible Flashback's.** Flashback is a
+separate product — the Salt-driven config manager — and it owns the
+`SYSIBLE_FLASHBACK_*` prefix. Flashback reads `SYSIBLE_FLASHBACK_*` only, and
+deliberately does not fall back to the other: the two products want several of
+the same setting names, and the backup tool quietly using the config manager's
+token would not show up until the day you needed a restore.
 :::
