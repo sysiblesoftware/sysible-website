@@ -139,9 +139,37 @@ Past **runs are kept**. They record what actually happened on hosts rather than
 what was declared, so they outlive the declaration — a run list that empties
 itself when a state is tidied up is not an audit trail.
 
+## The Hosts view
+
+The console opens on the **fleet**, as the Controller knows it, grouped by
+environment. Each host shows:
+
+- **what it must satisfy** — the states assigned to it, plus the ones it
+  inherits from its environment, marked as inherited;
+- **what the last run made of it** — *As declared*, *Drifted*, *Failing*,
+  *Never applied*, or **Not managed** when nothing is assigned to it at all;
+- and the actions: **Assign…**, **Preview**, **Apply now**.
+
+:::note
+**Not managed is not compliance.** A host with no state assigned to it, and
+none inherited from its environment, is simply not looked at by Baseline. It is
+the state most of a fleet is in on day one, and reporting it as "as declared"
+would show an entirely unconfigured fleet as green.
+:::
+
+If the Controller cannot be reached the host panel says so and the rest of the
+console carries on: states, assignments, rules and runs all come from
+Baseline's own store.
+
 ## Assigning a state to hosts
 
 Declaring a state does not apply it. **Assign** picks what it applies to:
+
+Start from the host: **Assign…** on its row opens the dialog with that host
+already chosen. **Assign to all of &lt;environment&gt;** does the same for a
+whole environment — what used to require knowing the `env:<name>` syntax.
+
+The dialog itself offers:
 
 - a **host**, from the fleet the Controller knows — grouped by environment,
   with each host's address beside it, and SSH-only hosts marked;
