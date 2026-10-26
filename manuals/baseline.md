@@ -79,18 +79,29 @@ The order of the list is the order the host is changed in, so "install it, then
 start it" means putting the package above the service. Items can be moved and
 removed.
 
-### The YAML option
+### Writing your own Salt state
 
-Every state has a **YAML** view. For a state built from a list it shows the Salt
-SLS that list produces — read-only, because the list is what gets saved, and
-what you read there is the exact string the fleet runs.
+The builder is not the only way in. **New state → YAML** gives you an empty
+editor: write or paste any Salt SLS and save it. Nothing is generated and
+nothing is converted — it is stored exactly as typed, and reopening it gives
+you the same editor back.
 
-If the builder does not cover what you need, **Edit this YAML by hand** takes
-the state over: from the next version on it is whatever you type. That switch is
-one-way for the state going forward, because reading SLS back into a list of
-items would be a guess, and what a guess silently drops is the part you cannot
-see. The versions written before the switch keep their list and are still
-readable as one.
+Use it for anything the builder does not cover, including states that depend on
+a Salt file server, Jinja templating, requisites, or modules this console does
+not list.
+
+### The YAML view of a built state
+
+A state built from a list also has a **YAML** view, showing the Salt SLS that
+list produces. It is read-only there, because the list is what gets saved — and
+what you read is the exact string the fleet runs, fetched from the same place
+the save uses.
+
+If you want to take such a state over, **Edit this YAML by hand** does it: from
+the next version on it is whatever you type. That switch is one-way for the
+state going forward, because reading SLS back into a list of items would be a
+guess, and what a guess silently drops is the part you cannot see. The versions
+written before the switch keep their list and are still readable as one.
 
 A state typed as YAML always opens as YAML:
 
@@ -116,6 +127,32 @@ Salt file server, write the state as YAML and point it at one you run.
 Every save is a **new version**. Nothing is overwritten, because "what did this
 say yesterday" is the first question asked when a fleet drifts, and the answer
 has to exist. The 50 most recent versions of each state are kept.
+
+### Deleting a state
+
+**Delete** removes a state and every version of it. Any assignments to it go
+too, and the confirmation names them first: those hosts stop being configured
+by that state, and finding that out later is the kind of thing nobody traces
+back.
+
+Past **runs are kept**. They record what actually happened on hosts rather than
+what was declared, so they outlive the declaration — a run list that empties
+itself when a state is tidied up is not an audit trail.
+
+## Assigning a state to hosts
+
+Declaring a state does not apply it. **Assign** picks what it applies to:
+
+- a **host**, from the fleet the Controller knows — grouped by environment,
+  with each host's address beside it, and SSH-only hosts marked;
+- an **environment**, which applies to every host in it in addition to anything
+  assigned to the host itself;
+- or a target you **type**, which is always offered — a host the Controller has
+  not enrolled yet is a legitimate thing to assign to.
+
+If the Controller cannot be reached the list is empty and the dialog says why,
+falling back to typing. Losing the ability to assign because the host *picker*
+is down would be worse than typing a name.
 
 ## Preview before you apply
 
