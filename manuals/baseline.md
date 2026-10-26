@@ -58,7 +58,41 @@ The console: declared states, what drifted, and what fires when it does.
 
 ## Declaring a state
 
-A state is ordinary Salt SLS. Nothing about it is Sysible-specific:
+A state is a **list of things that must be true** about a host. You pick what to
+add, fill in a few fields, and Baseline writes the Salt state for you — you do
+not have to know that the key is `pkg.installed` rather than `pkg.install`, or
+which arguments take a list.
+
+| Add | What it makes true |
+| --- | --- |
+| Packages installed / removed | The named packages are present, or are not |
+| Service running / stopped | Started now and on at boot, or stopped and off |
+| File with this content | The file is created or rewritten to match exactly |
+| Directory exists | With an owner, group and mode if you give them |
+| Line present in a file | That line is there; the rest of the file is untouched |
+| User account, Group | The account exists, with its groups, shell and home |
+| Kernel parameter (sysctl) | The parameter has that value |
+| Scheduled command (cron) | The job is in that user's crontab |
+| Run a command | With a guard, so it does not run on every apply |
+
+The order of the list is the order the host is changed in, so "install it, then
+start it" means putting the package above the service. Items can be moved and
+removed.
+
+### The YAML option
+
+Every state has a **YAML** view. For a state built from a list it shows the Salt
+SLS that list produces — read-only, because the list is what gets saved, and
+what you read there is the exact string the fleet runs.
+
+If the builder does not cover what you need, **Edit this YAML by hand** takes
+the state over: from the next version on it is whatever you type. That switch is
+one-way for the state going forward, because reading SLS back into a list of
+items would be a guess, and what a guess silently drops is the part you cannot
+see. The versions written before the switch keep their list and are still
+readable as one.
+
+A state typed as YAML always opens as YAML:
 
 ```
 nginx_installed:
@@ -70,12 +104,14 @@ nginx_config:
     - name: /etc/nginx/nginx.conf
     - source: salt://nginx.conf
     - mode: 644
-
-nginx_running:
-  service.running:
-    - name: nginx
-    - enable: true
 ```
+
+:::note
+`source: salt://…` is an example of what the builder does not do: it has no file
+server behind it. **File with this content** carries the content itself, which
+is what Baseline's masterless design can guarantee. For anything that needs a
+Salt file server, write the state as YAML and point it at one you run.
+:::
 
 Every save is a **new version**. Nothing is overwritten, because "what did this
 say yesterday" is the first question asked when a fleet drifts, and the answer

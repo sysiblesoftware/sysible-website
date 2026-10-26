@@ -194,7 +194,7 @@ posture sweep overlays when it returns.
 | `SLOP_CONTROLLER_UPSTREAM` | `host.docker.internal:8800` | Where to read the Controller's activity |
 | `SLOP_SLEP_UPSTREAM` | `host.docker.internal:8810` | Where to read SLEP's activity |
 | `SLOP_CONNECT_UPSTREAM` | `host.docker.internal:8700` | Where to read Connect's activity |
-| `SLOP_FLASHBACK_UPSTREAM` | `flashback:8080` | Where to read Flashback's audit (the pre-rebrand `SLOP_FLASHBACK_UPSTREAM` is still honoured) |
+| `SLOP_FLASHBACK_UPSTREAM` | `flashback:8080` | Where to read Flashback's audit |
 | `SYSIBLE_VISUALIZER_MAX_LIMIT` | — | Largest row count a caller may request |
 | `SYSIBLE_VISUALIZER_TIMEOUT_S` | — | How long to wait on an upstream app |
 | `SYSIBLE_VISUALIZER_LOCAL_USER` | `local` | Identity used in standalone mode only |

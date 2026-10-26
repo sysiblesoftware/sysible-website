@@ -18,6 +18,7 @@ Two defects this catches, both silent and both already shipped once:
 
 Run: pytest tests/
 """
+import functools
 import importlib.util
 import pathlib
 import re
@@ -93,7 +94,12 @@ def test_the_committed_html_matches_its_markdown(src):
         after = out.read_text(encoding="utf-8")
     finally:
         out.write_text(before, encoding="utf-8")
-    assert after == before, (
+    # The generator stamps today's date into the cover and the footer, so a
+    # byte comparison fails on every day but the one the manuals were last
+    # built on — a test that cries wolf daily is a test people turn off. The
+    # date is the one thing allowed to differ; everything else is the content.
+    norm = functools.partial(re.compile(r"\d{4}-\d{2}-\d{2}").sub, "<date>")
+    assert norm(after) == norm(before), (
         f"{out.name} is out of date with {src.name} — re-run "
         f"`python3 tools/generate_manuals.py` and commit the result")
 
