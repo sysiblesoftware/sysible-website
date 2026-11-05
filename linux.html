@@ -416,7 +416,7 @@
       <div class="p-head">
         <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark"/></svg>
         <div>
-          <div class="p-title">Sysible Workstation <span class="mono" style="font-weight:500;color:var(--muted)">1.0.2 “Ignition”</span></div>
+          <div class="p-title">Sysible Workstation <span class="mono" style="font-weight:500;color:var(--muted)" id="linux-pill">1.0.3 “Ignition”</span></div>
           <p class="p-sub">Installable live ISO on a Debian-stable base — boot it live to try it, or install to disk.</p>
         </div>
         <span class="pill" id="linux-ver">Latest: <b>—</b></span>
@@ -581,8 +581,23 @@
   /* ---------- Sysible Workstation latest release version from GitHub ---------- */
   function renderLinux(release){
     var verEl=document.querySelector("#linux-ver b");
-    if(!verEl) return;
-    verEl.textContent = (release && release.tag_name) ? release.tag_name : "on GitHub";
+    if(verEl){
+      verEl.textContent = (release && release.tag_name) ? release.tag_name : "on GitHub";
+    }
+    // The title too. It used to be static text with no id, so nothing could
+    // update it: the scheduled sync rewrote release-linux.json, the "Latest:"
+    // pill followed the GitHub API, and this number stayed on whatever was
+    // current the day it was typed — two versions on one page, the larger one
+    // wrong. The markup keeps the current version as its starting value, so
+    // the page is right before the fetch returns and right after.
+    var pill = document.getElementById("linux-pill");
+    if(pill && release && release.tag_name){
+      var v = String(release.tag_name).replace(/^v/, "");
+      // The codename is not in the API payload; keep whatever the page already
+      // shows rather than dropping it.
+      var m = pill.textContent.match(/\u201c([^\u201d]*)\u201d/);
+      pill.textContent = v + (m ? " \u201c" + m[1] + "\u201d" : "");
+    }
   }
   function ghLatest(repo){
     return fetch("https://api.github.com/repos/"+repo+"/releases/latest", {headers:{Accept:"application/vnd.github+json"}})
