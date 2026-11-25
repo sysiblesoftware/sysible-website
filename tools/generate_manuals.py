@@ -38,6 +38,14 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _icon_stamp(name):
+    """First 8 hex of the icon's sha256 — the same stamp tools/stamp_icons.py
+    writes into the hand-written pages, computed the same way so the two kinds
+    of page never disagree about which icon they are asking for."""
+    import hashlib
+    return hashlib.sha256((ROOT / name).read_bytes()).hexdigest()[:8]
 SRC = ROOT / "manuals"
 SHOTS = SRC / "shots"
 
@@ -327,8 +335,14 @@ def build(path: Path) -> Path:
     out = (
         '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
         f"<title>{html.escape(title)} — {html.escape(sub)}</title>"
-        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'
-        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+        # Stamped with the icon's own hash, like every hand-written page.
+        # Chrome keys its favicon cache by URL, so a bare /favicon.svg keeps
+        # serving whatever it cached however often the file is redeployed.
+        # These pages are GENERATED, so the stamp has to be produced here --
+        # editing the output directly makes it disagree with its source and
+        # test_manuals_render.py rightly fails.
+        f'<link rel="icon" type="image/svg+xml" href="/favicon.svg?v={_icon_stamp("favicon.svg")}">'
+        f'<link rel="apple-touch-icon" href="/apple-touch-icon.png?v={_icon_stamp("apple-touch-icon.png")}">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         f'<meta name="description" content="{html.escape(meta.get("description", title))}">'
         f"<style>{CSS}</style></head><body>"

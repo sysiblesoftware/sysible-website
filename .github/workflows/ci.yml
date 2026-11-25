@@ -1,0 +1,26 @@
+name: CI
+
+# The site HAD tests and nothing ran them. deploy.yml pushes straight to
+# Cloudflare Pages on every push to main; there was no gate in front of it, so
+# tests/test_the_download_page_follows_the_release.py -- which exists precisely
+# to catch the download page naming a stale version -- had never once run. It
+# was failing: the page named a Workstation release two versions behind, as its
+# first paint, on the page people download from.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip && pip install pytest
+      - name: Run the site guards
+        run: python -m pytest -q tests

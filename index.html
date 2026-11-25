@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <title>Sysible Enterprise Software — Downloads</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=30928688"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7430a7f5"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=5313405e">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Download Sysible Workstation — the engineering & automation workstation OS — and Sysible Controller CE. Installable ISOs for amd64 and arm64 with checksums.">
 <link rel="canonical" href="https://sysible.com/">
@@ -323,7 +323,7 @@
         <div class="p-head">
           <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-ws"/></svg>
           <div>
-            <div class="p-title">Sysible Workstation <span class="mono" style="font-weight:500;color:var(--muted)" id="linux-pill">1.0.3 “Ignition”</span></div>
+            <div class="p-title">Sysible Workstation <span class="mono" style="font-weight:500;color:var(--muted)" id="linux-pill">—</span></div>
             <p class="p-sub">Debian-stable base. Install it to disk with the Sysible installer — or boot the ISO live first to try it.</p>
           </div>
           <span class="pill" id="linux-ver">Latest: <b>—</b></span>
@@ -662,8 +662,18 @@ sudo ./install.sh</pre>
      file can't be fetched; it just points at the releases page.           */
   var LINUX_REPO = "sysiblesoftware/Sysible-Workstation";
   var SERVER_REPO = "sysiblesoftware/Sysible-Server";
+  // NO VERSION HERE, deliberately. This object is rendered on EVERY load as the
+  // first paint, not only when the fetch fails (see the renderLinux call below),
+  // so whatever version it names is what every visitor sees for a moment -- and
+  // for good if /release-linux.json cannot be fetched. It named a release two
+  // versions behind the current one, on the download page, as the first thing
+  // anyone read.
+  //
+  // A hard-coded version in a fallback is stale the day after it is typed. The
+  // adjacent "Latest:" pill has always started as a neutral dash and filled
+  // itself in; this now does the same. Being briefly silent about the version
+  // is correct. Being confidently wrong about it is not.
   var LINUX_FALLBACK = {
-    version: "1.0.3", codename: "Ignition", tag: "v1.0.3",
     html_url: "https://github.com/" + LINUX_REPO + "/releases/latest",
     arches: {}
   };
@@ -757,7 +767,10 @@ sudo ./install.sh</pre>
   function renderLinux(doc){
     doc = doc || LINUX_FALLBACK;
     var arches = doc.arches || {};
-    document.querySelector("#linux-ver b").textContent = doc.tag || ("v"+doc.version);
+    // Without the guard a fallback that names no version printed the literal
+    // string "vundefined" into the pill.
+    document.querySelector("#linux-ver b").textContent =
+      doc.tag || (doc.version ? "v" + doc.version : "on GitHub");
     var pill = document.getElementById("linux-pill");
     if(pill && doc.version){ pill.textContent = doc.version + (doc.codename ? " “"+doc.codename+"”" : ""); }
 
