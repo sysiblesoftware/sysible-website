@@ -1,8 +1,18 @@
 # Sysible brand kit
 
-Canonical logo exports. Transparent PNGs unless noted. Edit `sysible-brand.src.html`
-and re-render with Chromium to regenerate the composed (text-bearing) assets;
-run `render-cards.py` to regenerate the site OG cards and README badges.
+Canonical logo exports. Transparent PNGs unless noted.
+
+| to regenerate | run |
+|---|---|
+| composed, text-bearing assets (company lockup, org avatar, README badges) | `node branding/render-brand.js` — edit `sysible-brand.src.html` first |
+| site OG social cards | `python3 branding/render-cards.py` |
+
+`render-brand.js --check` fails if any committed asset differs from the source,
+which is the guard that was missing: this file used to say "re-render with
+Chromium" without providing anything to re-render with, so the SES avatar that
+went live on the GitHub org was composed by hand elsewhere and never came back
+here. The committed avatar had been stale ever since. Each asset now has
+exactly one owner — `render-cards.py` no longer writes the README badges.
 
 | File | Use |
 |------|-----|
@@ -11,7 +21,9 @@ run `render-cards.py` to regenerate the site OG cards and README badges.
 | `sysible-lockup-dark.png` | Horizontal mark + wordmark, for **dark** backgrounds (near-white text). README banners, dark UI. |
 | `sysible-lockup-light.png` | Same lockup for **light** backgrounds (navy text). |
 | `sysible-avatar-512.png` | Square 512×512 **mark only** on the dark ground (safe for circular crop). |
-| `sysible-profile-512.png` / `-1024.png` | Stacked mark + wordmark + **ENTERPRISE SOFTWARE** tagline, dark ground. GitHub **org profile / avatar with text** — upload the 512. |
+| `ses-lockup-dark.png` / `-light.png` | **The SES company lockup**, horizontal, transparent. The company mark: GitHub README banners, anywhere the company rather than a product is being named. Mirrored into `.github/sysible-logo-*.png` for this repo's own README. |
+| `ses-lockup.svg` | The same lockup as vector, `currentColor` so one file serves both themes. Source for anything that can take an SVG — the site header, the generated manuals. |
+| `sysible-profile-512.png` / `-1024.png` | SES lockup **stacked** on the dark ground. GitHub **org avatar** — upload the 512 by hand; an avatar is an account setting, not a file in a repo. The tagline is sized to survive GitHub's circular crop, so do not enlarge it without re-checking the crop. |
 | `sysible-social-1280x640.png` | 1280×640 **Sysible** social / Open Graph card — **Enterprise Software** tagline. Mirrored at site root as `social-card.png`. |
 | `sysible-controller-1280x640.png` | 1280×640 **Sysible Controller** social card — controller mark + **IT Infrastructure Management** tagline. Mirrored at site root as `controller-card.png`. |
 
@@ -25,7 +37,11 @@ The retired hexagon / nested-core / honeycomb marks are gone. Backgrounds are
 **topographic contour** fields, never honeycomb.
 
 ## Brand hierarchy
-- **Sysible** (the company) → tagline **Enterprise Software**.
+- **Sysible Enterprise Software / SES** (the company) → the SES lockup, tagline
+  **Enterprise Software**. This is the mark that goes on the org, the site
+  header and anything company-level.
+- **Sysible** → the "S" tile, the house mark, used where a product is not being
+  named specifically.
 - **Sysible Controller** (the product) → tagline **IT Infrastructure Management**, hub-and-nodes mark.
 
 ## Palette (locked)

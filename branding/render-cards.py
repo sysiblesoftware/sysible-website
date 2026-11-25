@@ -54,14 +54,11 @@ def card(out,markurl,title,sub):
     uw=min(tot*0.5,240); d.rounded_rectangle([W/2-uw/2,base+14,W/2+uw/2,base+19],radius=2,fill=GREEN)
     f2,t2=fit(sub,W*0.72,34,0.30,"Medium");tracked(d,sub,f2,W/2,base+44,(138,147,160),t2)
     im.convert("RGB").save(os.path.join(ROOT,out));print("wrote",out)
-def badge(out,fg):
-    W,H=980,260;im=Image.new("RGBA",(W,H),(0,0,0,0));d=ImageDraw.Draw(im)
-    s=int(H*0.86);im.alpha_composite(mark(SYS,s),(int(W*0.05),(H-s)//2))
-    f,tr=fit("SYSIBLE",W*0.5,int(H*0.30),0.02)
-    x0=int(W*0.05)+s+int(H*0.12);d2=ImageDraw.Draw(im);asc,desc=f.getmetrics()
-    tracked(d2,"SYSIBLE",f,x0+ (sum(d2.textlength(c,font=f) for c in "SYSIBLE")+tr*6)/2,(H-(asc+desc))//2,fg,tr)
-    im.save(os.path.join(ROOT,out));print("wrote",out)
+# NOTE: the README badges used to be written here too, as the "S" tile beside
+# the word SYSIBLE. They are now the SES company lockup, composed in
+# branding/sysible-brand.src.html and written by branding/render-brand.js,
+# which renders real text in a browser with the vendored Sora webfont. Two
+# scripts writing the same two files is precisely how the committed avatar
+# drifted away from the one live on the GitHub org, so there is one owner.
 card("social-card.png",SYS,"Sysible","ENTERPRISE SOFTWARE")
 card("controller-card.png",CTL,"Sysible Controller","IT INFRASTRUCTURE MANAGEMENT")
-badge(".github/sysible-logo-dark.png",(233,240,247))
-badge(".github/sysible-logo-light.png",(20,33,58))

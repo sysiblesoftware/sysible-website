@@ -10,12 +10,33 @@
   .tag{font-weight:600;color:#8a93a0;text-transform:uppercase;margin:0}
   .uline{height:6px;border-radius:3px;background:#6ddb73;margin:20px 0 0}
 
-  /* profile avatar 1024², padded so it reads small / survives a circle crop */
+  /* profile avatar 1024², padded so it reads small / survives a circle crop.
+     This is the SES company lockup, stacked. It used to be the Sysible "S"
+     tile over the word "Sysible" — which is not what has been live on the
+     GitHub org for some time, because the live avatar was composed by hand
+     somewhere else and never came back to this file. There was no script to
+     re-render with, so nothing could catch the drift. There is one now. */
   #profile{width:1024px;height:1024px}
-  #profile .mark{width:330px;height:358px;display:block;margin-bottom:30px}
-  #profile .word{font-size:132px;letter-spacing:-2px}
-  #profile .uline{width:210px}
-  #profile .tag{font-size:37px;letter-spacing:13px;margin:26px 0 0 13px}
+  #profile .ses{font-weight:800;color:#eceff3;font-size:250px;letter-spacing:-11px;line-height:1;margin:0}
+  #profile .uline{width:300px;height:24px;margin:34px 0 0}
+  /* nowrap and a tagline sized to stay inside the INSCRIBED CIRCLE, not the
+     square. The first attempt used the card's 50px/17px tracking, which is
+     ~1300px of text in a 1024px box: it wrapped to two lines and the circular
+     crop GitHub applies then sliced the second one in half. Roughly 690px is
+     the widest a line can be here and still clear the crop. */
+  #profile .tag{font-size:28px;letter-spacing:8px;margin:34px 0 0 8px;white-space:nowrap}
+
+  /* horizontal company lockup, 980×260, transparent — README banners.
+     Proportions are the site header's lockup at 4.5x: 23/2x27/12/9@1.7. */
+  .lockup{width:980px;height:260px;background:transparent;
+          flex-direction:row;align-items:center;justify-content:center;gap:45px}
+  .lockup .ses{font-weight:800;font-size:103.5px;letter-spacing:-4.5px;line-height:1;margin:0}
+  .lockup .rule{width:9px;height:121.5px;border-radius:4.5px;background:#6ddb73}
+  .lockup .stack{display:flex;flex-direction:column;line-height:1.08;text-align:left;gap:9px}
+  .lockup .l1{font-weight:700;font-size:54px;letter-spacing:1.8px;text-transform:uppercase;margin:0}
+  .lockup .l2{font-weight:600;font-size:40.5px;letter-spacing:7.65px;text-transform:uppercase;margin:0}
+  #lockup-dark .ses,#lockup-dark .l1{color:#e9f0f7} #lockup-dark .l2{color:#8a93a0}
+  #lockup-light .ses,#lockup-light .l1{color:#141d38} #lockup-light .l2{color:#5b6573}
 
   /* social cards 1280×640 */
   .card{width:1280px;height:640px}
@@ -39,8 +60,19 @@
 </defs></svg>
 
 <div class="stage dark" id="profile">
-  <svg class="mark" viewBox="-24 -26 48 52"><use href="#m"/></svg>
-  <p class="word">Sysible</p><div class="uline"></div><p class="tag">Enterprise Software</p>
+  <p class="ses">SES</p><div class="uline"></div><p class="tag">Sysible Enterprise Software</p>
+</div>
+
+<!-- The same lockup laid out horizontally, on nothing, for README banners and
+     anywhere a wide company mark is wanted. Two colourways because a README is
+     read on both themes and GitHub picks with prefers-color-scheme. -->
+<div class="stage lockup" id="lockup-dark">
+  <p class="ses">SES</p><div class="rule"></div>
+  <div class="stack"><p class="l1">Sysible</p><p class="l2">Enterprise&nbsp;Software</p></div>
+</div>
+<div class="stage lockup" id="lockup-light">
+  <p class="ses">SES</p><div class="rule"></div>
+  <div class="stack"><p class="l1">Sysible</p><p class="l2">Enterprise&nbsp;Software</p></div>
 </div>
 
 <div class="stage dark card" id="sysible-card">
