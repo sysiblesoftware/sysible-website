@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 32" width="206" height="32"
+     role="img" aria-label="SES, Sysible Enterprise Software">
+  <!-- The Sysible Enterprise Software company lockup, as a reusable asset.
+       It previously existed ONLY as inline span markup in the top bar of each
+       site page: about 700 characters of inline styles, duplicated eight times,
+       and so unusable anywhere that is not a hand-written HTML page. That is
+       the whole reason it appears nowhere else.
+       Geometry is lifted from that markup rather than redrawn: 23px/800 "SES",
+       a 2 by 27 accent rule, then 12px/700 "SYSIBLE" above 9px "ENTERPRISE
+       SOFTWARE" at 1.7 tracking.
+       Both text colours are currentColor, so one file serves light and dark;
+       the second line is the same ink at 62 percent rather than a second
+       variable. Note for editors: an XML comment may not contain two hyphens
+       in a row, which is what broke the first draft of this file. -->
+  <text x="0" y="23" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="23" font-weight="800" letter-spacing="-1" fill="currentColor">SES</text>
+  <rect x="48" y="2.5" width="2" height="27" rx="1" fill="#3ddc6d"/>
+  <text x="60" y="14" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="12" font-weight="700" letter-spacing="0.4" fill="currentColor">SYSIBLE</text>
+  <text x="60" y="26" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="9" font-weight="600" letter-spacing="1.7" fill="currentColor" opacity="0.62">ENTERPRISE SOFTWARE</text>
+</svg>

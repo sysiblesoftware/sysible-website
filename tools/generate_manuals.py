@@ -81,11 +81,29 @@ padding:30px 18px;font-size:13px;}
 .shot-slot b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px;}
 .shot-slot code{background:#fff;}
 footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);font-size:12px;}
+.ses-foot{display:flex;justify-content:center;margin:18px 0 10px;color:var(--ink);}
+.ses-foot svg{width:172px;height:27px;display:block;}
 @media print{body{background:#fff;} .page{box-shadow:none;margin:0;} .shot-slot{display:none;}}
 """
 
 # The real cover mark, lifted verbatim from controller-manual.html so every manual
 # carries the same logo rather than an approximation of it.
+# The company lockup, read from the single asset in branding/ rather than
+# pasted in here. Before that asset existed the lockup was inline span markup
+# duplicated across eight site pages, which is precisely why it had never
+# reached the manuals: there was nothing to reference.
+#
+# It is INLINED into each manual rather than linked as an <img src="/branding/">
+# because a manual is meant to survive being saved or printed to PDF on its
+# own, and an absolute site path resolves to nothing once the file is off the
+# server. The XML comment is stripped so five generated files do not each carry
+# the same paragraph of prose.
+SES_LOCKUP = re.sub(
+    r"<!--.*?-->", "",
+    (ROOT / "branding/ses-lockup.svg").read_text(encoding="utf-8"),
+    flags=re.S,
+).strip()
+
 MARK = '<svg viewBox="-24 -26 48 52" width="96" height="104" role="img" aria-label="Sysible"><defs><linearGradient id="tgCover" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient></defs><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tgCover)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></svg>'
 
 
@@ -320,8 +338,9 @@ def build(path: Path) -> Path:
         f'<div class="page"><h2>Contents</h2><div class="toc">{toc_html}</div></div>'
         f'<div class="page">{numbered}</div>'
         f'<footer>{html.escape(title)} v{html.escape(version)} — generated {stamp} by '
-        "tools/generate_manuals.py<div style=\"margin-top:14px;opacity:.8\">The Sysible Linux "
-        "platforms are products of <b>Sysible Enterprise&nbsp;Software</b> (SES).</div>"
+        f'tools/generate_manuals.py<div class="ses-foot">{SES_LOCKUP}</div>'
+        "<div style=\"opacity:.8\">The Sysible Linux platforms are products of "
+        "Sysible Enterprise&nbsp;Software.</div>"
         "</footer></body></html>"
     )
     dest = ROOT / f"{product}-manual.html"
