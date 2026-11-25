@@ -3,12 +3,17 @@
   Sysible Enterprise Software favicon.
   The company mark is the horizontal SES lockup, but a lockup 6.4 times wider
   than it is tall is unreadable at 16px, which is what a favicon mostly is. So
-  the tab carries the distinctive half of it: SES, on the same dark tile with
-  the same green ring and rule as the product marks.
-  The letterforms are Sora at weight 800, baked to outlines rather than set as
+  the tab carries the distinctive half: SES, on the same dark tile with the
+  same green ring and rule as the product marks.
+  Letterforms are Sora at weight 800, baked to outlines rather than set as
   <text>: an SVG favicon cannot load a web font, so <text> would silently fall
-  back to whatever sans the viewer happens to have. Regenerate from
-  fonts/Sora.ttf if the wordmark ever changes.
+  back to whatever sans the viewer happens to have.
+  Sizing is deliberate and was measured, not eyeballed. The first version made
+  the wordmark 86 units wide against a ring whose ink spans about 109, leaving
+  ~11 units of margin — the letters looked welded to the ring — and centred it
+  in the whole tile, which left a dead band above the green rule. It is now 72
+  wide and centred in the space ABOVE the rule. Regenerate from fonts/Sora.ttf
+  with fontTools if the wordmark changes.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
   <defs>
@@ -18,6 +23,6 @@
   </defs>
   <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#tg)"/>
   <rect x="11.2" y="11.2" width="105.6" height="105.6" rx="24.8" fill="none" stroke="#6ddb73" stroke-width="3.4"/>
-  <g fill="#eceff3"><path transform="translate(19.986 74.868) scale(0.04609 -0.04609)" d="M334 -20Q232 -20 162.5 12.0Q93 44 57.5 99.5Q22 155 22 227H202Q202 201 216.5 179.5Q231 158 260.0 146.0Q289 134 334 134Q373 134 400.5 144.0Q428 154 442.5 172.0Q457 190 457 215Q457 247 430.0 264.5Q403 282 339 287L292 291Q179 301 112.0 362.0Q45 423 45 524Q45 596 78.5 647.0Q112 698 173.0 725.0Q234 752 317 752Q407 752 469.5 722.0Q532 692 565.0 637.5Q598 583 598 511H418Q418 535 406.0 555.0Q394 575 371.5 586.5Q349 598 317 598Q287 598 266.5 588.5Q246 579 235.5 562.0Q225 545 225 524Q225 496 244.0 476.0Q263 456 310 452L357 448Q439 441 502.0 412.5Q565 384 601.0 335.0Q637 286 637 215Q637 144 600.5 91.0Q564 38 496.5 9.0Q429 -20 334 -20Z"/><path transform="translate(50.358 74.868) scale(0.04609 -0.04609)" d="M74 0V730H254V0ZM234 0V152H542V0ZM234 295V447H521V295ZM234 578V730H536V578Z"/><path transform="translate(77.642 74.868) scale(0.04609 -0.04609)" d="M334 -20Q232 -20 162.5 12.0Q93 44 57.5 99.5Q22 155 22 227H202Q202 201 216.5 179.5Q231 158 260.0 146.0Q289 134 334 134Q373 134 400.5 144.0Q428 154 442.5 172.0Q457 190 457 215Q457 247 430.0 264.5Q403 282 339 287L292 291Q179 301 112.0 362.0Q45 423 45 524Q45 596 78.5 647.0Q112 698 173.0 725.0Q234 752 317 752Q407 752 469.5 722.0Q532 692 565.0 637.5Q598 583 598 511H418Q418 535 406.0 555.0Q394 575 371.5 586.5Q349 598 317 598Q287 598 266.5 588.5Q246 579 235.5 562.0Q225 545 225 524Q225 496 244.0 476.0Q263 456 310 452L357 448Q439 441 502.0 412.5Q565 384 601.0 335.0Q637 286 637 215Q637 144 600.5 91.0Q564 38 496.5 9.0Q429 -20 334 -20Z"/></g>
+  <g fill="#eceff3"><path transform="translate(27.151 69.622) scale(0.03859 -0.03859)" d="M334 -20Q232 -20 162.5 12.0Q93 44 57.5 99.5Q22 155 22 227H202Q202 201 216.5 179.5Q231 158 260.0 146.0Q289 134 334 134Q373 134 400.5 144.0Q428 154 442.5 172.0Q457 190 457 215Q457 247 430.0 264.5Q403 282 339 287L292 291Q179 301 112.0 362.0Q45 423 45 524Q45 596 78.5 647.0Q112 698 173.0 725.0Q234 752 317 752Q407 752 469.5 722.0Q532 692 565.0 637.5Q598 583 598 511H418Q418 535 406.0 555.0Q394 575 371.5 586.5Q349 598 317 598Q287 598 266.5 588.5Q246 579 235.5 562.0Q225 545 225 524Q225 496 244.0 476.0Q263 456 310 452L357 448Q439 441 502.0 412.5Q565 384 601.0 335.0Q637 286 637 215Q637 144 600.5 91.0Q564 38 496.5 9.0Q429 -20 334 -20Z"/><path transform="translate(52.579 69.622) scale(0.03859 -0.03859)" d="M74 0V730H254V0ZM234 0V152H542V0ZM234 295V447H521V295ZM234 578V730H536V578Z"/><path transform="translate(75.421 69.622) scale(0.03859 -0.03859)" d="M334 -20Q232 -20 162.5 12.0Q93 44 57.5 99.5Q22 155 22 227H202Q202 201 216.5 179.5Q231 158 260.0 146.0Q289 134 334 134Q373 134 400.5 144.0Q428 154 442.5 172.0Q457 190 457 215Q457 247 430.0 264.5Q403 282 339 287L292 291Q179 301 112.0 362.0Q45 423 45 524Q45 596 78.5 647.0Q112 698 173.0 725.0Q234 752 317 752Q407 752 469.5 722.0Q532 692 565.0 637.5Q598 583 598 511H418Q418 535 406.0 555.0Q394 575 371.5 586.5Q349 598 317 598Q287 598 266.5 588.5Q246 579 235.5 562.0Q225 545 225 524Q225 496 244.0 476.0Q263 456 310 452L357 448Q439 441 502.0 412.5Q565 384 601.0 335.0Q637 286 637 215Q637 144 600.5 91.0Q564 38 496.5 9.0Q429 -20 334 -20Z"/></g>
   <rect x="42" y="98" width="44" height="7" rx="3.5" fill="#6ddb73"/>
 </svg>
