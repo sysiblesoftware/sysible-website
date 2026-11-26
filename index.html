@@ -338,14 +338,18 @@
       </div>
       <div class="grid2">
         <div class="panel">
-          <div class="p-title">66 of them cannot be left out</div>
-          <p class="p-sub">Docker CE and Compose, containerd, podman/buildah/skopeo, Ansible, nftables
-            and the diagnostics set are hard <span class="mono">Depends</span> of the image. The build
-            configures Docker's apt repository, with a fingerprint-checked key, before any package is
-            installed — so an ISO without them does not build at all. kubectl, Helm, k9s, OpenTofu and
-            the cloud CLIs ride along as <span class="mono">Recommends</span>: installed by default,
-            removable with <span class="mono">--no-install-recommends</span>. On a stock netinst every
-            one of those is a manual step, and several need a third-party repo and its key first.</p>
+          <div class="p-title">The toolchain cannot be left out</div>
+          <p class="p-sub">Docker CE and Compose, containerd, podman/buildah/skopeo, Ansible, nftables,
+            openssl and the diagnostics set are hard <span class="mono">Depends</span>. Docker's apt
+            repository is configured with a fingerprint-checked key before any package is installed, so
+            an ISO without them does not build.
+            <br><br>
+            kubectl, Helm, k9s and OpenTofu <em>cannot</em> be apt dependencies — three of them are
+            vendor binaries, not packages — so the build checks for them on
+            <span class="mono">PATH</span> in the finished image and fails if any is missing. That is a
+            stronger guarantee than a dependency: it asserts the program is there, not that a package
+            was marked installed. On a stock netinst every one of these is a manual step, several
+            needing a third-party repo and its key first.</p>
         </div>
         <div class="panel">
           <div class="p-title">Signed, and you can check it</div>

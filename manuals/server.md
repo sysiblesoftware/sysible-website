@@ -49,7 +49,7 @@ machine prints the same list.
 | Diagnostics | `htop`, `iotop`, `sysstat`, `ncdu`, `smartmontools`, `lm-sensors`, `lsof`, `strace` |
 | Modern CLI | `jq`, `ripgrep`, `fd-find`, `bat`, `fzf` |
 | Languages | `python3`, `python3-pip`, `python3-venv`, `pipx`, `build-essential` |
-| System | `sudo`, `openssh-server`, `curl`, `wget`, `git`, `vim`, `tmux`, `rsync`, `libpam-pwquality` |
+| System | `sudo`, `openssh-server`, `curl`, `wget`, `git`, `vim`, `tmux`, `rsync`, `libpam-pwquality`, `openssl` |
 | Sysible | `sysible-release`, `sysible-cli`, `sysible-branding`, `sysible-artwork` |
 
 **Recommends — 34 more.** Installed by default; remove them with
@@ -57,8 +57,7 @@ machine prints the same list.
 
 | Group | Packages |
 |---|---|
-| Kubernetes | `kubectl`, `helm`, `k9s` |
-| IaC | `opentofu`, `sops`, `age` |
+| IaC extras | `sops`, `age` |
 | Cloud | `awscli`, `gh` |
 | Virtualization | `libvirt-daemon-system`, `qemu-system`, `qemu-utils` |
 | Security | `fail2ban`, `auditd`, `apparmor`, `lynis` |
@@ -70,6 +69,15 @@ machine prints the same list.
 is the runtime that is present even when `download.docker.com` is unreachable,
 and `install-sysible` falls back to it.
 :::
+
+**Guaranteed, but not apt packages.** `kubectl`, `helm`, `k9s` and `tofu`
+(OpenTofu) are installed by the image's vendor hook — Helm and OpenTofu from
+their vendors' official binaries, k9s from a verified GitHub release, because
+their apt repositories misbehave in a fresh build chroot. They cannot be
+expressed as `Depends`, so the build instead **asserts they are on `PATH` in the
+finished image and fails if any is missing**. That is a stronger guarantee than
+a dependency: it checks the program is actually there, rather than that a
+package was marked installed.
 
 Separately licensed tools — Terraform, Vault, Consul, Nomad, Packer, Boundary
 and the AWS CLI's vendor build — are **not** bundled. They are offered during the

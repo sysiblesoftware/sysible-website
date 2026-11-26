@@ -51,14 +51,14 @@ Server plus `sysible-desktop-gnome`:
 | Modern CLI | `jq`, `ripgrep`, `fd-find`, `bat`, `fzf` |
 | Languages | `python3`, `python3-pip`, `python3-venv`, `pipx`, `build-essential` |
 | Desktop | `sysible-desktop-gnome` |
+| Platform | `openssl` — SLOP's installer mints its secrets with it |
 
 **Recommends — 46 more**, installed by default:
 
 | Group | Packages |
 |---|---|
 | Desktop | `gnome-core`, `calamares`, `systerm`, `codium`, `cherrytree` |
-| Kubernetes | `kubectl`, `helm`, `k9s` |
-| IaC | `opentofu`, `sops`, `age` |
+| IaC extras | `sops`, `age` |
 | Cloud | `awscli`, `gh` |
 | Virtualization | `virt-manager`, `virt-viewer` |
 | Guest tools | `open-vm-tools`, `open-vm-tools-desktop`, `spice-vdagent`, `qemu-guest-agent` |
@@ -70,6 +70,12 @@ Server plus `sysible-desktop-gnome`:
 
 Remove any Recommends you do not want with `apt remove`; nothing in the image
 depends on them.
+
+**Guaranteed, but not apt packages.** `kubectl`, `helm`, `k9s` and `tofu`
+(OpenTofu) come from the image's vendor hook rather than apt — Helm and OpenTofu
+as their vendors' official binaries, k9s from a checksum-verified GitHub
+release. They cannot be `Depends`, so the build asserts each is on `PATH` in the
+finished image and fails if one is missing.
 
 :::note
 Terraform, Vault, Consul, Nomad, Packer and Boundary are **not** bundled — they
