@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Sysible Server — Administrator &amp; Installation Guide</title><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=30928688"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7430a7f5"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The headless Debian-stable server base — what is in the image, how to install and verify it, and how to run the Sysible platform on it."><style>
+:root{--navy:#1a2744;--blue:#2f6fed;--ink:#202733;--dim:#5b6573;--hair:#e2e6ee;
+--bg:#eef1f6;--paper:#fff;--green:#2f9e44;--amber:#e0a93c;--red:#e05656;--code:#f4f6fa;}
+*{box-sizing:border-box;}
+@font-face{font-family:"Sora";font-style:normal;font-weight:100 800;font-display:swap;src:url("/fonts/Sora-variable.woff2") format("woff2"),url("/fonts/Sora.ttf") format("truetype");}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;
+font-family:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.page{max-width:900px;margin:0 auto 28px;background:var(--paper);padding:52px 60px;
+box-shadow:0 0 40px rgba(0,0,0,.08);}
+.cover{text-align:center;padding:90px 40px;background:linear-gradient(155deg,#15352a 0%,#0f1a2e 55%,#0b0e14 100%);color:#fff;}
+.cover h1{font-size:40px;margin:0 0 8px;} .cover .sub{font-size:18px;opacity:.9;}
+.cover .meta{margin-top:34px;font-size:13px;opacity:.8;}
+h2{color:var(--navy);border-bottom:2px solid var(--hair);padding-bottom:6px;margin-top:38px;font-size:24px;}
+h3{color:var(--navy);margin-top:26px;font-size:18px;}
+h4{color:var(--navy);margin:20px 0 4px;font-size:15.5px;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+code{background:var(--code);border:1px solid var(--hair);border-radius:4px;padding:1px 5px;font-size:13px;}
+pre{background:#1e2430;color:#e6e9ef;border-radius:8px;padding:14px 16px;overflow:auto;font-size:13px;}
+pre code{background:none;border:none;color:inherit;padding:0;}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:#f6f8fc;}
+.toc{columns:2;font-size:14px;} .toc a{display:block;padding:2px 0;}
+.note{border-left:4px solid var(--blue);background:#f3f7ff;padding:10px 14px;border-radius:0 6px 6px 0;margin:14px 0;}
+.note.warn{border-left-color:var(--amber);background:#fff9ec;}
+.note.role{border-left-color:var(--green);background:#f2fbf4;}
+ol li,ul li{margin:4px 0;}
+.pill{display:inline-block;background:#eef2fb;color:var(--blue);border-radius:10px;padding:1px 9px;font-size:12px;font-weight:600;}
+.shot{margin:18px 0;text-align:center;}
+.shot img{max-width:100%;border:1px solid var(--hair);border-radius:8px;box-shadow:0 2px 14px rgba(0,0,0,.10);}
+.shot figcaption{color:var(--dim);font-size:13px;margin-top:6px;}
+/* An empty slot is meant to be loud: a quiet gap is one nobody fills. */
+.shot-slot{border:2px dashed #c3cbdb;border-radius:8px;background:#f7f9fd;color:var(--dim);
+padding:30px 18px;font-size:13px;}
+.shot-slot b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px;}
+.shot-slot code{background:#fff;}
+footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);font-size:12px;}
+.ses-foot{display:flex;justify-content:center;margin:18px 0 10px;color:var(--ink);}
+.ses-foot svg{width:172px;height:27px;display:block;}
+@media print{body{background:#fff;} .page{box-shadow:none;margin:0;} .shot-slot{display:none;}}
+</style></head><body><div class="cover"><span class="cover-mark"><svg viewBox="-24 -26 48 52" width="96" height="104" role="img" aria-label="Sysible"><defs><linearGradient id="tgCover" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient></defs><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tgCover)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></svg></span><h1>Sysible Server</h1><div class="sub">Administrator &amp; Installation Guide</div><div class="meta">Version 1.0.6 · 2026-11-26</div></div><div class="page"><h2>Contents</h2><div class="toc"><a href="#overview">1. Overview</a><a href="#what-is-in-the-image">2. What is in the image</a><a href="#requirements">3. Requirements</a><a href="#getting-the-iso">4. Getting the ISO</a><a href="#writing-the-installer-medium">5. Writing the installer medium</a><a href="#installing">6. Installing</a><a href="#first-boot">7. First boot</a><a href="#accounts-and-ssh">8. Accounts and SSH</a><a href="#the-sysible-apps">9. The Sysible apps</a><a href="#optional-tools">10. Optional tools</a><a href="#checking-the-machine">11. Checking the machine</a><a href="#updates">12. Updates</a><a href="#containers">13. Containers</a><a href="#firewall-and-hardening">14. Firewall and hardening</a><a href="#virtualization">15. Virtualization</a><a href="#branding-guard">16. Branding guard</a><a href="#troubleshooting">17. Troubleshooting</a><a href="#security-model">18. Security model</a><a href="#reference-paths-and-files">19. Reference: paths and files</a><a href="#reference-services-and-timers">20. Reference: services and timers</a><a href="#reference-commands">21. Reference: commands</a></div></div><div class="page"><h2 id="overview">1. Overview</h2>
+<p><b>Sysible Server</b> is a Debian-stable server image with the toolchain for running server software already installed. No desktop, no display manager, no GUI applications: it boots to a console and is reached over SSH.</p>
+<p>It is not a fork. The base is Debian stable, the package manager is apt, and every Debian package you know is still there under its usual name. What the image adds is the set of things a container and automation host needs before it is useful — and a small number of Sysible programs that install and check the rest.</p>
+<p>Two things make it different from a Debian netinst you install yourself:</p>
+<table><thead><tr><th></th><th>Debian netinst</th><th>Sysible Server</th></tr></thead><tbody><tr><td>Container runtime</td><td>you add Docker&#x27;s repository, key and packages</td><td><code>docker-ce</code>, <code>docker-compose-plugin</code> and <code>containerd.io</code> are hard dependencies of the image</td></tr><tr><td>Automation</td><td>you install Ansible, OpenTofu, kubectl, Helm</td><td>installed, with the third-party repositories already trusted</td></tr><tr><td>Firewall</td><td>none configured</td><td><code>nftables</code> installed, <code>fail2ban</code> and <code>auditd</code> running</td></tr><tr><td>Sysible apps</td><td>not available</td><td>asked for during the install, set up on first boot</td></tr></tbody></table>
+<p>The image ships for <b>amd64</b> and <b>arm64</b>. Both are built from the same tree in the same release, with the same package set.</p>
+<div class="note">Everything in this guide is in the image. Nothing here needs a subscription, a licence server or an account. The release key that signs the downloads is published at <a href="/security">sysible.com/security</a>.</div>
+<h2 id="what-is-in-the-image">2. What is in the image</h2>
+<p>The package set is declared by the <code>sysible-server</code> metapackage, so it is readable rather than a matter of trust: <code>apt show sysible-server</code> on a running machine prints the same list.</p>
+<p><b>Hard dependencies — 66 packages.</b> The image cannot be built without them.</p>
+<table><thead><tr><th>Group</th><th>Packages</th></tr></thead><tbody><tr><td>Containers</td><td><code>docker-ce</code>, <code>docker-compose-plugin</code>, <code>containerd.io</code>, <code>podman</code>, <code>buildah</code>, <code>skopeo</code></td></tr><tr><td>Automation</td><td><code>ansible</code>, <code>ansible-lint</code>, <code>sshpass</code></td></tr><tr><td>Networking</td><td><code>nftables</code>, <code>iproute2</code>, <code>net-tools</code>, <code>dnsutils</code>, <code>tcpdump</code>, <code>nmap</code>, <code>netcat-openbsd</code>, <code>iperf3</code>, <code>ethtool</code>, <code>mtr-tiny</code>, <code>traceroute</code></td></tr><tr><td>Diagnostics</td><td><code>htop</code>, <code>iotop</code>, <code>sysstat</code>, <code>ncdu</code>, <code>smartmontools</code>, <code>lm-sensors</code>, <code>lsof</code>, <code>strace</code></td></tr><tr><td>Modern CLI</td><td><code>jq</code>, <code>ripgrep</code>, <code>fd-find</code>, <code>bat</code>, <code>fzf</code></td></tr><tr><td>Languages</td><td><code>python3</code>, <code>python3-pip</code>, <code>python3-venv</code>, <code>pipx</code>, <code>build-essential</code></td></tr><tr><td>System</td><td><code>sudo</code>, <code>openssh-server</code>, <code>curl</code>, <code>wget</code>, <code>git</code>, <code>vim</code>, <code>tmux</code>, <code>rsync</code>, <code>libpam-pwquality</code></td></tr><tr><td>Sysible</td><td><code>sysible-release</code>, <code>sysible-cli</code>, <code>sysible-branding</code>, <code>sysible-artwork</code></td></tr></tbody></table>
+<p><b>Recommends — 34 more.</b> Installed by default; remove them with <code>apt install --no-install-recommends</code> or afterwards with <code>apt remove</code>.</p>
+<table><thead><tr><th>Group</th><th>Packages</th></tr></thead><tbody><tr><td>Kubernetes</td><td><code>kubectl</code>, <code>helm</code>, <code>k9s</code></td></tr><tr><td>IaC</td><td><code>opentofu</code>, <code>sops</code>, <code>age</code></td></tr><tr><td>Cloud</td><td><code>awscli</code>, <code>gh</code></td></tr><tr><td>Virtualization</td><td><code>libvirt-daemon-system</code>, <code>qemu-system</code>, <code>qemu-utils</code></td></tr><tr><td>Security</td><td><code>fail2ban</code>, <code>auditd</code>, <code>apparmor</code>, <code>lynis</code></td></tr><tr><td>Languages</td><td><code>golang</code>, <code>rustc</code>, <code>cargo</code>, <code>nodejs</code>, <code>npm</code>, <code>default-jdk</code>, <code>maven</code>, <code>gradle</code></td></tr><tr><td>Clients</td><td><code>postgresql-client</code>, <code>default-mysql-client</code>, <code>sqlite3</code>, <code>redis-tools</code></td></tr></tbody></table>
+<div class="note"><code>podman</code> sits alongside Docker deliberately. It comes from Debian proper, so it is the runtime that is present even when <code>download.docker.com</code> is unreachable, and <code>install-sysible</code> falls back to it.</div>
+<p>Separately licensed tools — Terraform, Vault, Consul, Nomad, Packer, Boundary and the AWS CLI&#x27;s vendor build — are <b>not</b> bundled. They are offered during the install and can be added later; see <b>Optional tools</b>.</p>
+<h2 id="requirements">3. Requirements</h2>
+<table><thead><tr><th></th><th>Minimum</th><th>Comfortable</th></tr></thead><tbody><tr><td>CPU</td><td>2 cores</td><td>4+ cores</td></tr><tr><td>RAM</td><td>2 GB</td><td>8 GB — the Sysible apps build containers</td></tr><tr><td>Disk</td><td>20 GB</td><td>60 GB+</td></tr><tr><td>Firmware</td><td>UEFI or legacy BIOS</td><td>UEFI</td></tr><tr><td>Network</td><td>none to install</td><td>required to set up the Sysible apps</td></tr></tbody></table>
+<p>The ISO is hybrid, so the same file boots from a USB stick on UEFI and BIOS machines and from a virtual optical drive.</p>
+<div class="note warn">Installing the Sysible apps needs working DNS and outbound HTTPS to GitHub and Docker Hub. The base install does not — you can install offline and set the apps up later.</div>
+<h2 id="getting-the-iso">4. Getting the ISO</h2>
+<p>Each release publishes both architectures. The ISO is larger than GitHub&#x27;s 2 GB per-file limit, so it ships as numbered <code>.part</code> files with checksums for the parts and for the reassembled image.</p>
+<p>Download, for your architecture, every <code>sysible-server-&lt;arch&gt;.iso.*.part</code> plus <code>SHA256SUMS.&lt;arch&gt;.parts</code>, <code>SHA256SUMS.&lt;arch&gt;.parts.gpg</code>, <code>SHA256SUMS.&lt;arch&gt;</code> and <code>SHA256SUMS.&lt;arch&gt;.gpg</code>.</p>
+<pre><code class="language-sh">gpg --verify SHA256SUMS.&lt;arch&gt;.parts.gpg SHA256SUMS.&lt;arch&gt;.parts
+sha256sum -c SHA256SUMS.&lt;arch&gt;.parts
+cat sysible-server-&lt;arch&gt;.iso.*.part &gt; sysible-server-&lt;arch&gt;.iso
+gpg --verify SHA256SUMS.&lt;arch&gt;.gpg SHA256SUMS.&lt;arch&gt;
+sha256sum -c SHA256SUMS.&lt;arch&gt;</code></pre>
+<p>There are two signatures because there are two things to check: the parts you downloaded, and the image you assembled from them. Checking only one leaves the other unverified.</p>
+<div class="note warn">Import the Sysible release key and confirm its fingerprint <b>out of band</b> before you trust either signature. A key fetched from the same place as the file proves nothing. The fingerprint is published at <a href="/security">sysible.com/security</a>.</div>
+<h2 id="writing-the-installer-medium">5. Writing the installer medium</h2>
+<p>Write the reassembled <code>.iso</code> to a USB stick with <code>dd</code>, balenaEtcher or Rufus.</p>
+<pre><code class="language-sh">sudo dd if=sysible-server-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync</code></pre>
+<div class="note warn"><code>of=/dev/sdX</code> is the <b>device</b>, not a partition — <code>/dev/sdb</code>, not <code>/dev/sdb1</code>. Writing to the wrong device destroys it. Confirm with <code>lsblk</code> first.</div>
+<p>In a hypervisor, attach the ISO and choose <b>Debian 12.x (64-bit)</b> as the guest type — 64-bit ARM on Apple Silicon. Give it 4 GB of RAM and 40 GB of disk, and enable nested virtualization if you intend to run containers or VMs inside it.</p>
+<h2 id="installing">6. Installing</h2>
+<p>Boot the medium. The Sysible boot menu appears; choose the install entry.</p>
+<p>The installer is the Debian Installer, with Sysible&#x27;s banner and palette. It asks the usual questions — language, keyboard, hostname, domain, users and passwords, clock, partitioning — and two of its own.</p>
+<h3 id="optional-software-to-install">Optional software to install</h3>
+<p>A checklist of separately licensed tools: <code>terraform</code>, <code>vault</code>, <code>consul</code>, <code>nomad</code>, <code>packer</code>, <code>boundary</code>, <code>aws-cli</code>. The HashiCorp tools are BUSL-1.1 licensed and <b>not</b> open source; ticking them means you accept that licence. Nothing is installed during the install itself — the selection is recorded and acted on at first boot.</p>
+<h3 id="sysible-software-to-set-up-on-first-boot">Sysible software to set up on first boot</h3>
+<p>A checklist of the platform itself:</p>
+<table><thead><tr><th>Tick</th><th>What you get</th></tr></thead><tbody><tr><td><code>slop</code></td><td>The Controller, SLEP and Connect behind one front door at <code>https://slop.lan/</code> with a single sign-in. Recommended; it already covers all three</td></tr><tr><td><code>controller</code></td><td>Sysible Controller — the fleet console</td></tr><tr><td><code>slep</code></td><td>Sysible Linux Engineering Platform — Terraform, Ansible and Salt</td></tr><tr><td><code>connect</code></td><td>Sysible Connect — a terminal in the browser</td></tr></tbody></table>
+<p>Tick nothing to set nothing up. Anything chosen here can be changed afterwards with <code>sudo install-sysible</code>.</p>
+<div class="note">Both answers are recorded into the installed system and acted on by a systemd unit at first boot — not during the install. The installer has no guaranteed network, and an offline install has none at all, so the work waits for a boot that does.</div>
+<p>Partitioning, bootloader installation and reboot proceed as in any Debian install. The image writes its bootloader for both UEFI and BIOS.</p>
+<h2 id="first-boot">7. First boot</h2>
+<p>The machine boots to a console and prints a login prompt. Two one-shot services run in the background once the network is up.</p>
+<table><thead><tr><th>Unit</th><th>What it does</th></tr></thead><tbody><tr><td><code>sysible-tools-firstboot.service</code></td><td>Installs the optional tools you ticked, then removes its request file</td></tr><tr><td><code>sysible-apps-firstboot.service</code></td><td>Installs the Sysible apps you ticked, through <code>install-sysible</code></td></tr><tr><td><code>sysible-regenerate-ssh-host-keys.service</code></td><td>Generates this machine&#x27;s own SSH host keys</td></tr></tbody></table>
+<p>Both read their request from <code>/etc/sysible/</code>, wait for <code>network-online.target</code>, and have no start timeout — cloning repositories and building containers takes far longer than systemd&#x27;s default.</p>
+<p>They behave differently on failure, deliberately:</p>
+<ul>
+<li><b>Tools.</b> The request is consumed whether or not the install worked, so a failed download does not retry on every boot. Re-run it yourself with <code>sudo sysible-tools install &lt;tool&gt;</code>.</li>
+<li><b>Apps.</b> The request is <b>kept</b> and retried on the next boot, up to three attempts. After that it gives up and writes <code>/etc/sysible/apps-failed</code>, which the login hint reads out so the failure is visible rather than silent.</li>
+</ul>
+<p>Watch either from the console:</p>
+<pre><code class="language-sh">journalctl -u sysible-apps-firstboot -f
+tail -f /var/log/sysible-apps-firstboot.log
+tail -f /var/log/sysible-tools-firstboot.log</code></pre>
+<div class="note">Nothing listens on the network until the apps finish installing. A port that is not open yet on a freshly installed machine is usually this, not a fault.</div>
+<h2 id="accounts-and-ssh">8. Accounts and SSH</h2>
+<p>The installer creates your account; no default login ships in the installed system. <code>sudo</code> is installed and the account you create during the install is given administrative rights.</p>
+<p>Password quality is enforced by <code>libpam-pwquality</code>, with the policy in <code>/etc/security/pwquality.conf.d/</code>. It is a hard dependency so it cannot be silently dropped.</p>
+<p>SSH is enabled and hardened. Host keys are regenerated on first boot, so two machines installed from the same image do not share an identity.</p>
+<pre><code class="language-sh">ssh-copy-id you@server
+ssh you@server</code></pre>
+<div class="note warn">Set up key authentication and then disable password authentication in <code>/etc/ssh/sshd_config.d/</code>. <code>fail2ban</code> throttles brute force, but a key removes the attack rather than slowing it.</div>
+<h2 id="the-sysible-apps">9. The Sysible apps</h2>
+<p><code>install-sysible</code> installs the platform. It is the same program on Sysible Server and Sysible Workstation — byte-identical, with the edition read from <code>/etc/os-release</code> at run time.</p>
+<pre><code class="language-sh">sudo install-sysible                    # a menu, everything ticked
+sudo install-sysible slop               # all three apps behind the gateway
+sudo install-sysible controller slep    # just those two
+sudo install-sysible --uninstall        # remove them
+sudo install-sysible --reinstall slop   # remove, then install cleanly</code></pre>
+<table><thead><tr><th>Argument</th><th>Meaning</th></tr></thead><tbody><tr><td><code>controller</code></td><td>Sysible Controller, on its own address</td></tr><tr><td><code>slep</code></td><td>Sysible Linux Engineering Platform</td></tr><tr><td><code>connect</code></td><td>Sysible Connect</td></tr><tr><td><code>all</code></td><td>All three, each on its own address, no gateway</td></tr><tr><td><code>slop</code></td><td>All three <b>behind</b> the SLOP gateway at <code>https://slop.lan/</code></td></tr></tbody></table>
+<p>Each product is cloned to <code>/opt/sysible-src/&lt;repo&gt;</code> and brought up as a container through <code>sysiblectl</code>, which is installed too, so you manage everything afterwards from one command.</p>
+<div class="note"><code>slop</code> supersedes the rest. The gateway only makes sense in front of the apps, so selecting it installs all three regardless of what else was chosen.</div>
+<p>Point <code>slop.lan</code> and the <code>controller.</code>, <code>slep.</code> and <code>connect.</code> subdomains at the host — in DNS, or in the client&#x27;s <code>/etc/hosts</code> — to reach the gateway by name.</p>
+<h2 id="optional-tools">10. Optional tools</h2>
+<p><code>sysible-tools</code> installs the separately licensed tools on demand, after the install.</p>
+<pre><code class="language-sh">sysible-tools                        # interactive menu
+sysible-tools list                   # the catalogue and what is installed
+sudo sysible-tools install vault consul</code></pre>
+<p>The catalogue is <code>terraform</code>, <code>vault</code>, <code>consul</code>, <code>nomad</code>, <code>packer</code>, <code>boundary</code> and <code>aws-cli</code>.</p>
+<div class="note warn">Terraform, Vault, Consul, Nomad, Packer and Boundary are licensed under the BUSL-1.1 and are <b>not</b> open source. Installing them means accepting HashiCorp&#x27;s licence. OpenTofu — the open Terraform drop-in — is already in the image and needs no acceptance.</div>
+<h2 id="checking-the-machine">11. Checking the machine</h2>
+<p><code>sysible verify</code> reports whether the machine is actually ready, rather than whether packages are present.</p>
+<pre><code class="language-sh">sysible verify                  # everything
+sysible verify --network        # one group
+sysible verify --security</code></pre>
+<table><thead><tr><th>Group</th><th>Checks</th></tr></thead><tbody><tr><td><code>network</code></td><td>Network configured, DNS resolving, SSH running</td></tr><tr><td><code>containers</code></td><td>Container runtime, Compose, Kubernetes tools</td></tr><tr><td><code>automation</code></td><td>Ansible, Terraform/OpenTofu</td></tr><tr><td><code>cloud</code></td><td>A cloud CLI present</td></tr><tr><td><code>virtualization</code></td><td>KVM usable</td></tr><tr><td><code>security</code></td><td>Firewall, AppArmor, fail2ban</td></tr><tr><td><code>controller</code></td><td>Sysible Controller reachable</td></tr><tr><td><code>system</code></td><td>Updates current</td></tr></tbody></table>
+<p>Network, DNS, containers, Ansible and Controller reachability are <b>critical</b>; the rest report without failing the run.</p>
+<h2 id="updates">12. Updates</h2>
+<p>The image is Debian stable, so <code>apt</code> works exactly as it does anywhere else.</p>
+<pre><code class="language-sh">sudo apt update &amp;&amp; sudo apt upgrade</code></pre>
+<p>Security updates install automatically through <code>unattended-upgrades</code>. Sysible&#x27;s own packages come from the Sysible apt repository, configured by <code>sysible-release</code> and pinned to the <code>sysible-stable</code> suite.</p>
+<p>Each build publishes a uniquely versioned package at a unique pool path, so a rebuild never rewrites a file a CDN has been told to cache — the cause of <code>File has unexpected size</code> errors on repositories that reuse paths.</p>
+<p><code>sysible-release-check.timer</code> checks periodically whether a newer Sysible release exists and records the answer; it does not install anything.</p>
+<p>The Sysible apps are not apt packages. Update them with <code>sysiblectl update all</code>.</p>
+<h2 id="containers">13. Containers</h2>
+<p>Docker Engine, the Compose plugin and containerd are installed and running. Your account is not in the <code>docker</code> group by default — being in it is equivalent to root.</p>
+<pre><code class="language-sh">sudo usermod -aG docker &quot;$USER&quot;   # then log out and back in</code></pre>
+<div class="note warn">Adding a user to the <code>docker</code> group grants root-equivalent access to the host. On a multi-user machine prefer <code>sudo docker</code>, or use <code>podman</code>, which runs rootless.</div>
+<h2 id="firewall-and-hardening">14. Firewall and hardening</h2>
+<p><code>nftables</code> is installed as a hard dependency and is what <code>sysible verify</code> looks for. It ships without a restrictive policy — the image does not guess which ports you need.</p>
+<pre><code class="language-sh">sudo nft list ruleset</code></pre>
+<p>Also present and running: <code>fail2ban</code> (SSH brute-force throttling), <code>auditd</code> (audit log), <code>apparmor</code> (mandatory access control profiles) and <code>lynis</code> (an on-demand audit tool, run with <code>sudo lynis audit system</code>).</p>
+<h2 id="virtualization">15. Virtualization</h2>
+<p><code>libvirt-daemon-system</code>, <code>qemu-system</code> and <code>qemu-utils</code> are installed, headless. <code>sysible verify --virtualization</code> reports whether KVM is actually usable — on a VM that normally means nested virtualization is off in the hypervisor.</p>
+<pre><code class="language-sh">sudo usermod -aG libvirt &quot;$USER&quot;
+virsh list --all</code></pre>
+<h2 id="branding-guard">16. Branding guard</h2>
+<p>What the boot menu calls this machine lives in one file that belongs to the image rather than to a package, so no upgrade ever restores it. A machine installed while that file was wrong would have kept booting a menu naming the wrong product forever.</p>
+<p><code>sysible-branding-guard.service</code> corrects the GRUB distributor at boot and regenerates the menu if it had to change anything. It leaves a distributor that is not Sysible&#x27;s alone.</p>
+<h2 id="troubleshooting">17. Troubleshooting</h2>
+<p><b>The apps never came up.</b> Check the first-boot log. The usual cause is DNS or no route to Docker Hub.</p>
+<pre><code class="language-sh">systemctl status sysible-apps-firstboot
+cat /var/log/sysible-apps-firstboot.log
+cat /etc/sysible/apps-failed      # exists only if it gave up
+sudo install-sysible slop         # run it yourself</code></pre>
+<p><b>A tool I ticked is missing.</b> The tools request is consumed on first boot even if the download failed. Install it directly:</p>
+<pre><code class="language-sh">sudo sysible-tools install terraform</code></pre>
+<p><b><code>apt upgrade</code> reports <code>File has unexpected size</code>.</b> A stale cache. Clear it and retry:</p>
+<pre><code class="language-sh">sudo rm -rf /var/lib/apt/lists/*
+sudo apt update</code></pre>
+<p><b><code>sysible verify</code> says no firewall configured.</b> <code>nftables</code> is installed but has no ruleset loaded. Load one, or ignore the check — it is non-critical.</p>
+<p><b>The console shows a pending-setup hint at every login.</b> The apps request is still outstanding. Either let the next boot retry it, or run <code>install-sysible</code> yourself and the hint clears.</p>
+<h2 id="security-model">18. Security model</h2>
+<ul>
+<li><b>The image is signed.</b> Checksums for the parts and for the reassembled ISO are GPG-signed with the Sysible release key (ed25519). Verify both.</li>
+<li><b>No default login survives the install.</b> The live session&#x27;s credentials do not reach the installed system; the installer creates your account.</li>
+<li><b>Host keys are per machine.</b> Regenerated on first boot, so cloning an image does not clone an SSH identity.</li>
+<li><b>Password quality is enforced</b> by PAM, as a hard dependency.</li>
+<li><b>Nothing listens until you ask it to.</b> The base image runs no Sysible services and opens no ports. The apps are installed only if you chose them.</li>
+<li><b>The apps are built from source on your host</b> — cloned from their official repositories, not pulled as opaque images from a Sysible registry.</li>
+<li><b>Third-party repositories are pinned by key.</b> Docker&#x27;s apt repository is configured at build time with a fingerprint-checked key.</li>
+</ul>
+<div class="note warn"><code>sysible verify</code> reports posture; it does not harden the machine for you. A firewall policy, SSH key-only authentication and your own patch cadence are still yours to set.</div>
+<h2 id="reference-paths-and-files">19. Reference: paths and files</h2>
+<table><thead><tr><th>Path</th><th>What it is</th></tr></thead><tbody><tr><td><code>/etc/sysible/apps.wanted</code></td><td>Apps chosen during the install, pending first boot</td></tr><tr><td><code>/etc/sysible/apps-failed</code></td><td>Written if the app setup gave up; read by the login hint</td></tr><tr><td><code>/etc/sysible/tools.wanted</code></td><td>Optional tools chosen during the install</td></tr><tr><td><code>/opt/sysible-src/&lt;repo&gt;</code></td><td>Checkouts of each Sysible product</td></tr><tr><td><code>/var/log/sysible-apps-firstboot.log</code></td><td>App setup log</td></tr><tr><td><code>/var/log/sysible-tools-firstboot.log</code></td><td>Tool install log</td></tr><tr><td><code>/var/lib/sysible/apps-firstboot.tries</code></td><td>Retry counter</td></tr><tr><td><code>/usr/share/sysible/branding.manifest</code></td><td>sha256 of every branded asset</td></tr><tr><td><code>/etc/security/pwquality.conf.d/</code></td><td>Password policy</td></tr></tbody></table>
+<h2 id="reference-services-and-timers">20. Reference: services and timers</h2>
+<table><thead><tr><th>Unit</th><th>Type</th><th>When</th></tr></thead><tbody><tr><td><code>sysible-apps-firstboot.service</code></td><td>one-shot</td><td>First networked boot, if apps were chosen</td></tr><tr><td><code>sysible-tools-firstboot.service</code></td><td>one-shot</td><td>First networked boot, if tools were chosen</td></tr><tr><td><code>sysible-regenerate-ssh-host-keys.service</code></td><td>one-shot</td><td>First boot</td></tr><tr><td><code>sysible-branding-guard.service</code></td><td>one-shot</td><td>Every boot</td></tr><tr><td><code>sysible-release-check.timer</code></td><td>timer</td><td>Periodic release check</td></tr></tbody></table>
+<h2 id="reference-commands">21. Reference: commands</h2>
+<table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>sysible verify</code></td><td>Check the machine is ready; <code>--network</code>, <code>--containers</code>, <code>--security</code>, <code>--virtualization</code> narrow it</td></tr><tr><td><code>install-sysible</code></td><td>Install, remove or reinstall the Sysible apps</td></tr><tr><td><code>sysible-tools</code></td><td>Install the separately licensed optional tools</td></tr><tr><td><code>sysiblectl</code></td><td>Manage installed apps — <code>update all</code>, <code>status</code>, <code>logs</code></td></tr><tr><td><code>sysible-hint</code></td><td>The login summary of pending or failed setup</td></tr></tbody></table></div><footer>Sysible Server v1.0.6 — generated 2026-11-26 by tools/generate_manuals.py<div class="ses-foot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 32" width="206" height="32"
+     role="img" aria-label="SES, Sysible Enterprise Software">
+  
+  <text x="0" y="23" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="23" font-weight="800" letter-spacing="-1" fill="currentColor">SES</text>
+  <rect x="48" y="2.5" width="2" height="27" rx="1" fill="#3ddc6d"/>
+  <text x="60" y="14" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="12" font-weight="700" letter-spacing="0.4" fill="currentColor">SYSIBLE</text>
+  <text x="60" y="26" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="9" font-weight="600" letter-spacing="1.7" fill="currentColor" opacity="0.62">ENTERPRISE SOFTWARE</text>
+</svg></div><div style="opacity:.8">The Sysible Linux platforms are products of Sysible Enterprise&nbsp;Software.</div></footer></body></html>

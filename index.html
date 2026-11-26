@@ -412,7 +412,7 @@
 
           <div class="note">
             <span class="dot">🔑</span>
-            <div><b>Default login</b> — username <code>sysible</code>, password <code>sysible</code>. Works for both the live session and the installed system. Change it right after first boot with <code>passwd</code> (and update the sudo password too).</div>
+            <div><b>No default password</b> — the live session signs in automatically as <code>sysible</code>, an account that ships <b>locked</b>: no password matches it, so the image carries no credential to leak. The installer creates your own account and sets root’s password, and removes the live account from the installed system.</div>
           </div>
 
           <details class="guide">
@@ -425,7 +425,7 @@
                 <li>Give it <b>4&nbsp;GB+ RAM</b> and <b>40&nbsp;GB+ disk</b>; enable virtualization extensions if you’ll run containers/VMs.</li>
                 <li>Boot it. On the Sysible boot menu pick <b>Sysible Workstation (Live)</b> to try it, or
                   <b>Install Sysible Workstation</b> to install to the virtual disk.</li>
-                <li>Live/installer default login: <code>sysible</code> / <code>sysible</code>. open-vm-tools is
+                <li>Sign-in: the live session logs in automatically as <code>sysible</code> — no password is set or needed, and the installer creates your own account. open-vm-tools is
                   preinstalled, so clipboard sharing and display auto-resize work out of the box.</li>
               </ol>
             </div>

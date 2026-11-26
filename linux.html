@@ -410,9 +410,7 @@
           point-and-click Calamares install — erase-disk, alongside, or manual partitioning.</p>
       </div>
     </div>
-    <p class="p-sub" style="margin-top:16px">Default login for both the live session and a fresh install is
-      <span class="mono">sysible</span> / <span class="mono">sysible</span> — change it after first boot with
-      <span class="mono">passwd</span>. The installer can also remove the default account once you’ve made your own.</p>
+    <p class="p-sub" style="margin-top:16px">The live session signs in automatically as <span class="mono">sysible</span>, an account that ships locked — no password matches it. The installer creates your own account, sets root’s password, and removes the live account from the installed system.</p>
   </div>
 </section>
 <section style="padding-top:0">
@@ -463,7 +461,7 @@
             <div class="files"><a class="file" href="https://github.com/sysiblesoftware/Sysible-Workstation/releases/latest" rel="noopener"><span class="fn mono">Sysible Workstation — arm64 ISO</span><span class="dl"><svg width="15" height="15" viewBox="0 0 16 16"><path d="M8 1v8m0 0L5 6m3 3l3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
           </div>
         </div>
-        <div class="note" style="margin-top:18px"><span class="dot">🔑</span><div><b>Default login</b> — username <span class="mono">sysible</span>, password <span class="mono">sysible</span>, for both the live session and the installed system. Change it after first boot with <span class="mono">passwd</span>.</div></div>
+        <div class="note" style="margin-top:18px"><span class="dot">🔑</span><div><b>No default password</b> — the live session signs in automatically as <span class="mono">sysible</span>, an account that ships <b>locked</b>: no password matches it, so the image carries no credential to leak. The installer creates your own account and sets root’s password, and removes the live account from the installed system.</div></div>
         <details class="guide">
           <summary>Install in VMware Fusion (Apple Silicon &amp; Intel)</summary>
           <div class="g-body">
@@ -473,7 +471,7 @@
               <li>For the OS, pick <b>Linux → Debian 12.x</b> (64-bit ARM on Apple Silicon, 64-bit on Intel).</li>
               <li>Give it <b>4&nbsp;GB+ RAM</b> and <b>40&nbsp;GB+ disk</b>; enable virtualization for containers/VMs.</li>
               <li>Boot it and pick <b>Sysible Workstation (Live)</b> to try it, or <b>Install Sysible Workstation</b> to install.</li>
-              <li>Login: <span class="mono">sysible</span> / <span class="mono">sysible</span>. open-vm-tools is preinstalled, so clipboard sharing and display resize work out of the box.</li>
+              <li> Sign-in: the live session logs in automatically as <span class="mono">sysible</span> — no password is set or needed. open-vm-tools is preinstalled, so clipboard sharing and display auto-resize work out of the box.</li>
             </ol>
           </div>
         </details>
