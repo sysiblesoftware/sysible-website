@@ -334,11 +334,14 @@
       </div>
       <div class="grid2">
         <div class="panel">
-          <div class="p-title">66 packages, already there</div>
-          <p class="p-sub">Docker CE, kubectl, Helm, k9s, OpenTofu, podman/buildah/skopeo, Ansible,
-            nftables and the diagnostics set are hard dependencies of the image, not a script you run
-            afterwards. On a stock netinst each of those is a manual step, and several need a
-            third-party apt repository and its signing key first.</p>
+          <div class="p-title">66 of them cannot be left out</div>
+          <p class="p-sub">Docker CE and Compose, containerd, podman/buildah/skopeo, Ansible, nftables
+            and the diagnostics set are hard <span class="mono">Depends</span> of the image. The build
+            configures Docker's apt repository, with a fingerprint-checked key, before any package is
+            installed — so an ISO without them does not build at all. kubectl, Helm, k9s, OpenTofu and
+            the cloud CLIs ride along as <span class="mono">Recommends</span>: installed by default,
+            removable with <span class="mono">--no-install-recommends</span>. On a stock netinst every
+            one of those is a manual step, and several need a third-party repo and its key first.</p>
         </div>
         <div class="panel">
           <div class="p-title">Signed, and you can check it</div>
