@@ -307,8 +307,12 @@
 
       <details class="menu"><summary>Docs</summary>
         <div class="pop">
+          <a href="/workstation-manual.html">Sysible Workstation manual</a>
+          <a href="/server-manual.html">Sysible Server manual</a>
           <a href="/controller-manual.html">Sysible Controller manual</a>
+          <a href="/slep-manual.html">Engineering Platform manual</a>
           <a href="/slop-manual.html">Operations Platform manual</a>
+          <a href="/systerm-manual.html">SysTerm manual</a>
           <a href="/baseline-manual.html">Baseline manual</a>
           <a href="/flashback-manual.html">Flashback manual</a>
           <a href="/visualizer-manual.html">Visualizer manual</a>
@@ -456,9 +460,9 @@ install-sysible slep</pre>
             <p class="subhead">Anywhere else</p>
             <div class="code">
               <button class="copy">Copy</button>
-              <pre class="wrap">git clone https://github.com/sysiblesoftware/Sysible-Linux-Engineering-Platform
-cd Sysible-Linux-Engineering-Platform
-sudo ./deploy/install.sh</pre>
+              <pre class="wrap">git clone https://github.com/sysiblesoftware/Sysible-Linux-Engineering-Platform slep
+cd slep
+docker compose -f deploy/docker-compose.yml up -d --build</pre>
             </div>
             <p class="p-sub" style="margin-top:12px">The console comes up on <span class="mono">https://&lt;host&gt;:8810/</span>.
               Behind the <a style="color:var(--blue);text-decoration:none" href="/slop">Sysible Linux Operations Platform</a> it is at <span class="mono">/slep</span> instead, with no second login.</p>

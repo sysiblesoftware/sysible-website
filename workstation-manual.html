@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Sysible Workstation — Administrator &amp; Installation Guide</title><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=30928688"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7430a7f5"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The engineering desktop — a Debian-stable GNOME workstation with the container, Kubernetes, IaC and cloud toolchain already installed, plus VSCodium and SysTerm."><style>
+:root{--navy:#1a2744;--blue:#2f6fed;--ink:#202733;--dim:#5b6573;--hair:#e2e6ee;
+--bg:#eef1f6;--paper:#fff;--green:#2f9e44;--amber:#e0a93c;--red:#e05656;--code:#f4f6fa;}
+*{box-sizing:border-box;}
+@font-face{font-family:"Sora";font-style:normal;font-weight:100 800;font-display:swap;src:url("/fonts/Sora-variable.woff2") format("woff2"),url("/fonts/Sora.ttf") format("truetype");}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;
+font-family:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.page{max-width:900px;margin:0 auto 28px;background:var(--paper);padding:52px 60px;
+box-shadow:0 0 40px rgba(0,0,0,.08);}
+.cover{text-align:center;padding:90px 40px;background:linear-gradient(155deg,#15352a 0%,#0f1a2e 55%,#0b0e14 100%);color:#fff;}
+.cover h1{font-size:40px;margin:0 0 8px;} .cover .sub{font-size:18px;opacity:.9;}
+.cover .meta{margin-top:34px;font-size:13px;opacity:.8;}
+h2{color:var(--navy);border-bottom:2px solid var(--hair);padding-bottom:6px;margin-top:38px;font-size:24px;}
+h3{color:var(--navy);margin-top:26px;font-size:18px;}
+h4{color:var(--navy);margin:20px 0 4px;font-size:15.5px;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+code{background:var(--code);border:1px solid var(--hair);border-radius:4px;padding:1px 5px;font-size:13px;}
+pre{background:#1e2430;color:#e6e9ef;border-radius:8px;padding:14px 16px;overflow:auto;font-size:13px;}
+pre code{background:none;border:none;color:inherit;padding:0;}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:#f6f8fc;}
+.toc{columns:2;font-size:14px;} .toc a{display:block;padding:2px 0;}
+.note{border-left:4px solid var(--blue);background:#f3f7ff;padding:10px 14px;border-radius:0 6px 6px 0;margin:14px 0;}
+.note.warn{border-left-color:var(--amber);background:#fff9ec;}
+.note.role{border-left-color:var(--green);background:#f2fbf4;}
+ol li,ul li{margin:4px 0;}
+.pill{display:inline-block;background:#eef2fb;color:var(--blue);border-radius:10px;padding:1px 9px;font-size:12px;font-weight:600;}
+.shot{margin:18px 0;text-align:center;}
+.shot img{max-width:100%;border:1px solid var(--hair);border-radius:8px;box-shadow:0 2px 14px rgba(0,0,0,.10);}
+.shot figcaption{color:var(--dim);font-size:13px;margin-top:6px;}
+/* An empty slot is meant to be loud: a quiet gap is one nobody fills. */
+.shot-slot{border:2px dashed #c3cbdb;border-radius:8px;background:#f7f9fd;color:var(--dim);
+padding:30px 18px;font-size:13px;}
+.shot-slot b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px;}
+.shot-slot code{background:#fff;}
+footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);font-size:12px;}
+.ses-foot{display:flex;justify-content:center;margin:18px 0 10px;color:var(--ink);}
+.ses-foot svg{width:172px;height:27px;display:block;}
+@media print{body{background:#fff;} .page{box-shadow:none;margin:0;} .shot-slot{display:none;}}
+</style></head><body><div class="cover"><span class="cover-mark"><svg viewBox="-24 -26 48 52" width="96" height="104" role="img" aria-label="Sysible"><defs><linearGradient id="tgCover" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient></defs><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tgCover)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></svg></span><h1>Sysible Workstation</h1><div class="sub">Administrator &amp; Installation Guide</div><div class="meta">Version 1.0.6 · 2026-11-26</div></div><div class="page"><h2>Contents</h2><div class="toc"><a href="#overview">1. Overview</a><a href="#what-is-in-the-image">2. What is in the image</a><a href="#requirements">3. Requirements</a><a href="#getting-the-iso">4. Getting the ISO</a><a href="#writing-the-installer-medium">5. Writing the installer medium</a><a href="#the-live-session">6. The live session</a><a href="#installing-to-disk">7. Installing to disk</a><a href="#the-desktop">8. The desktop</a><a href="#systerm">9. SysTerm</a><a href="#the-sysible-apps">10. The Sysible apps</a><a href="#optional-tools">11. Optional tools</a><a href="#checking-the-machine">12. Checking the machine</a><a href="#updates">13. Updates</a><a href="#containers">14. Containers</a><a href="#virtualization">15. Virtualization</a><a href="#enrolling-with-sysible-controller">16. Enrolling with Sysible Controller</a><a href="#branding-guard">17. Branding guard</a><a href="#troubleshooting">18. Troubleshooting</a><a href="#security-model">19. Security model</a><a href="#reference-paths-and-files">20. Reference: paths and files</a><a href="#reference-services">21. Reference: services</a><a href="#reference-commands">22. Reference: commands</a></div></div><div class="page"><h2 id="overview">1. Overview</h2>
+<p><b>Sysible Workstation</b> is a Debian-stable desktop for people who build and run Linux infrastructure. It is a live image: boot it and you are in a working GNOME session with the whole toolchain present, before installing anything.</p>
+<p>It is the same base and the same toolchain as <b>Sysible Server</b>, with a desktop on top. If you have read that guide, most of this one will be familiar — the package set, <code>install-sysible</code>, <code>sysible-tools</code> and <code>sysible verify</code> behave identically, because they are the same programs.</p>
+<p>What the desktop adds:</p>
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Session</td><td>GNOME, on Wayland where the hardware allows</td></tr><tr><td>Editor</td><td>VSCodium — Visual Studio Code without Microsoft&#x27;s telemetry or branding</td></tr><tr><td>Terminal</td><td><b>SysTerm</b>, the Sysible terminal</td></tr><tr><td>Virtualization</td><td><code>virt-manager</code> and <code>virt-viewer</code> over libvirt/QEMU</td></tr><tr><td>Capture</td><td>Wireshark, with the capture group already set up</td></tr><tr><td>Office</td><td>LibreOffice Writer, Calc and Impress</td></tr><tr><td>Guest integration</td><td>open-vm-tools, spice-vdagent and qemu-guest-agent, so it behaves properly inside a hypervisor</td></tr></tbody></table>
+<p>The image ships for <b>amd64</b> and <b>arm64</b> — Intel and AMD machines, and Apple Silicon under a hypervisor.</p>
+<div class="note">The live session is fully functional. You can evaluate the entire toolchain, including Docker and the Sysible apps, without writing anything to disk.</div>
+<h2 id="what-is-in-the-image">2. What is in the image</h2>
+<p>The package set is declared by the <code>sysible-workstation</code> metapackage: <code>apt show sysible-workstation</code> prints it on a running machine.</p>
+<p><b>Hard dependencies — 67 packages</b>, the same engineering base as Sysible Server plus <code>sysible-desktop-gnome</code>:</p>
+<table><thead><tr><th>Group</th><th>Packages</th></tr></thead><tbody><tr><td>Containers</td><td><code>docker-ce</code>, <code>docker-compose-plugin</code>, <code>containerd.io</code>, <code>podman</code>, <code>buildah</code>, <code>skopeo</code></td></tr><tr><td>Automation</td><td><code>ansible</code>, <code>ansible-lint</code>, <code>sshpass</code></td></tr><tr><td>Networking</td><td><code>nftables</code>, <code>iproute2</code>, <code>dnsutils</code>, <code>tcpdump</code>, <code>nmap</code>, <code>iperf3</code>, <code>mtr-tiny</code></td></tr><tr><td>Diagnostics</td><td><code>htop</code>, <code>iotop</code>, <code>sysstat</code>, <code>ncdu</code>, <code>smartmontools</code>, <code>lsof</code>, <code>strace</code></td></tr><tr><td>Modern CLI</td><td><code>jq</code>, <code>ripgrep</code>, <code>fd-find</code>, <code>bat</code>, <code>fzf</code></td></tr><tr><td>Languages</td><td><code>python3</code>, <code>python3-pip</code>, <code>python3-venv</code>, <code>pipx</code>, <code>build-essential</code></td></tr><tr><td>Desktop</td><td><code>sysible-desktop-gnome</code></td></tr></tbody></table>
+<p><b>Recommends — 46 more</b>, installed by default:</p>
+<table><thead><tr><th>Group</th><th>Packages</th></tr></thead><tbody><tr><td>Desktop</td><td><code>gnome-core</code>, <code>calamares</code>, <code>systerm</code>, <code>codium</code>, <code>cherrytree</code></td></tr><tr><td>Kubernetes</td><td><code>kubectl</code>, <code>helm</code>, <code>k9s</code></td></tr><tr><td>IaC</td><td><code>opentofu</code>, <code>sops</code>, <code>age</code></td></tr><tr><td>Cloud</td><td><code>awscli</code>, <code>gh</code></td></tr><tr><td>Virtualization</td><td><code>virt-manager</code>, <code>virt-viewer</code></td></tr><tr><td>Guest tools</td><td><code>open-vm-tools</code>, <code>open-vm-tools-desktop</code>, <code>spice-vdagent</code>, <code>qemu-guest-agent</code></td></tr><tr><td>Network analysis</td><td><code>wireshark</code></td></tr><tr><td>Office</td><td><code>libreoffice-writer</code>, <code>libreoffice-calc</code>, <code>libreoffice-impress</code>, <code>libreoffice-gnome</code></td></tr><tr><td>Security</td><td><code>fail2ban</code>, <code>auditd</code>, <code>apparmor</code>, <code>lynis</code></td></tr><tr><td>Languages</td><td><code>golang</code>, <code>rustc</code>, <code>cargo</code>, <code>nodejs</code>, <code>npm</code>, <code>default-jdk</code>, <code>maven</code>, <code>gradle</code></td></tr><tr><td>Clients</td><td><code>postgresql-client</code>, <code>default-mysql-client</code>, <code>sqlite3</code>, <code>redis-tools</code></td></tr></tbody></table>
+<p>Remove any Recommends you do not want with <code>apt remove</code>; nothing in the image depends on them.</p>
+<div class="note">Terraform, Vault, Consul, Nomad, Packer and Boundary are <b>not</b> bundled — they are BUSL-1.1 licensed and not open source. OpenTofu, the open Terraform drop-in, is installed. See <b>Optional tools</b>.</div>
+<h2 id="requirements">3. Requirements</h2>
+<table><thead><tr><th></th><th>Minimum</th><th>Comfortable</th></tr></thead><tbody><tr><td>CPU</td><td>2 cores</td><td>4+ cores</td></tr><tr><td>RAM</td><td>4 GB</td><td>8 GB+ — GNOME plus containers</td></tr><tr><td>Disk</td><td>25 GB</td><td>60 GB+</td></tr><tr><td>Firmware</td><td>UEFI or legacy BIOS</td><td>UEFI</td></tr><tr><td>Graphics</td><td>anything with a framebuffer</td><td>hardware acceleration for a smooth session</td></tr></tbody></table>
+<p>In a hypervisor, give it <b>4 GB of RAM and 40 GB of disk</b> and enable virtualization extensions if you intend to run containers or nested VMs.</p>
+<h2 id="getting-the-iso">4. Getting the ISO</h2>
+<p>Each release publishes both architectures. The ISO exceeds GitHub&#x27;s 2 GB per-file limit, so it ships as numbered <code>.part</code> files with checksums for the parts and for the reassembled image.</p>
+<pre><code class="language-sh">gpg --verify SHA256SUMS.&lt;arch&gt;.parts.gpg SHA256SUMS.&lt;arch&gt;.parts
+sha256sum -c SHA256SUMS.&lt;arch&gt;.parts
+cat sysible-workstation-&lt;arch&gt;.iso.*.part &gt; sysible-workstation-&lt;arch&gt;.iso
+gpg --verify SHA256SUMS.&lt;arch&gt;.gpg SHA256SUMS.&lt;arch&gt;
+sha256sum -c SHA256SUMS.&lt;arch&gt;</code></pre>
+<p>There are two signatures because there are two things to verify: the parts you downloaded, and the image you assembled.</p>
+<div class="note warn">Confirm the Sysible release key&#x27;s fingerprint <b>out of band</b> before trusting either signature — it is published at <a href="/security">sysible.com/security</a>. A key fetched from the same place as the file proves nothing.</div>
+<h2 id="writing-the-installer-medium">5. Writing the installer medium</h2>
+<pre><code class="language-sh">sudo dd if=sysible-workstation-amd64.iso of=/dev/sdX bs=4M status=progress conv=fsync</code></pre>
+<div class="note warn"><code>of=</code> takes the <b>device</b> (<code>/dev/sdb</code>), not a partition (<code>/dev/sdb1</code>). Check with <code>lsblk</code> first; writing to the wrong device destroys it.</div>
+<p>balenaEtcher and Rufus work too. The image is isohybrid, so one file boots on UEFI and BIOS alike.</p>
+<h3 id="in-vmware-fusion-virtualbox-or-utm">In VMware Fusion, VirtualBox or UTM</h3>
+<p>Attach the ISO and choose <b>Debian 12.x (64-bit)</b> as the guest type — 64-bit ARM on Apple Silicon. open-vm-tools and spice-vdagent are preinstalled, so clipboard sharing and display auto-resize work without installing guest additions.</p>
+<h2 id="the-live-session">6. The live session</h2>
+<p>Pick <b>Sysible Workstation (Live)</b> from the boot menu. GNOME starts and signs in automatically.</p>
+<p>There is <b>no password</b>. The live account, <code>sysible</code>, ships with no password hash and is then locked, so no credential is baked into the image and none can leak from it. Sign-in happens through GDM&#x27;s autologin, which needs no password at all. <code>sudo</code> works without one in the live session.</p>
+<div class="note warn">The live session writes to RAM. Anything you create is gone at shutdown unless you save it elsewhere.</div>
+<p>Four Sysible launchers are in the app grid:</p>
+<table><thead><tr><th>Launcher</th><th>What it does</th></tr></thead><tbody><tr><td><b>Install Sysible Workstation</b></td><td>Starts Calamares to install to disk</td></tr><tr><td><b>Install Sysible Software</b></td><td>The Sysible apps — Controller, SLEP, Connect, SLOP</td></tr><tr><td><b>Sysible Tools — Optional Software</b></td><td>The separately licensed tools</td></tr><tr><td><b>Enroll with Sysible Controller</b></td><td>Registers this machine with a Controller</td></tr></tbody></table>
+<h2 id="installing-to-disk">7. Installing to disk</h2>
+<p>Launch <b>Install Sysible Workstation</b>. Calamares asks for location, keyboard, partitioning, and your account.</p>
+<p>Partitioning offers erase-disk, install alongside an existing system, or manual partitioning. The bootloader is written for UEFI and BIOS.</p>
+<h3 id="what-happens-to-the-live-account">What happens to the live account</h3>
+<p>You create your own account during the install, and Calamares sets root&#x27;s password. Once your account exists, the live <code>sysible</code> account is <b>removed from the installed system</b>, so an installed machine never carries a leftover default login.</p>
+<p>If you name your own account <code>sysible</code>, it is kept — that account is now yours, with the password you chose.</p>
+<div class="note">Password quality is enforced by <code>libpam-pwquality</code>, a hard dependency, with the policy in <code>/etc/security/pwquality.conf.d/</code>.</div>
+<h2 id="the-desktop">8. The desktop</h2>
+<p>GNOME, with Sysible&#x27;s artwork and GRUB theme. <code>sysible-avatar.service</code> seeds the Sysible avatar into AccountsService for human users, so the login screen looks like part of the product rather than a stock Debian install.</p>
+<p>VSCodium is the editor — Visual Studio Code&#x27;s source without Microsoft&#x27;s telemetry or branding, so extensions come from Open VSX.</p>
+<h2 id="systerm">9. SysTerm</h2>
+<p><b>SysTerm</b> is the Sysible terminal, installed as a Recommends and available from the app grid. It is a separate product with its own repository and its own guide; see the SysTerm manual for its features in full.</p>
+<h2 id="the-sysible-apps">10. The Sysible apps</h2>
+<p><code>install-sysible</code> installs the platform. It is byte-identical to the copy on Sysible Server — the edition name is read from <code>/etc/os-release</code> at run time, so the two cannot drift.</p>
+<pre><code class="language-sh">sudo install-sysible                    # a menu, everything ticked
+sudo install-sysible slop               # all three apps behind the gateway
+sudo install-sysible controller slep    # just those two
+sudo install-sysible --uninstall
+sudo install-sysible --reinstall slop</code></pre>
+<table><thead><tr><th>Argument</th><th>Meaning</th></tr></thead><tbody><tr><td><code>controller</code></td><td>Sysible Controller, on its own address</td></tr><tr><td><code>slep</code></td><td>Sysible Linux Engineering Platform</td></tr><tr><td><code>connect</code></td><td>Sysible Connect</td></tr><tr><td><code>all</code></td><td>All three, each on its own address, no gateway</td></tr><tr><td><code>slop</code></td><td>All three <b>behind</b> the SLOP gateway at <code>https://slop.lan/</code></td></tr></tbody></table>
+<p>On the desktop, <b>Install Sysible Software</b> runs the same thing with a checklist. Each product is cloned to <code>/opt/sysible-src/&lt;repo&gt;</code> and brought up as a container through <code>sysiblectl</code>.</p>
+<div class="note"><code>slop</code> supersedes the rest: the gateway only makes sense in front of the apps, so choosing it installs all three.</div>
+<p><code>sysible-install</code> is an alias for <code>install-sysible</code> — both spellings work and take the same arguments.</p>
+<h2 id="optional-tools">11. Optional tools</h2>
+<pre><code class="language-sh">sysible-tools                        # interactive menu
+sysible-tools list                   # catalogue and install state
+sudo sysible-tools install vault consul</code></pre>
+<p>The catalogue is <code>terraform</code>, <code>vault</code>, <code>consul</code>, <code>nomad</code>, <code>packer</code>, <code>boundary</code> and <code>aws-cli</code>. <b>Sysible Tools — Optional Software</b> in the app grid is the same thing with a GUI.</p>
+<div class="note warn">The HashiCorp tools are BUSL-1.1 licensed and <b>not</b> open source. Installing them means accepting that licence. OpenTofu is already in the image and needs no acceptance.</div>
+<h2 id="checking-the-machine">12. Checking the machine</h2>
+<pre><code class="language-sh">sysible verify                  # everything
+sysible verify --containers     # one group
+sysible verify --virtualization</code></pre>
+<table><thead><tr><th>Group</th><th>Checks</th></tr></thead><tbody><tr><td><code>network</code></td><td>Network configured, DNS resolving, SSH running</td></tr><tr><td><code>containers</code></td><td>Container runtime, Compose, Kubernetes tools</td></tr><tr><td><code>automation</code></td><td>Ansible, Terraform/OpenTofu</td></tr><tr><td><code>cloud</code></td><td>A cloud CLI present</td></tr><tr><td><code>virtualization</code></td><td>KVM usable</td></tr><tr><td><code>security</code></td><td>Firewall, AppArmor, fail2ban</td></tr><tr><td><code>controller</code></td><td>Sysible Controller reachable</td></tr><tr><td><code>system</code></td><td>Updates current</td></tr></tbody></table>
+<p>Network, DNS, containers, Ansible and Controller reachability are critical; the rest report without failing the run.</p>
+<h2 id="updates">13. Updates</h2>
+<pre><code class="language-sh">sudo apt update &amp;&amp; sudo apt upgrade</code></pre>
+<p>Security updates install automatically via <code>unattended-upgrades</code>. Sysible&#x27;s own packages come from the Sysible apt repository, configured by <code>sysible-release</code> and pinned to <code>sysible-stable</code>. Each build publishes a uniquely versioned package at a unique pool path, so a rebuild never rewrites a cached file.</p>
+<p><code>sysible-release-check.timer</code> records whether a newer release exists; it installs nothing.</p>
+<p>The Sysible apps are not apt packages — update them with <code>sysiblectl update all</code>.</p>
+<h2 id="containers">14. Containers</h2>
+<p>Docker Engine, the Compose plugin and containerd are installed and running. In the <b>live session</b> the <code>sysible</code> account is already in the <code>docker</code> group. On an installed system your own account is not:</p>
+<pre><code class="language-sh">sudo usermod -aG docker &quot;$USER&quot;   # then log out and back in</code></pre>
+<div class="note warn">The <code>docker</code> group is root-equivalent. On a shared machine prefer <code>sudo docker</code>, or use <code>podman</code>, which runs rootless.</div>
+<h2 id="virtualization">15. Virtualization</h2>
+<p><code>virt-manager</code> and <code>virt-viewer</code> are installed over libvirt and QEMU. The live account is already in the <code>libvirt</code> and <code>kvm</code> groups; add your own account after installing:</p>
+<pre><code class="language-sh">sudo usermod -aG libvirt,kvm &quot;$USER&quot;
+virsh list --all</code></pre>
+<p><code>sysible verify --virtualization</code> reports whether KVM is actually usable. Inside a VM, &quot;not usable&quot; normally means nested virtualization is off in the hypervisor.</p>
+<h2 id="enrolling-with-sysible-controller">16. Enrolling with Sysible Controller</h2>
+<p><b>Enroll with Sysible Controller</b> in the app grid registers this machine with a Controller so it appears in the fleet console and can be patched and managed from there. You need the Controller&#x27;s address and an enrolment token from its <b>Host enrollment</b> page — see the Sysible Controller manual.</p>
+<h2 id="branding-guard">17. Branding guard</h2>
+<p>What the boot menu calls this machine is one line in a drop-in that belongs to the image, not to a package, so no upgrade ever restores it. <code>sysible-branding-guard.service</code> corrects the GRUB distributor at boot and regenerates the menu only if it had to change something. A distributor that is not Sysible&#x27;s is left alone.</p>
+<h2 id="troubleshooting">18. Troubleshooting</h2>
+<p><b>The live session boots to a black screen or a text console.</b> A graphics driver problem. Switch to a VT with <code>Ctrl+Alt+F3</code> and check <code>systemctl status gdm3</code>. In a VM, enable 3D acceleration or raise the video memory.</p>
+<p><b>Clipboard or display resize does not work in a VM.</b> The guest tools are installed but the matching host side may not be. On VMware install VMware Tools on the host side; on QEMU/SPICE make sure the SPICE agent channel is attached.</p>
+<p><b>Docker says permission denied.</b> Your account is not in the <code>docker</code> group on an installed system. Add it and log out and back in — a new group membership does not apply to an existing session.</p>
+<p><b><code>sysible verify</code> says no firewall configured.</b> <code>nftables</code> is installed but no ruleset is loaded. The check is non-critical; load a policy if you want it to pass.</p>
+<p><b>The installer will not let me use the whole disk.</b> The live medium cannot repartition the device it booted from. Install from a USB stick to an internal disk, or from an ISO to a virtual disk.</p>
+<p><b>I installed and the <code>sysible</code> account is gone.</b> That is deliberate — see <b>Installing to disk</b>.</p>
+<h2 id="security-model">19. Security model</h2>
+<ul>
+<li><b>No default password anywhere.</b> The live account ships with no password hash and locked; the live session signs in through GDM autologin, which needs none. root ships locked and is set by the installer.</li>
+<li><b>No default login survives installation.</b> Calamares removes the live account once your own exists.</li>
+<li><b>The image is signed.</b> Checksums for the parts and for the reassembled ISO are GPG-signed with the Sysible release key (ed25519). Verify both.</li>
+<li><b>Host keys are per machine</b>, regenerated on first boot, so cloning an image does not clone an SSH identity.</li>
+<li><b>Password quality is enforced</b> by PAM as a hard dependency.</li>
+<li><b>Nothing listens until you ask it to.</b> The base image runs no Sysible services and opens no ports.</li>
+<li><b>The apps are built from source on your host</b>, cloned from their official repositories — not pulled as opaque images from a Sysible registry.</li>
+<li><b>Third-party repositories are pinned by key.</b> Docker&#x27;s apt repository is configured at build time with a fingerprint-checked key.</li>
+</ul>
+<div class="note warn">The live session has passwordless <code>sudo</code>. Anyone who can boot your USB stick has root on that session — and on any disk attached to the machine. Treat the medium as you would a root shell.</div>
+<h2 id="reference-paths-and-files">20. Reference: paths and files</h2>
+<table><thead><tr><th>Path</th><th>What it is</th></tr></thead><tbody><tr><td><code>/opt/sysible-src/&lt;repo&gt;</code></td><td>Checkouts of each Sysible product</td></tr><tr><td><code>/etc/sysible/apps.wanted</code></td><td>Apps chosen during an install, pending first boot</td></tr><tr><td><code>/etc/sysible/tools.wanted</code></td><td>Optional tools chosen during an install</td></tr><tr><td><code>/var/log/sysible-apps-firstboot.log</code></td><td>App setup log</td></tr><tr><td><code>/usr/share/sysible/branding.manifest</code></td><td>sha256 of every branded asset</td></tr><tr><td><code>/etc/calamares/modules/</code></td><td>Installer configuration</td></tr><tr><td><code>/etc/security/pwquality.conf.d/</code></td><td>Password policy</td></tr></tbody></table>
+<h2 id="reference-services">21. Reference: services</h2>
+<table><thead><tr><th>Unit</th><th>When</th><th>What</th></tr></thead><tbody><tr><td><code>sysible-avatar.service</code></td><td>boot</td><td>Seeds the Sysible avatar for human users</td></tr><tr><td><code>sysible-branding-guard.service</code></td><td>boot</td><td>Keeps the GRUB distributor correct</td></tr><tr><td><code>sysible-regenerate-ssh-host-keys.service</code></td><td>first boot</td><td>Per-machine SSH identity</td></tr><tr><td><code>sysible-release-check.timer</code></td><td>periodic</td><td>Records whether a newer release exists</td></tr></tbody></table>
+<h2 id="reference-commands">22. Reference: commands</h2>
+<table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>sysible verify</code></td><td>Check the machine is ready; <code>--network</code>, <code>--containers</code>, <code>--security</code>, <code>--virtualization</code> narrow it</td></tr><tr><td><code>install-sysible</code></td><td>Install, remove or reinstall the Sysible apps</td></tr><tr><td><code>sysible-install</code></td><td>The same program under the other spelling</td></tr><tr><td><code>sysible-tools</code></td><td>Install the separately licensed optional tools</td></tr><tr><td><code>sysiblectl</code></td><td>Manage installed apps — <code>update all</code>, <code>status</code>, <code>logs</code></td></tr></tbody></table></div><footer>Sysible Workstation v1.0.6 — generated 2026-11-26 by tools/generate_manuals.py<div class="ses-foot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 32" width="206" height="32"
+     role="img" aria-label="SES, Sysible Enterprise Software">
+  
+  <text x="0" y="23" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="23" font-weight="800" letter-spacing="-1" fill="currentColor">SES</text>
+  <rect x="48" y="2.5" width="2" height="27" rx="1" fill="#3ddc6d"/>
+  <text x="60" y="14" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="12" font-weight="700" letter-spacing="0.4" fill="currentColor">SYSIBLE</text>
+  <text x="60" y="26" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="9" font-weight="600" letter-spacing="1.7" fill="currentColor" opacity="0.62">ENTERPRISE SOFTWARE</text>
+</svg></div><div style="opacity:.8">The Sysible Linux platforms are products of Sysible Enterprise&nbsp;Software.</div></footer></body></html>

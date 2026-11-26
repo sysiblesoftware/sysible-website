@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Sysible Linux Engineering Platform — Administrator &amp; User Guide</title><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=30928688"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7430a7f5"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Author, orchestrate and run Ansible and Terraform from one self-hosted console, with a real in-browser IDE — projects, inventories, credentials, runs and pipelines."><style>
+:root{--navy:#1a2744;--blue:#2f6fed;--ink:#202733;--dim:#5b6573;--hair:#e2e6ee;
+--bg:#eef1f6;--paper:#fff;--green:#2f9e44;--amber:#e0a93c;--red:#e05656;--code:#f4f6fa;}
+*{box-sizing:border-box;}
+@font-face{font-family:"Sora";font-style:normal;font-weight:100 800;font-display:swap;src:url("/fonts/Sora-variable.woff2") format("woff2"),url("/fonts/Sora.ttf") format("truetype");}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;
+font-family:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.page{max-width:900px;margin:0 auto 28px;background:var(--paper);padding:52px 60px;
+box-shadow:0 0 40px rgba(0,0,0,.08);}
+.cover{text-align:center;padding:90px 40px;background:linear-gradient(155deg,#15352a 0%,#0f1a2e 55%,#0b0e14 100%);color:#fff;}
+.cover h1{font-size:40px;margin:0 0 8px;} .cover .sub{font-size:18px;opacity:.9;}
+.cover .meta{margin-top:34px;font-size:13px;opacity:.8;}
+h2{color:var(--navy);border-bottom:2px solid var(--hair);padding-bottom:6px;margin-top:38px;font-size:24px;}
+h3{color:var(--navy);margin-top:26px;font-size:18px;}
+h4{color:var(--navy);margin:20px 0 4px;font-size:15.5px;}
+a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+code{background:var(--code);border:1px solid var(--hair);border-radius:4px;padding:1px 5px;font-size:13px;}
+pre{background:#1e2430;color:#e6e9ef;border-radius:8px;padding:14px 16px;overflow:auto;font-size:13px;}
+pre code{background:none;border:none;color:inherit;padding:0;}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;}
+th,td{border:1px solid var(--hair);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:#f6f8fc;}
+.toc{columns:2;font-size:14px;} .toc a{display:block;padding:2px 0;}
+.note{border-left:4px solid var(--blue);background:#f3f7ff;padding:10px 14px;border-radius:0 6px 6px 0;margin:14px 0;}
+.note.warn{border-left-color:var(--amber);background:#fff9ec;}
+.note.role{border-left-color:var(--green);background:#f2fbf4;}
+ol li,ul li{margin:4px 0;}
+.pill{display:inline-block;background:#eef2fb;color:var(--blue);border-radius:10px;padding:1px 9px;font-size:12px;font-weight:600;}
+.shot{margin:18px 0;text-align:center;}
+.shot img{max-width:100%;border:1px solid var(--hair);border-radius:8px;box-shadow:0 2px 14px rgba(0,0,0,.10);}
+.shot figcaption{color:var(--dim);font-size:13px;margin-top:6px;}
+/* An empty slot is meant to be loud: a quiet gap is one nobody fills. */
+.shot-slot{border:2px dashed #c3cbdb;border-radius:8px;background:#f7f9fd;color:var(--dim);
+padding:30px 18px;font-size:13px;}
+.shot-slot b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px;}
+.shot-slot code{background:#fff;}
+footer{max-width:900px;margin:0 auto 40px;text-align:center;color:var(--dim);font-size:12px;}
+.ses-foot{display:flex;justify-content:center;margin:18px 0 10px;color:var(--ink);}
+.ses-foot svg{width:172px;height:27px;display:block;}
+@media print{body{background:#fff;} .page{box-shadow:none;margin:0;} .shot-slot{display:none;}}
+</style></head><body><div class="cover"><span class="cover-mark"><svg viewBox="-24 -26 48 52" width="96" height="104" role="img" aria-label="Sysible"><defs><linearGradient id="tgCover" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#161d29"/><stop offset="1" stop-color="#0a0d13"/></linearGradient></defs><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tgCover)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path transform="translate(-13.124 11.274) scale(0.039 -0.039)" d="M338.5 -19Q242 -19 175.25 12.0Q108.5 43 73.75 97.25Q39 151.5 39 221H178Q178 191.5 194.0 164.25Q210 137 245.25 120.0Q280.5 103 338.5 103Q391 103 425.75 117.75Q460.5 132.5 477.75 157.25Q495 182 495 213Q495 251.5 462.0 275.0Q429 298.5 359.5 304.5L295.5 310Q190.5 319 128.0 375.5Q65.5 432 65.5 525Q65.5 594.5 98.5 645.0Q131.5 695.5 191.0 723.25Q250.5 751 330.5 751Q413.5 751 473.75 722.0Q534 693 566.75 640.5Q599.5 588 599.5 517H460.5Q460.5 546.5 446.25 572.0Q432 597.5 403.25 613.25Q374.5 629 330.5 629Q288.5 629 260.5 614.75Q232.5 600.5 218.5 576.75Q204.5 553 204.5 525Q204.5 491 229.5 465.5Q254.5 440 308.5 435.5L372.5 430Q451 423.5 509.75 396.5Q568.5 369.5 601.25 323.75Q634 278 634 213Q634 144 597.75 91.5Q561.5 39 495.25 10.0Q429 -19 338.5 -19Z" fill="#eceff3"/><rect x="-11" y="15.4" width="22" height="2.9" rx="1.45" fill="#6ddb73"/></svg></span><h1>Sysible Linux Engineering Platform</h1><div class="sub">Administrator &amp; User Guide</div><div class="meta">Version 1.0.0 · 2026-11-26</div></div><div class="page"><h2>Contents</h2><div class="toc"><a href="#overview">1. Overview</a><a href="#the-mental-model">2. The mental model</a><a href="#requirements">3. Requirements</a><a href="#installation">4. Installation</a><a href="#first-sign-in">5. First sign-in</a><a href="#a-tour-of-the-console">6. A tour of the console</a><a href="#projects-and-the-ide">7. Projects and the IDE</a><a href="#inventories">8. Inventories</a><a href="#credentials">9. Credentials</a><a href="#jump-hosts">10. Jump hosts</a><a href="#variable-vault">11. Variable Vault</a><a href="#running-automation">12. Running automation</a><a href="#the-run-visualizer">13. The run visualizer</a><a href="#infrastructure-provisioning-vms">14. Infrastructure: provisioning VMs</a><a href="#controllers-and-enrolment">15. Controllers and enrolment</a><a href="#pipelines">16. Pipelines</a><a href="#schedules">17. Schedules</a><a href="#organizations-users-and-roles">18. Organizations, users and roles</a><a href="#activity">19. Activity</a><a href="#tls">20. TLS</a><a href="#day-2-operations">21. Day-2 operations</a><a href="#troubleshooting">22. Troubleshooting</a><a href="#security-model">23. Security model</a><a href="#reference-ports">24. Reference: ports</a><a href="#reference-environment-variables">25. Reference: environment variables</a><a href="#reference-where-things-live">26. Reference: where things live</a></div></div><div class="page"><h2 id="overview">1. Overview</h2>
+<p><b>Sysible Linux Engineering Platform</b> (SLEP) is where automation is written and run. If Sysible Controller is fleet <i>administration</i>, SLEP is infrastructure <i>automation</i>: projects of playbooks and Terraform, the inventories they target, the credentials they use, and a full history of every run.</p>
+<p>It is deliberately the friendly shape of Ansible Automation Platform. The same core objects — projects, inventories, credentials, job runs — without the Kubernetes execution environments, automation mesh and operator sprawl that make AAP a project in its own right.</p>
+<table><thead><tr><th>AAP</th><th>SLEP</th></tr></thead><tbody><tr><td>Kubernetes + execution environments + operator</td><td>One container, SQLite by default</td></tr><tr><td>Automation mesh, receptors</td><td>Direct SSH, the way Ansible already works</td></tr><tr><td>Ansible only</td><td>Ansible <b>and</b> Terraform</td></tr><tr><td>Author elsewhere, sync via SCM</td><td><b>In-browser IDE</b>; SCM optional</td></tr><tr><td>Heavy RBAC and licensing</td><td>Simple admin model, self-hosted</td></tr></tbody></table>
+<div class="note">Configuration <i>state</i> — holding hosts in a declared configuration over time — is <b>Sysible Baseline</b>&#x27;s job, not SLEP&#x27;s. Baseline drives Salt and reacts to its event bus. SLEP builds and provisions.</div>
+<h2 id="the-mental-model">2. The mental model</h2>
+<p>Five objects carry almost everything.</p>
+<table><thead><tr><th>Object</th><th>What it is</th></tr></thead><tbody><tr><td><b>Project</b></td><td>A workspace of automation content — playbooks, Terraform configs — authored in the browser IDE or synced from Git</td></tr><tr><td><b>Inventory</b></td><td>The hosts and groups a run targets; entered by hand or imported from a Sysible Controller</td></tr><tr><td><b>Credential</b></td><td>An SSH key or password, cloud credential or vault token — stored server-side, injected into a run, never shown to the browser</td></tr><tr><td><b>Run</b></td><td>One execution of an engine against an inventory with a credential, streaming live output into a history</td></tr><tr><td><b>Pipeline</b></td><td>An ordered sequence of runs — Terraform apply, then Ansible, then enrol — visualised together</td></tr></tbody></table>
+<p>Everything else — Infrastructure, Controllers, Jump Hosts, Variable Vault, Schedules, Organizations — supports those five.</p>
+<p>The golden path: <b>author</b> content in a project, point it at an <b>inventory</b> with a <b>credential</b>, <b>run</b> it, watch the <b>visualizer</b>, then chain the steps into a <b>pipeline</b>.</p>
+<h2 id="requirements">3. Requirements</h2>
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Host</td><td>Any Linux machine with Docker and the Compose plugin</td></tr><tr><td>RAM</td><td>2 GB for the console; more if runs are heavy</td></tr><tr><td>Disk</td><td>A few GB, plus whatever project workdirs and run logs need</td></tr><tr><td>Ports</td><td><code>8810</code> web console, <code>9100</code> backend API</td></tr><tr><td>Browser</td><td>Anything current. The IDE needs a <b>secure context</b>, which is why the console is HTTPS by default</td></tr></tbody></table>
+<p>On Sysible Server and Sysible Workstation, Docker and Compose are already installed as hard dependencies.</p>
+<div class="note">Controller uses <code>9000</code>, <code>8800</code> and <code>8090</code>, so SLEP and a Controller coexist on one host without colliding.</div>
+<h2 id="installation">4. Installation</h2>
+<h3 id="on-sysible-server-or-sysible-workstation">On Sysible Server or Sysible Workstation</h3>
+<p>SLEP is one of the apps the image offers. It is installed from the unified installer:</p>
+<pre><code class="language-sh">sudo install-sysible slep</code></pre>
+<p>On Workstation you can instead launch <b>Install Sysible Software</b> from the app grid and tick <b>SLEP</b>. Either way the source is cloned to <code>/opt/sysible-src/</code> and brought up as a container.</p>
+<h3 id="anywhere-else">Anywhere else</h3>
+<pre><code class="language-sh">git clone https://github.com/sysiblesoftware/Sysible-Linux-Engineering-Platform slep
+cd slep
+docker compose -f deploy/docker-compose.yml up -d --build</code></pre>
+<p>One container runs everything — both services, with Ansible and Terraform baked in. SQLite, project files and run logs persist in the <code>slep-data</code> volume.</p>
+<p>Then open <code>https://&lt;host&gt;:8810</code>.</p>
+<div class="note">No Kubernetes, no mesh, no external database. One container and a volume.</div>
+<h2 id="first-sign-in">5. First sign-in</h2>
+<p>Open the console and complete the <b>first-run screen</b> to create your administrator account. You choose the password — nothing is pre-seeded, and no credential ships in the image. That account becomes a superuser in the default organization.</p>
+<p>The console is HTTPS with a self-signed certificate out of the box, so the browser warns once and then remembers. See <b>TLS</b> below for putting your own hostname or a real certificate in front of it.</p>
+<h2 id="a-tour-of-the-console">6. A tour of the console</h2>
+<p>The left-hand navigation groups everything by job.</p>
+<table><thead><tr><th>Nav item</th><th>Use it to</th></tr></thead><tbody><tr><td><b>Projects</b></td><td>Create and open a project and its IDE; launch runs and pipelines</td></tr><tr><td><b>Inventories</b></td><td>Define target hosts and groups; import a fleet from a Controller</td></tr><tr><td><b>Infrastructure</b></td><td>Provision VMs with Terraform and drive their lifecycle</td></tr><tr><td><b>Controllers</b></td><td>Connect a Sysible Controller to import inventory and enrol VMs</td></tr><tr><td><b>Credentials</b></td><td>Store the SSH, cloud and vault secrets runs use</td></tr><tr><td><b>Jump Hosts</b></td><td>Register bastions that runs and enrolment tunnel through</td></tr><tr><td><b>Variable Vault</b></td><td>Reusable extra-vars injected into runs</td></tr><tr><td><b>Runs</b></td><td>Full run history; open any run&#x27;s log and visualizer; re-run</td></tr><tr><td><b>Pipelines</b></td><td>Author and launch multi-step sequences</td></tr><tr><td><b>Schedules</b></td><td>Run a job or pipeline on a recurring cadence</td></tr><tr><td><b>Organizations</b></td><td>Tenant boundaries — who can see and act on what</td></tr><tr><td><b>Activity</b></td><td>The audit trail</td></tr><tr><td><b>Users</b></td><td>Accounts and their roles</td></tr></tbody></table>
+<h2 id="projects-and-the-ide">7. Projects and the IDE</h2>
+<p>A <b>project</b> is a folder of automation content plus its own run history. Create one from <i>Projects → New project</i>; a slug and a per-project working directory are created for you.</p>
+<p>The <b>IDE</b> is Monaco — the editor from Visual Studio Code — with a file tree, syntax highlighting for YAML, HCL and Jinja, an inline linter and a run panel.</p>
+<ul>
+<li><b>+ File</b> adds <code>site.yml</code>, <code>main.tf</code> and so on. <b>Ctrl/⌘-S</b> saves.</li>
+<li>The linter flags common mistakes early, such as brittle apt version pins.</li>
+<li><b>Sync from Git</b> instead, if your content already lives in source control.</li>
+<li>On an infrastructure project, the <b>infra bar</b> exposes the lifecycle actions — Plan, Apply, Destroy, Edit, Enroll — so a build can be driven without leaving the editor.</li>
+</ul>
+<div class="note">The IDE needs a secure context for clipboard and paste to work, which is one of the reasons the console defaults to TLS.</div>
+<h2 id="inventories">8. Inventories</h2>
+<p>An <b>inventory</b> is the set of hosts a run targets. Create one from <i>Inventories → New inventory</i>, then <b>+ Host</b> for each machine — name, address, connection user and port, group. Groups let a playbook target a subset with <code>hosts: web</code>.</p>
+<p><b>Import from a Controller</b> rather than typing: give a Controller URL and backend API key and SLEP pulls the fleet you already manage, both agent-enrolled and SSH-managed hosts, keeping each host&#x27;s environment as an Ansible group. Re-importing refreshes addresses and variables without duplicating — it upserts by name.</p>
+<p>Infrastructure projects also build an inventory automatically from the VMs they apply, so machines you just created are immediately targetable.</p>
+<h2 id="credentials">9. Credentials</h2>
+<p>A <b>credential</b> is how a run authenticates: an SSH private key, an SSH password, a cloud credential or a vault token.</p>
+<p>Secrets are encrypted at rest, injected into the run process server-side, and <b>never surfaced to the browser or returned by the API</b>. A run takes exactly one credential, chosen at launch. Password-based SSH uses <code>sshpass</code>, which is baked into the image.</p>
+<h2 id="jump-hosts">10. Jump hosts</h2>
+<p>When targets are not directly reachable, register a <b>jump host</b> — a bastion with an address, user and key. Runs and enrolment then tunnel through it: Ansible and Terraform SSH through the bastion with a <code>ProxyCommand</code>, and agent enrolment installs its bundle over the same hop.</p>
+<p>Set a project&#x27;s bastion once and every run and enrolment for that project inherits it.</p>
+<h2 id="variable-vault">11. Variable Vault</h2>
+<p>The <b>Variable Vault</b> stores reusable key/value sets — extra-vars such as environment names, versions and feature flags — so they are not pasted into every launch. Values are stored server-side and referenced when launching a run or a pipeline step. Keys are restricted to a safe character set so they pass cleanly to the engines.</p>
+<h2 id="running-automation">12. Running automation</h2>
+<p>Every engine has the same shape: pick a <b>target</b>, an <b>inventory</b> and a <b>credential</b>, then <b>Launch</b>. Output streams live and the status badge settles on <code>success</code>, <code>failed</code> or <code>canceled</code>.</p>
+<table><thead><tr><th>Engine</th><th>Target</th><th>Notes</th></tr></thead><tbody><tr><td><b>Ansible</b></td><td>a playbook, e.g. <code>site.yml</code></td><td>Live PLAY/TASK/RECAP parsing. <b>Re-run failed</b> retries only the hosts that broke, using <code>--limit</code> and <code>--start-at-task</code></td></tr><tr><td><b>Terraform / OpenTofu</b></td><td><code>plan</code>, <code>apply</code> or <code>destroy</code></td><td>Self-heals stale provider locks and orphaned libvirt objects; reads applied VMs into the inventory</td></tr></tbody></table>
+<p><b>Stop</b> terminates the engine process and marks the run <code>canceled</code>.</p>
+<p><b>Re-run</b> repeats any past run from <i>Runs</i> with the same engine, target, inventory, credential and variables.</p>
+<div class="note warn">Cancelling a Terraform <b>apply</b> automatically launches a follow-up <b>Destroy</b>. That removes everything in that project&#x27;s Terraform state — it is cleanup-after-abandon, not a surgical rollback of the partial apply.</div>
+<h2 id="the-run-visualizer">13. The run visualizer</h2>
+<p>Every run opens with a <b>Visualize</b> pane beside the raw <b>Log</b>; drag the divider to resize, or hide the log entirely. The visualisation is engine-aware.</p>
+<ul>
+<li><b>Ansible</b> — a host × task grid showing which hosts the play reached and how each task fared: ok, changed, failed, unreachable, or didn&#x27;t run.</li>
+<li><b>Terraform</b> — what is being created, changed or destroyed, live, by real VM name rather than &quot;Machine 1&quot;. Destroy mode says <i>destroyed</i>, not <i>created</i>.</li>
+<li><b>Enroll</b> — one row per VM with its result and, on failure, the reason, plus an <code>X/Y enrolled → &lt;controller&gt;</code> tally.</li>
+</ul>
+<p>A <b>pipeline</b> is shown as one window: the stages laid out side by side, each with its live status, so the whole build is visible at a glance instead of scrolled through. A stage flow strip along the top doubles as navigation.</p>
+<h2 id="infrastructure-provisioning-vms">14. Infrastructure: provisioning VMs</h2>
+<p>The <b>Infrastructure</b> area provisions real machines with Terraform — libvirt and KVM today — and drives their lifecycle, with no hand-written HCL.</p>
+<p>The wizard collects provider, image, sizing and <b>VM groups</b>. A group is a named set of identical VMs — image, count, disk and resources — so one project can build more than one kind of machine in a single apply: two Ubuntu web nodes and one Arch box, say. Disk size is free-form. Cloud-init (NoCloud) seeds users, keys and passwords so the machines come up reachable.</p>
+<table><thead><tr><th>Action</th><th>What it does</th></tr></thead><tbody><tr><td><b>Plan / Apply / Destroy</b></td><td>The standard Terraform actions, with confirmation on destroy</td></tr><tr><td><b>Edit</b></td><td>Reopen the wizard, change the spec and regenerate the Terraform. Existing wiring — bastion, controller — is preserved</td></tr><tr><td><b>Apply auto-inventory</b></td><td>After a successful apply, new VMs are read into the project&#x27;s inventory, ready for Ansible</td></tr><tr><td><b>Enroll</b></td><td>Register the applied VMs into a Controller</td></tr></tbody></table>
+<h2 id="controllers-and-enrolment">15. Controllers and enrolment</h2>
+<p>SLEP connects to a <b>Sysible Controller</b> to import its inventory and to enrol the VMs it builds, so new machines appear in the fleet.</p>
+<p><b>Connecting.</b> Authenticate one of two ways: a Controller superuser&#x27;s console username and password, which SLEP exchanges for the backend API key behind the scenes; or the raw backend API key pasted directly.</p>
+<p><b>TLS trust on first use.</b> An on-premise Controller usually serves a self-signed certificate. The first call that fails verification makes SLEP fetch the presented certificate, pin it and retry, then reuse it for later calls — no PEM to copy anywhere. This applies during enrolment too, so if the Controller&#x27;s certificate changes because it was rebuilt or moved, the next enrolment re-pins and recovers by itself.</p>
+<p><b>Enrolling VMs.</b> The default is the agent, or pull, model: for each applied VM SLEP downloads a one-time agent bundle from the Controller using the machine API key, installs it over SSH — through the jump host if one is set — and the VM enrols itself <b>outbound</b>. There is no inbound SSH as root and no human superuser token involved.</p>
+<div class="note">A legacy SSH-host method also exists, registering hosts for the Controller to reach directly. The agent path is the default because it needs only SLEP&#x27;s machine API key.</div>
+<h2 id="pipelines">16. Pipelines</h2>
+<p>A <b>pipeline</b> runs an ordered list of steps as one launched sequence, sharing a group so the visualizer can show the whole thing. Steps stop on the first failure by default.</p>
+<p>A common shape:</p>
+<pre><code>Terraform apply  →  Inventory (from VMs)  →  Ansible site.yml  →  Enroll → Controller</code></pre>
+<p>Two pseudo-steps make that end-to-end flow one click:</p>
+<ul>
+<li><b>Inventory (from VMs)</b> reads the freshly applied VMs into the project&#x27;s inventory and points the following Ansible steps at it.</li>
+<li><b>Enroll → Controller</b> registers the applied VMs into the project&#x27;s Controller.</li>
+</ul>
+<p>The pipeline advances stage to stage on its own, all in the single-window visualizer.</p>
+<h2 id="schedules">17. Schedules</h2>
+<p><b>Schedules</b> run a job or a pipeline on a recurring cadence. Give a target and a time; SLEP fires it and records each firing in the run history exactly like a manual run. Timezones are explicit — a schedule pins its zone, so a job set for 02:00 fires at 02:00 local.</p>
+<h2 id="organizations-users-and-roles">18. Organizations, users and roles</h2>
+<p>SLEP is multi-tenant. <b>Organizations</b> are the isolation boundary: projects, inventories, credentials, runs, controllers and schedules all belong to one, and users only see the organizations they are in. Cross-organization references are refused — a pipeline in one cannot borrow another&#x27;s credential or aim at its inventory.</p>
+<table><thead><tr><th>Role</th><th>Can</th></tr></thead><tbody><tr><td><b>Superuser</b></td><td>Full administration, including users and organizations</td></tr><tr><td><b>Operator</b></td><td>Author content and launch runs and pipelines in their organizations</td></tr><tr><td><b>Viewer</b></td><td>Read-only — see projects, runs and logs without launching anything</td></tr></tbody></table>
+<p>Accounts, organization membership and roles are managed under <b>Users</b>.</p>
+<h2 id="activity">19. Activity</h2>
+<p><b>Activity</b> is the audit trail: connections, runs launched, enrolments, schedule changes and administrative actions, each attributed to the acting user and scoped to what the viewer is allowed to see. It answers who ran that, who enrolled those hosts, and when something changed.</p>
+<h2 id="tls">20. TLS</h2>
+<p>The console is HTTPS by default with a self-signed certificate generated at first start and stored in the data volume under <code>data/tls/</code>. HTTPS is what makes the browser treat the page as a secure context, which the IDE&#x27;s clipboard and paste require.</p>
+<table><thead><tr><th>Goal</th><th>How</th></tr></thead><tbody><tr><td>Drop the name-mismatch warning</td><td>Set <code>SLEP_TLS_HOSTS</code> to your names and IPs, comma-separated, then delete <code>data/tls/</code> to regenerate</td></tr><tr><td>A real, warning-free certificate</td><td>Set <code>SLEP_TLS=0</code> to serve plain HTTP internally and front it with Caddy, nginx or Traefik terminating TLS</td></tr></tbody></table>
+<p>The backend stays on loopback inside the container and is never exposed. Firewall the console port as your network requires.</p>
+<h2 id="day-2-operations">21. Day-2 operations</h2>
+<p>All Sysible products share one management CLI. Put it on your PATH once from the Controller checkout:</p>
+<pre><code class="language-sh">sudo ./deploy/sysible_ctl install</code></pre>
+<p>Then manage SLEP from anywhere:</p>
+<pre><code class="language-sh">sysible_ctl slep update     # pull, rebuild and restart in place
+sysible_ctl slep status     # container state + console health probe
+sysible_ctl slep logs
+sysible_ctl slep restart
+sysible_ctl slep backup     # timestamped tarball of the data volume
+sysible_ctl update all      # every installed product at once</code></pre>
+<p>The <code>slep-data</code> volume is preserved across updates.</p>
+<div class="note">On Sysible Server and Workstation, <code>sysiblectl</code> is installed by <code>install-sysible</code> and does the same job.</div>
+<h2 id="troubleshooting">22. Troubleshooting</h2>
+<p><b>Enrolment fails with &quot;agent bundle download failed … no agent-bundle route (HTTP 404)&quot;.</b> The Controller does not serve <code>/remote/agent-bundle</code>. Either it is an older build without pull enrolment, or the connection URL points at the wrong service — the console or portal port instead of the Controller <b>backend API</b>, <code>:9000</code> by default. Reconnect the Controller at its API address. If it is containerised, make sure the running image was built from current code; a stale image serves stale routes.</p>
+<p><b>Enrolment fails with &quot;certificate verify failed: self-signed certificate&quot;.</b> Expected for a self-signed Controller — SLEP trusts it on first use and retries. If it persists, the Controller is probably unreachable at that address, or two services are answering the port.</p>
+<p><b>A 404 even though the route exists on disk.</b> The running process is serving old code. Restart the Controller, and confirm nothing else owns its port — a leftover container publishing <code>:9000</code> will intercept LAN traffic while <code>127.0.0.1</code> reaches a different process. One Controller per port.</p>
+<p><b>Apply left orphaned libvirt objects</b> (&quot;domain already exists&quot;). The Terraform runner self-heals stale domains and cloud-init ISOs from a partial apply and retries. If it still fails it names exactly what to remove.</p>
+<p><b>A cancelled apply removed more than expected.</b> See the warning under <b>Running automation</b> — cancelling an apply auto-runs Destroy across the whole project state.</p>
+<h2 id="security-model">23. Security model</h2>
+<ul>
+<li><b>No credential ships in the image.</b> The administrator account is created on the first-run screen with a password you choose.</li>
+<li><b>Secrets never reach the browser.</b> Credentials are encrypted at rest, injected server-side into the run process, and are not returned by the API.</li>
+<li><b>The console is HTTPS by default</b>, so the session is encrypted and the page is a secure context.</li>
+<li><b>The backend is not exposed.</b> It stays on loopback inside the container; only the console port is published.</li>
+<li><b>Enrolment is outbound.</b> The agent model means the VM enrols itself; there is no inbound SSH as root and no human superuser token in the flow.</li>
+<li><b>Organizations are a hard boundary.</b> Cross-organization references are refused, not merely hidden.</li>
+<li><b>Everything is attributed.</b> Activity records who did what.</li>
+</ul>
+<div class="note warn"><code>SLEP_CONTROLLER_INSECURE=1</code> skips Controller TLS verification entirely. It is a last resort for a LAN, not a setting to leave on. Prefer trust-on-first-use, or <code>SLEP_CONTROLLER_CA</code> to trust a specific CA.</div>
+<h2 id="reference-ports">24. Reference: ports</h2>
+<table><thead><tr><th>Port</th><th>Service</th></tr></thead><tbody><tr><td><code>8810</code></td><td>Web console (BFF) — the only port you publish</td></tr><tr><td><code>9100</code></td><td>Backend API — loopback inside the container</td></tr></tbody></table>
+<p>Sysible Controller uses <code>9000</code>, <code>8800</code> and <code>8090</code>, so the two coexist on one host.</p>
+<h2 id="reference-environment-variables">25. Reference: environment variables</h2>
+<table><thead><tr><th>Variable</th><th>Meaning</th></tr></thead><tbody><tr><td><code>SLEP_DATA_DIR</code></td><td>Database, project working directories and run logs</td></tr><tr><td><code>SLEP_TLS_HOSTS</code></td><td>Names and IPs to cover in the self-signed console certificate</td></tr><tr><td><code>SLEP_TLS=0</code></td><td>Serve plain HTTP internally; front it with a reverse proxy for real TLS</td></tr><tr><td><code>SLEP_CONTROLLER_CA</code></td><td>Trust a specific Controller CA or certificate instead of trust-on-first-use</td></tr><tr><td><code>SLEP_CONTROLLER_INSECURE=1</code></td><td>Skip Controller TLS verification — LAN last resort only</td></tr></tbody></table>
+<h2 id="reference-where-things-live">26. Reference: where things live</h2>
+<table><thead><tr><th>Path</th><th>What it is</th></tr></thead><tbody><tr><td><code>backend/</code></td><td>FastAPI API, the runners and <code>controller_import</code></td></tr><tr><td><code>webgui/</code></td><td>The BFF and the React/Monaco console</td></tr><tr><td><code>deploy/</code></td><td>Dockerfile and compose file</td></tr><tr><td><code>slep-data</code> volume</td><td>SQLite database, project workdirs, run logs, <code>data/tls/</code></td></tr></tbody></table></div><footer>Sysible Linux Engineering Platform v1.0.0 — generated 2026-11-26 by tools/generate_manuals.py<div class="ses-foot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 32" width="206" height="32"
+     role="img" aria-label="SES, Sysible Enterprise Software">
+  
+  <text x="0" y="23" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="23" font-weight="800" letter-spacing="-1" fill="currentColor">SES</text>
+  <rect x="48" y="2.5" width="2" height="27" rx="1" fill="#3ddc6d"/>
+  <text x="60" y="14" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="12" font-weight="700" letter-spacing="0.4" fill="currentColor">SYSIBLE</text>
+  <text x="60" y="26" font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        font-size="9" font-weight="600" letter-spacing="1.7" fill="currentColor" opacity="0.62">ENTERPRISE SOFTWARE</text>
+</svg></div><div style="opacity:.8">The Sysible Linux platforms are products of Sysible Enterprise&nbsp;Software.</div></footer></body></html>
