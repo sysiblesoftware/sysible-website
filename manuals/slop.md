@@ -89,28 +89,49 @@ rebuild.
 
 Open `https://<server-ip>/` and you will be redirected to `/login`.
 
-On first run SLOP creates one superuser. The username is `admin` unless you set
-`SLOP_ADMIN_USER`. If you did not set `SLOP_ADMIN_PASSWORD`, a random password is
-generated and written to a file inside the `idp` container, readable only by
-root:
+The default sign-in is:
+
+| | |
+|---|---|
+| Username | `admin` |
+| Password | `sysible` |
+
+That is the **shipped default**, and it is public — it is printed in this manual,
+so it is in everyone's hands. Change it at `/account` the first time you sign in.
+
+It is a documented default rather than a generated secret on purpose: "I cannot
+find the default SLOP username and password" is the question it exists to
+answer, and a credential that fails until it is replaced turns the first login
+into a puzzle instead of a login. The `idp` container prints it at startup,
+labelled as public, with the same instruction to change it.
+
+### For anything reachable from outside, generate one instead
+
+Set `SLOP_ADMIN_PASSWORD=random` **before the first run**. A random password is
+written to `$SLOP_DATA_DIR/initial-password` (mode `0600`, `/data/initial-password`
+by default) inside the `idp` container, and **never** to the log:
 
 ```sh
 sudo docker compose exec idp cat /data/initial-password
 ```
 
-The `idp` log tells you the same path, so start there if you are unsure:
+A container log is kept, and `docker compose logs` replays it to anyone who can
+read it for as long as the service lives — so a password "shown once" in a log
+was never shown once. Retrieving it from a `0600` file is a deliberate act that
+leaves the secret out of the log entirely. The account **must** change it at
+first sign-in, and the file is deleted when it does.
 
-```sh
-sudo docker compose logs idp | head -20
-```
+| `SLOP_ADMIN_PASSWORD` | What you get |
+|---|---|
+| unset | `sysible` — the shipped default, printed in the `idp` log on purpose, no forced change |
+| `random` | A generated password in a `0600` file, never logged, forced change at first sign-in |
+| any other value | That password. Not printed, no forced change |
 
-The password itself is deliberately **not** in the log. A container log is kept
-and `docker compose logs` replays it to anyone who can read it for as long as the
-service lives, so "shown once" was never once. The file is deleted the first time
-that account signs in.
-
-You are required to change the password at first sign-in. To skip that — only on
-a host where you set the password yourself — set `SLOP_ADMIN_FORCE_CHANGE=0`.
+`SLOP_ADMIN_USER` changes the username from `admin`.
+`SLOP_ADMIN_FORCE_CHANGE=1` forces a change even for the shipped default. Any
+password a person sets afterwards must be at least `SLOP_MIN_PASSWORD_LEN`
+characters, 10 by default — so the shipped default is shorter than anything that
+can replace it.
 
 :::shot login
 The sign-in page. One sign-in covers the portal and every app behind it.
@@ -482,7 +503,7 @@ Set these in the compose `.env` next to `docker-compose.yml`.
 | Variable | Default | Meaning |
 |---|---|---|
 | `SLOP_ADMIN_USER` | `admin` | First-run superuser name |
-| `SLOP_ADMIN_PASSWORD` | generated | First-run password. If unset, one is generated into `/data/initial-password` (mode 0600) in the idp container, never the log |
+| `SLOP_ADMIN_PASSWORD` | `sysible` | First-run password. Unset = the public shipped default; `random` generates one into `$SLOP_DATA_DIR/initial-password` (0600, never the log) |
 | `SLOP_ADMIN_FORCE_CHANGE` | `1` | Require a password change at first sign-in |
 | `SLOP_MIN_PASSWORD_LEN` | `10` | Minimum password length |
 | `SLOP_SESSION_TTL` | `43200` | Sign-in lifetime, in seconds (12 hours) |
