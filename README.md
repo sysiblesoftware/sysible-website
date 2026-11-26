@@ -78,3 +78,7 @@ It's a static file — open `index.html` in a browser, or serve the folder:
 ```sh
 python3 -m http.server 8000   # then visit http://localhost:8000
 ```
+
+## License
+
+This site is released under the **MIT License** — see [LICENSE](LICENSE).
