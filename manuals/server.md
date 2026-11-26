@@ -275,6 +275,14 @@ container through `sysiblectl`, which is installed too, so you manage everything
 afterwards from one command.
 
 :::note
+**First sign-in is `admin` / `sysible`.** That is SLOP's shipped default and it
+is public — change it at `/account` the first time you sign in. On a host
+reachable from outside, set `SLOP_ADMIN_PASSWORD=random` before the first run
+instead: a password is generated into a `0600` file and never written to the
+log. See the Operations Platform manual.
+:::
+
+:::note
 `slop` supersedes the rest. The gateway only makes sense in front of the apps,
 so selecting it installs all three regardless of what else was chosen.
 :::

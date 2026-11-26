@@ -496,6 +496,7 @@ sudo ./install.sh</pre>
             </div>
             <p class="p-sub" style="margin-top:12px">Installs Docker and git if they are missing, clones each
               app from its own repo, and opens the portal at <span class="mono">https://&lt;server-ip&gt;/</span>.</p>
+            <p class="p-sub" style="margin-top:12px"><b>First sign-in:</b> <span class="mono">admin</span> / <span class="mono">sysible</span> — SLOP’s shipped default, and it is public. Change it at <span class="mono">/account</span> the first time you sign in. On a host reachable from outside, set <span class="mono">SLOP_ADMIN_PASSWORD=random</span> before the first run instead: a password is generated into a <span class="mono">0600</span> file and never written to the log. <a href="/slop-manual.html">Operations Platform manual →</a></p>
           </div>
         </div>
         <p class="p-sub" style="margin-top:18px">To take a new release, use <span class="mono">sysible_ctl slop update</span>
