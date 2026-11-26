@@ -213,6 +213,7 @@
      the whole page scrolled sideways — the pre's own overflow-x never got a
      chance to do its job. */
   .grid2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px}
+  .grid2 > .panel + .panel{margin-top:0}
   @media (max-width:720px){.grid2{grid-template-columns:minmax(0,1fr)}}
   /* A clone URL is longer than the column; wrapping keeps it out from under
      the Copy button instead of scrolling beneath it. */
@@ -270,6 +271,16 @@
           <a href="/systerm">SysTerm</a>
         </div>
       </details>
+      <details class="menu"><summary>Docs</summary>
+        <div class="pop">
+          <a href="/controller-manual.html">Sysible Controller manual</a>
+          <a href="/slop-manual.html">Operations Platform manual</a>
+          <a href="/baseline-manual.html">Baseline manual</a>
+          <a href="/flashback-manual.html">Flashback manual</a>
+          <a href="/visualizer-manual.html">Visualizer manual</a>
+          <a href="/security">Verify a download</a>
+        </div>
+      </details>
       <a href="#download">Download</a>
       <a href="https://github.com/sysiblesoftware" rel="noopener">GitHub</a>
       <button class="theme-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle color theme">◐</button>
@@ -281,12 +292,12 @@
 <div class="hero">
   <canvas id="mesh" aria-hidden="true"></canvas>
   <div class="wrap">
-    <div class="eyebrow">Engineering &amp; Automation Platform</div>
-    <h1>Welcome to<br>Sysible Enterprise Software</h1>
-    <p class="lede">Tools for engineers who live on Linux — an automation-ready workstation OS with the whole
-      toolchain baked in (containers, Kubernetes, infrastructure-as-code, cloud CLIs, VSCodium and the SysTerm
-      terminal), a headless server base for running server software, and Sysible Controller for managing a fleet
-      from one console. Download any below.</p>
+    <div class="eyebrow">Debian-stable base · amd64 &amp; arm64 · Open source</div>
+    <h1>The Linux toolchain,<br><span class="grad">already installed.</span></h1>
+    <p class="lede">Two Debian-stable ISOs — a workstation and a headless server — that boot with Docker,
+      Kubernetes, OpenTofu, Ansible, the cloud CLIs and the observability set already in place, plus
+      Sysible Controller to run the fleet from one console. No subscription, no licence server, no
+      entitlement portal.</p>
     <!-- ONE neutral button into the product list, not a row of per-product ones.
          Two things were wrong with a row. It ranked: Workstation was the green
          primary and the rest were white ghosts, which said Workstation matters
@@ -299,8 +310,9 @@
     <div class="cta">
       <a class="btn primary" href="#download">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download
+        Download an ISO
       </a>
+      <a class="btn ghost" href="#why">What you actually get</a>
     </div>
   </div>
 </div>
@@ -310,6 +322,44 @@
        Workstation first. It used to point at #controller — one product out of six,
        and the one with no ISO — which read as arbitrary because it was. Every other
        page already uses #download, so the link is now the same everywhere. -->
+  <!-- The site listed WHAT each product is and never WHY it exists. A skeptical
+       reader's first question about a Debian derivative is "why not just install
+       Debian", and nothing here answered it. Every number below is checkable:
+       the package count is the sysible-server metapackage's Depends. -->
+  <section id="why" style="padding-bottom:8px">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Why not just install Debian</span>
+        <h2>Same base. About a day less setup.</h2>
+      </div>
+      <div class="grid2">
+        <div class="panel">
+          <div class="p-title">66 packages, already there</div>
+          <p class="p-sub">Docker CE, kubectl, Helm, k9s, OpenTofu, podman/buildah/skopeo, Ansible,
+            nftables and the diagnostics set are hard dependencies of the image, not a script you run
+            afterwards. On a stock netinst each of those is a manual step, and several need a
+            third-party apt repository and its signing key first.</p>
+        </div>
+        <div class="panel">
+          <div class="p-title">Signed, and you can check it</div>
+          <p class="p-sub">Every ISO ships SHA-256 checksums signed with the Sysible release key
+            (ed25519, fingerprint published). The split download is signed twice — the parts, and the
+            reassembled image. <a href="/security">Verify a download →</a></p>
+        </div>
+        <div class="panel">
+          <div class="p-title">arm64 is not a port</div>
+          <p class="p-sub">Apple Silicon and Graviton get their own ISO built from the same tree, in
+            the same release, with the same package set. Not a community respin that lands weeks later.</p>
+        </div>
+        <div class="panel">
+          <div class="p-title">Nothing to sign up for</div>
+          <p class="p-sub">No subscription, no entitlement portal, no seat count, no registration before
+            you can boot it. The images and the source are public; what you download is what is built.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <span id="download" aria-hidden="true"></span>
   <!-- ====================== SYSIBLE WORKSTATION ====================== -->
   <section id="linux">
@@ -406,7 +456,7 @@
         <div class="p-head">
           <svg class="icon" viewBox="-24 -26 48 52" aria-hidden="true"><use href="#mark-srv"/></svg>
           <div>
-            <div class="p-title">Sysible Server <span class="mono" style="font-weight:500;color:var(--muted)" id="server-pill">1.0.1 “Forge”</span></div>
+            <div class="p-title">Sysible Server <span class="mono" style="font-weight:500;color:var(--muted)" id="server-pill">—</span></div>
             <p class="p-sub">A stripped-down, headless Debian-based server base — no GUI — with the container,
               Kubernetes, IaC, networking and observability tooling to run server software. Hardened SSH on by default.</p>
           </div>
@@ -636,10 +686,10 @@ sudo ./install.sh</pre>
     <g id="mark-ctrl"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g stroke="#8aa0c8" stroke-width="1.1" stroke-linecap="round" opacity="0.85"><line x1="0" y1="0" x2="13" y2="0"/><line x1="0" y1="0" x2="6.5" y2="11.26"/><line x1="0" y1="0" x2="-6.5" y2="11.26"/><line x1="0" y1="0" x2="-13" y2="0"/><line x1="0" y1="0" x2="-6.5" y2="-11.26"/><line x1="0" y1="0" x2="6.5" y2="-11.26"/></g><circle cx="13" cy="0" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="11.26" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="11.26" r="2.7" fill="#eceff3"/><circle cx="-13" cy="0" r="2.7" fill="#7aa2ff"/><circle cx="-6.5" cy="-11.26" r="2.7" fill="#eceff3"/><circle cx="6.5" cy="-11.26" r="2.7" fill="#7aa2ff"/><circle cx="0" cy="0" r="4.6" fill="#6ddb73"/></g>
     <!-- Sysible SLOP mark: nested arches = the single portal / front door.
          Ported from the platform's own favicon, not redrawn. -->
-    <g id="mark-slop"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#43a047" stroke-width="1.6"/><path d="M-10.3 13.5 L-10.3 0 A10.3 10.3 0 0 1 10.3 0 L10.3 13.5" fill="none" stroke="#43a047" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M-4 13.5 L-4 1.6 A4 4 0 0 1 4 1.6 L4 13.5" fill="none" stroke="#5580ee" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <g id="mark-slop"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><path d="M-10.3 13.5 L-10.3 0 A10.3 10.3 0 0 1 10.3 0 L10.3 13.5" fill="none" stroke="#43a047" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M-4 13.5 L-4 1.6 A4 4 0 0 1 4 1.6 L4 13.5" fill="none" stroke="#5580ee" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></g>
     <!-- Sysible Linux Engineering Platform mark: brand-blue code brackets framing a
          brand-green run triangle. Ported from portal/marks/slep.svg, not redrawn. -->
-    <g id="mark-slep"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g fill="none" stroke="#7aa2ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="-5.2,-7.4 -11.5,0 -5.2,7.4"/><polyline points="5.2,-7.4 11.5,0 5.2,7.4"/></g>
+    <g id="mark-slep"><rect x="-23" y="-25" width="46" height="50" rx="12" fill="url(#tg)"/><rect x="-21.8" y="-23.8" width="43.6" height="47.6" rx="10.6" fill="none" stroke="#6ddb73" stroke-width="1.6"/><g fill="none" stroke="#7aa2ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="-5.2,-7.4 -11.5,0 -5.2,7.4"/><polyline points="5.2,-7.4 11.5,0 5.2,7.4"/></g><path d="M-3 -5.2 L-3 5.2 L4.1 0 Z" fill="#6ddb73"/></g>
   
     <!-- Workstation and Server used to share #mark, the house "S": on this page,
          on their own pages, and in both OS repos, the two products were one
